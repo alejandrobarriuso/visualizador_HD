@@ -1,0 +1,20 @@
+body {
+  background: green;
+  font-family: 'Open Sans', sans-serif;
+}
+
+header {
+  margin-top: 0;
+}
+
+/* --- BARRA SUPERIOR HEADER --- */
+header .barra_titulo {
+  min-height: 1em;
+  background: #94346E;
+  overflow: hidden;
+}
+header .barra_titulo h1 {
+  font-size: 2em;
+  font-weight: 300;
+  color: #efefef;
+}
