@@ -1,5 +1,5 @@
 body {
-  background: green;
+  background: #d8d8d8;
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -12,9 +12,18 @@ header .barra_titulo {
   min-height: 1em;
   background: #94346E;
   overflow: hidden;
+  padding: 0.2em;
 }
 header .barra_titulo h1 {
-  font-size: 2em;
+  font-size: 1.1em;
   font-weight: 300;
   color: #efefef;
+}
+header .icono_blanco {
+  color: #efefef;
+}
+
+main {
+  background: #f8f8f8;
+  position: static;
 }
