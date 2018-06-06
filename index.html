@@ -12,44 +12,55 @@
   </head>
   <body>
     <header>
-      <div class="container-fluid">
-        <!-- Barra superior -->
-        <nav class="navbar navbar-expand-0 barra_titulo p-0 m-0 align-items-end">
-          <a class="navbar-brand p-0 m-0 align-items-end" href="#">
-            <img class="img-fluid float-left rounded" src="img/imago2.png" style="height:1.8em;width:auto" alt="">
-            <h1 class="p-0 m-0 mt-2 mx-5">Nombre del visualizador</h1>
-          </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="icono icon-th-large icono_blanco"></i>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <div class="card-group">
-                <div class="card">
-                  <a href="#">
-                    <img src="img/img1.jpg" class="card-image-top img-fluid" alt="">
-                  </a>
-                </div>
-                <div class="card">
-                  <a href="#">
-                    <img src="img/img2.jpg" class="card-image-top img-fluid" alt="">
-                  </a>
-                </div>
-                <div class="card">
-                  <a href="#">
-                    <img src="img/img3.jpg" class="card-image-top img-fluid" alt="">
-                  </a>
-                </div>
-              </div>
-            </ul>
+      <!-- Barra superior -->
+      <nav class="nav p-0 m-0 align-items-center justify-content-between">
+        <a class="navbar-brand m-0 p-0" href="#">
+          <img src="img/imago2.png" alt="logo" style="height:1.8em;width:auto" class="img-fluid">
+        </a>
+        <a class="nav-link m-0 p-0 mx-2" href="#">
+          <h1 class="p-0 m-0">Nombre del visualizador</h1>
+        </a>
+        <button class="btn btn-outline-light boton_transparente ml-auto m-0 p-0 mx-2" onclick="mostrar_div_nodos()">
+          <i class="icon-th-large"></i>
+        </button>
+      </nav>
+
+
+
+        <div class="card-group" id="div_nodos">
+          <div class="card">
+            <a href="#">
+              <img src="img/img1.jpg" class="card-image-top img-fluid" alt="">
+            </a>
           </div>
-        </nav>
-      </div>
+          <div class="card">
+            <a href="#">
+              <img src="img/img2.jpg" class="card-image-top img-fluid" alt="">
+            </a>
+          </div>
+          <div class="card">
+            <a href="#">
+              <img src="img/img3.jpg" class="card-image-top img-fluid" alt="">
+            </a>
+          </div>
+        </div>
+
     </header>
     <main>
       <div id="map" class="map"></div>
     </main>
-    <footer></footer>
+    <footer>
+      <div class="container-fluid">
+        <div class="row barra_pie justify-content-between">
+          <div class="col-auto">
+            <div id="mouse-position"></div>
+          </div>
+          <div class="col-4 d-flex justify-content-end">
+            <a href="#" class="icon-th-larger">HOLA</a>
+          </div>
+        </div>
+      </div>
+    </footer>
 
     <!-- CÓDIGO FUENTE -->
     <script src="js/fuente/jquery-3.3.1.min.js"></script>

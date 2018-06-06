@@ -8,22 +8,53 @@ header {
 }
 
 /* --- BARRA SUPERIOR HEADER --- */
-header .barra_titulo {
+header nav {
   min-height: 1em;
   background: #94346E;
   overflow: hidden;
   padding: 0.2em;
 }
-header .barra_titulo h1 {
-  font-size: 1.1em;
+header h1 {
+  font-size: 1.2em;
   font-weight: 300;
   color: #efefef;
 }
-header .icono_blanco {
+header .boton_transparente {
+  border: 0;
+}
+header i {
+  font-size: 1.5em;
   color: #efefef;
+}
+
+header .boton_transparente:focus {
+  outline: none;
+  box-shadow: none;
+  border:0;
 }
 
 main {
   background: #f8f8f8;
   position: static;
+}
+
+/* --- MAPA --- */
+
+/* Controles */
+.ol-zoom{
+  left: auto;
+  top: 2em;
+  right: 0.5em;
+}
+
+.ol-scale-line{
+  background: #94346E;
+}
+
+#mouse-position{
+  background: #94346E;
+}
+
+#div_nodos {
+  display:none;
 }
