@@ -52,6 +52,62 @@ main {
   background: #94346E;
 }
 
+.ol-custom-overviewmap,
+.ol-custom-overviewmap.ol-uncollapsible {
+  bottom: 1.8em;
+  left: auto;
+  right: 0;
+  top: auto;
+  padding: 0;
+  margin: 0;
+}
+
+.ol-custom-overviewmap:not(.ol-collapsed)  {
+  border: 0.1em solid #a8a8a8;
+  padding: 0;
+  margin: 0;
+}
+
+.ol-custom-overviewmap .ol-overviewmap-map {
+  border: 0;
+  width: 16em;
+  padding: 0;
+  margin: 0;
+}
+
+.ol-custom-overviewmap .ol-overviewmap-box {
+  border: 0.1em solid #94346E;
+  padding: 0;
+  margin: 0;
+}
+
+.ol-custom-overviewmap:not(.ol-collapsed) button{
+  bottom: 1.8em;
+  left: auto;
+  right: 0.1em;
+  top: auto;
+  padding: 0;
+  margin: 0;
+}
+
+.ol-attribution,
+.ol-attribution.ol-uncollapsible{
+  bottom: 0.2em;
+  background: #d8d8d8;
+  height: 1.5em;
+}
+
+.ol-attribution,
+.ol-attribution.ol-uncollapsible a{
+  color: #353535;
+}
+
+
+
+
+
+
+
 #div_nodos {
   display:none;
 }
@@ -59,4 +115,46 @@ main {
 footer {
   background-color: #c6c6c6;
   font-size: 0.7em;
+}
+
+footer .boton_transparente {
+  border: 0;
+}
+footer i {
+  font-size: 2em;
+  color: #efefef;
+}
+
+footer .boton_transparente:focus {
+  outline: none;
+  box-shadow: none;
+  border:0;
+}
+
+.boton_transparente{
+	text-shadow:none;
+	cursor:pointer;
+  border: 0;
+  background-color: none;
+}
+.boton_transparente:link {
+	text-shadow:none;
+	cursor:pointer;
+  border: 0;
+  background-color: none;
+}
+.boton_transparente:visited {
+	text-shadow:none;
+  border: 0;
+  background-color: none;
+}
+.boton_transparente:active {
+	text-shadow:none;
+  border: 0;
+  background-color: none;
+}
+.boton_transparente:hover {
+	text-shadow:none;
+  border: 0;
+  background-color: none;
 }

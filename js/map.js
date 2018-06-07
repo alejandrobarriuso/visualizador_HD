@@ -1,7 +1,13 @@
 /* --- MAPA --- */
 /* Capas */
 var layer = new ol.layer.Tile({
-  source: new ol.source.OSM()
+  source: new ol.source.OSM({
+    attributions: [
+      new ol.Attribution({
+        html: '<a href="http://unidadsig.cchs.csic.es/sig/">Unidad SIG </a>' + ol.source.OSM.ATTRIBUTION
+      })
+    ]
+  })
 });
 
 /* Centro (Lon, Lat) y zoom inicial del mapa */
@@ -22,6 +28,22 @@ var mousePositionControl = new ol.control.MousePosition({
         target: document.getElementById('mouse-position'),
         undefinedHTML: '&nbsp;'
       });
+
+// Mapa overview:
+var overviewMapControl = new ol.control.OverviewMap({
+        // see in overviewmap-custom.html to see the custom CSS used
+        className: 'ol-overviewmap ol-custom-overviewmap',
+        layers: [layer],
+        collapseLabel: '\u00BB',
+        label: '\u00AB',
+        collapsed: true
+      });
+
+// Atribución:
+var attribution = new ol.control.Attribution({
+  collapsible: false
+});
+
 //Escala numérica: creada de manera manual. Por eso es necesario que aparezca después de la creación del mapa.
 
 
@@ -42,7 +64,7 @@ var map = new ol.Map({
       collapsible: false
     }
   }).extend([
-    scaleLineControl, mousePositionControl
+    scaleLineControl, mousePositionControl, overviewMapControl, attribution
   ]),
 });
 
@@ -71,6 +93,8 @@ function getDPI() {
     DPI_usuario =  div.offsetHeight;
     document.body.removeChild( div );
 
+    // Se ejecuta por primera vez el cálculo de la escala numérica:
+    escala_numerica();
     return DPI_usuario;
 }
 
