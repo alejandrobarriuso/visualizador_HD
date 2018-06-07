@@ -1,6 +1,7 @@
 body {
   background: #d8d8d8;
   font-family: 'Open Sans', sans-serif;
+  color: #353535;
 }
 
 header {
@@ -51,10 +52,11 @@ main {
   background: #94346E;
 }
 
-#mouse-position{
-  background: #94346E;
-}
-
 #div_nodos {
   display:none;
+}
+
+footer {
+  background-color: #c6c6c6;
+  font-size: 0.7em;
 }

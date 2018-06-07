@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/imago.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   </head>
-  <body>
+  <body onload="getDPI();">
     <header>
       <!-- Barra superior -->
       <nav class="nav p-0 m-0 align-items-center justify-content-between">
@@ -20,7 +20,7 @@
         <a class="nav-link m-0 p-0 mx-2" href="#">
           <h1 class="p-0 m-0">Nombre del visualizador</h1>
         </a>
-        <button class="btn btn-outline-light boton_transparente ml-auto m-0 p-0 mx-2" onclick="mostrar_div_nodos()">
+        <button class="btn btn-outline-light boton_transparente ml-auto m-0 p-0 mx-2" onclick="getDPI()">
           <i class="icon-th-large"></i>
         </button>
       </nav>
@@ -52,8 +52,17 @@
     <footer>
       <div class="container-fluid">
         <div class="row barra_pie justify-content-between">
-          <div class="col-auto">
-            <div id="mouse-position"></div>
+          <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+            <div class="row barra_coordenadas_escala justify-content-left">
+              <div class="col-6">
+                <p class="m-0 p-0" id="tx_coordenadas">Coordenadas: </p>
+                <p class="m-0 p-0" id="mouse-position"></p>
+              </div>
+              <div class="col-6">
+                <p class="m-0 p-0" id="tx_escala">Escala </p>
+                <p class="m-0 p-0" id="escala_numerica"></p>
+              </div>
+            </div>
           </div>
           <div class="col-4 d-flex justify-content-end">
             <a href="#" class="icon-th-larger">HOLA</a>
