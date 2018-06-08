@@ -74,6 +74,8 @@ var map = new ol.Map({
 
 
 
+
+
 /* Controles del mapa 2/2: escala numérica */
 var DPI_usuario = 0;
 function getDPI() {
