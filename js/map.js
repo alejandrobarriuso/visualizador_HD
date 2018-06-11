@@ -1,6 +1,6 @@
 /* --- MAPA --- */
 /* Capas */
-var layer = new ol.layer.Tile({
+/*var layer = new ol.layer.Tile({
   source: new ol.source.OSM({
     attributions: [
       new ol.Attribution({
@@ -9,6 +9,72 @@ var layer = new ol.layer.Tile({
     ]
   })
 });
+*/
+
+
+
+var layer = new ol.layer.VectorTile({
+        declutter: true,
+        source: new ol.source.VectorTile({
+          attributions: '© Tania</a>',
+          format: new ol.format.MVT(),
+          url: 'http://161.111.72.12:8080/data/v3/{z}/{x}/{y}.pbf'
+        }),
+        style: estilo_mapa_base_mvt(ol.style.Style, ol.style.Fill, ol.style.Stroke, ol.style.Icon, ol.style.Text)
+      });
+
+/*
+var grupo_capas_base = new ol.layer.Group({
+  'title': 'Mapa base',
+  layers: [
+
+    new ol.layer.Tile({
+      title: 'Water color',
+      type: 'base',
+      visible: false,
+      source: new ol.source.Stamen({
+        layer: 'watercolor'
+      })
+    }),
+    new ol.layer.Tile({
+      title: 'OSM',
+      type: 'base',
+      visible: true,
+      source: new ol.source.OSM({
+        attributions: [
+          new ol.Attribution({
+            html: '<a href="http://unidadsig.cchs.csic.es/sig/">Unidad SIG </a>' + ol.source.OSM.ATTRIBUTION
+          })
+        ]
+      })
+    }),
+
+
+
+
+
+  ]
+});
+
+var grupo_capas_contenido = new ol.layer.Group({
+  title: 'Overlays',
+  layers: [
+    new ol.layer.Image({
+      title: 'Countries',
+      source: new ol.source.ImageArcGISRest({
+        ratio: 1,
+        params: {'LAYERS': 'show:0'},
+        url: "https://ons-inspire.esriuk.com/arcgis/rest/services/Administrative_Boundaries/Countries_December_2016_Boundaries/MapServer"
+      })
+    })
+  ]
+});
+
+
+
+
+*/
+
 
 /* Centro (Lon, Lat) y zoom inicial del mapa */
 var LonLat_centro = [-3, 39];
@@ -49,6 +115,7 @@ var attribution = new ol.control.Attribution({
 
 /* Creación del mapa y de la vista */
 var map = new ol.Map({
+  //layers: [grupo_capas_base, grupo_capas_contenido],
   layers: [layer],
   target: 'map',
   view: new ol.View({
@@ -67,6 +134,82 @@ var map = new ol.Map({
     scaleLineControl, mousePositionControl, overviewMapControl, attribution
   ]),
 });
+/*
+var layerSwitcher = new ol.control.LayerSwitcher({
+    tipLabel: 'Légende' // Optional label for button
+});
+map.addControl(layerSwitcher);
+*/
+
+/*
+
+var map = new ol.Map({
+    target: 'map',
+    layers: [
+        new ol.layer.Group({
+            'title': 'Base maps',
+            layers: [
+                new ol.layer.Group({
+                    title: 'Water color with labels',
+                    type: 'base',
+                    combine: true,
+                    visible: false,
+                    layers: [
+                        new ol.layer.Tile({
+                            source: new ol.source.Stamen({
+                                layer: 'watercolor'
+                            })
+                        }),
+                        new ol.layer.Tile({
+                            source: new ol.source.Stamen({
+                                layer: 'terrain-labels'
+                            })
+                        })
+                    ]
+                }),
+                new ol.layer.Tile({
+                    title: 'Water color',
+                    type: 'base',
+                    visible: false,
+                    source: new ol.source.Stamen({
+                        layer: 'watercolor'
+                    })
+                }),
+                new ol.layer.Tile({
+                    title: 'OSM',
+                    type: 'base',
+                    visible: true,
+                    source: new ol.source.OSM()
+                })
+            ]
+        }),
+        new ol.layer.Group({
+            title: 'Overlays',
+            layers: [
+                new ol.layer.Image({
+                    title: 'Countries',
+                    source: new ol.source.ImageArcGISRest({
+                        ratio: 1,
+                        params: {'LAYERS': 'show:0'},
+                        url: "https://ons-inspire.esriuk.com/arcgis/rest/services/Administrative_Boundaries/Countries_December_2016_Boundaries/MapServer"
+                    })
+                })
+            ]
+        })
+    ],
+    view: new ol.View({
+        center: ol.proj.transform([-0.92, 52.96], 'EPSG:4326', 'EPSG:3857'),
+        zoom: 6
+    })
+});
+
+var layerSwitcher = new ol.control.LayerSwitcher({
+    tipLabel: 'Légende' // Optional label for button
+});
+map.addControl(layerSwitcher);
+
+*/
+
 
 
 

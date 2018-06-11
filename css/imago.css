@@ -37,6 +37,14 @@ header h1 {
   font-weight: 300;
   color: #efefef;
 }
+
+header h3 {
+  font-size: 0.8em;
+  color: #353535;
+  text-align: center;
+
+}
+
 header .boton_transparente {
   border: 0;
 }
@@ -50,6 +58,51 @@ header .boton_transparente:focus {
   box-shadow: none;
   border:0;
 }
+
+header .grupo_nodos {
+
+}
+
+header .nodo_i {
+  padding: 0em;
+  margin: 0.2em;
+  border-radius: 0;
+  border-width: 0.3em;
+  width: auto;
+}
+
+header .imagen_nodo_i {
+  height: auto;
+  max-height: 6em;
+  width: auto;
+
+  border:0;
+  border-radius: 0;
+}
+
+.tematica_1 {
+  border-color: #1D6996;
+}
+
+.tematica_2 {
+  border-color: #0F8554;
+}
+
+.tematica_3 {
+  border-color: #EDAD08;
+}
+
+.tematica_4 {
+  border-color: #E17C05;
+}
+
+.tematica_5 {
+  border-color: #CC503E;
+}
+
+
+
+
 
 main {
   background: #f8f8f8;
@@ -68,17 +121,57 @@ main {
 	z-index: 20100;
 }
 
-/* Controles */
-.ol-zoom{
-  left: auto;
-  top: 2em;
-  right: 0.5em;
+/* -- Controles -- */
+/* Estilo de todos los botones de control */
+.ol-control button{
+  text-shadow:none !important;
+  background-color: #f2f2f2 !important;
+  color: #606060 !important;
+  outline: none !important;
+}
+.ol-control button:link{
+  text-shadow:none !important;
+  background-color: #f2f2f2 !important;
+  color: #606060 !important;
+  outline: none !important;
+}
+.ol-control button:visited{
+  text-shadow:none !important;
+  background-color: #f2f2f2 !important;
+  color: #606060 !important;
+  outline: none !important;
+}
+.ol-control button:active{
+  text-shadow:none !important;
+  background-color: #f2f2f2 !important;
+  color: #606060 !important;
+  outline: none !important;
+}
+.ol-control button:hover{
+  text-shadow:none !important;
+  background-color: #606060 !important;
+  color: #f2f2f2 !important;
+  outline: none !important;
 }
 
+
+
+
+/* Control de zoom */
+.ol-zoom{
+  left: auto;
+  top: 10em;
+  right: 0.5em;
+  background-color: #f2f2f2 !important;
+  color: #606060 !important;
+}
+
+/* Escala gráfica */
 .ol-scale-line{
   background: #94346E;
 }
 
+/* Mapa de localización */
 .ol-custom-overviewmap,
 .ol-custom-overviewmap.ol-uncollapsible {
   bottom: 4.2em;
@@ -115,8 +208,14 @@ main {
   top: auto;
   padding: 0;
   margin: 0;
+
 }
 
+.ol-viewport{
+  position: absolute !important;
+}
+
+/* Atribuciones */
 .ol-attribution,
 .ol-attribution.ol-uncollapsible{
   bottom: 2.5em;
@@ -128,6 +227,113 @@ main {
 .ol-attribution.ol-uncollapsible a{
   color: #353535;
 }
+
+/* Control de capas */
+.layer-switcher.shown.ol-control {
+    background-color: transparent;
+}
+
+.layer-switcher.shown.ol-control:hover {
+    background-color: transparent;
+}
+
+.layer-switcher {
+    position: absolute;
+    top: 14em;
+    right: 0.5em;
+    text-align: left;
+}
+
+.layer-switcher.shown {
+    bottom: 3em;
+}
+
+.layer-switcher .panel {
+    padding: 0 1em 0 0;
+    margin: 0;
+    border: 4px solid #eee;
+    border-radius: 4px;
+    background-color: white;
+    display: none;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.layer-switcher.shown .panel {
+    display: block;
+}
+
+
+
+.layer-switcher button{
+  float: right;
+  width: 30px;
+  height: 30px;
+  background-image: url('../img/icono_map.jpg');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 0;
+  background-color: white;
+  border: none;
+  text-shadow:none !important;
+  background-color: #f2f2f2 !important;
+  color: #606060 !important;
+  outline: none !important;
+}
+
+.layer-switcher.shown button {
+    display: none;
+}
+
+.layer-switcher button:focus, .layer-switcher button:hover {
+    background-color: white;
+}
+
+.layer-switcher ul {
+    padding-left: 1em;
+    list-style: none;
+}
+
+.layer-switcher li.group {
+    padding-top: 5px;
+}
+
+.layer-switcher li.group > label {
+    font-weight: bold;
+}
+
+.layer-switcher li.layer {
+    display: table;
+}
+
+.layer-switcher li.layer label, .layer-switcher li.layer input {
+    display: table-cell;
+    vertical-align: sub;
+}
+
+.layer-switcher label.disabled {
+    opacity:0.4;
+}
+
+.layer-switcher input {
+    margin: 4px;
+}
+
+.layer-switcher.touch ::-webkit-scrollbar {
+    width: 4px;
+}
+
+.layer-switcher.touch ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+.layer-switcher.touch ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+
 
 
 

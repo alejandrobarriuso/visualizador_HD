@@ -9,41 +9,92 @@
     <link rel="stylesheet" href="css/imago.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
   </head>
   <body onload="getDPI();">
     <header class="w-100">
       <!-- Barra superior -->
-      <nav class="nav p-0 m-0 align-items-center justify-content-between">
+      <nav class="navbar p-0 m-0 navbar-expand-0">
         <a class="navbar-brand m-0 p-0" href="#">
           <img src="img/imago2.png" alt="logo" style="height:1.8em;width:auto" class="img-fluid">
         </a>
         <a class="nav-link m-0 p-0 mx-2" href="#">
           <h1 class="p-0 m-0">Nombre del visualizador</h1>
         </a>
-        <button class="btn btn-outline-light boton_transparente ml-auto m-0 p-0 mx-2" onclick="getDPI()">
+        <button class="navbar-toggler boton_transparente ml-auto m-0 p-0 mx-2" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fas fa-boxes"></i>
         </button>
+        <div class="collapse navbar-collapse mb-1" id="navbarNavAltMarkup">
+          <div class="container">
+            <div class="row justify-content-end">
+              <div class="col-auto col-sm-10 col-md-8 col-lg-6 ml-auto">
+                <div class="card-deck">
+                  <div class="card nodo_i tematica_1">
+                    <div class="card-image-top">
+                      <a href="http://www.idearqueologia.org/index.php" target="_blank">
+                        <img src="img/idearq.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
+                      </a>
+                    </div>
+                    <div class="card-block p-1">
+                      <h3>IDEARQ</h3>
+                    </div>
+                  </div>
+                  <div class="card nodo_i tematica_2">
+                    <div class="card-image-top">
+                      <a href="#">
+                        <img src="img/img1.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
+                      </a>
+                    </div>
+                    <div class="card-block p-1">
+                      <h3>NODO 2</h3>
+                    </div>
+                  </div>
+                  <div class="card nodo_i tematica_3">
+                    <div class="card-image-top">
+                      <a href="#">
+                        <img src="img/img1.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
+                      </a>
+                    </div>
+                    <div class="card-block p-1">
+                      <h3>NODO 3</h3>
+                    </div>
+                  </div>
+                  <div class="card nodo_i tematica_2">
+                    <div class="card-image-top">
+                      <a href="#">
+                        <img src="img/img1.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
+                      </a>
+                    </div>
+                    <div class="card-block p-1">
+                      <h3>NODO 4</h3>
+                    </div>
+                  </div>
+                  <div class="card nodo_i tematica_4">
+                    <div class="card-image-top">
+                      <a href="#">
+                        <img src="img/img1.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
+                      </a>
+                    </div>
+                    <div class="card-block p-1">
+                      <h3>NODO 5</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+        </div>
       </nav>
 
 
 
-        <div class="card-group" id="div_nodos">
-          <div class="card">
-            <a href="#">
-              <img src="img/img1.jpg" class="card-image-top img-fluid" alt="">
-            </a>
-          </div>
-          <div class="card">
-            <a href="#">
-              <img src="img/img2.jpg" class="card-image-top img-fluid" alt="">
-            </a>
-          </div>
-          <div class="card">
-            <a href="#">
-              <img src="img/img3.jpg" class="card-image-top img-fluid" alt="">
-            </a>
-          </div>
-        </div>
+
 
     </header>
     <main>
@@ -70,10 +121,10 @@
                 <button class="btn btn-outline-light boton_transparente ml-auto m-0 mx-1 p-0" onclick="">
                   <i class="fas fa-share-alt-square"></i>
                 </button>
-                <button class="btn btn-outline-light boton_transparente ml-auto m-0 mx-1 p-0" onclick="">
+                <button class="btn btn-outline-light boton_transparente ml-auto m-0 mx-1 p-0" onclick="window.open('https://twitter.com/usig_cchs_csic?lang=es')" target="_blank">
                   <i class="fab fa-twitter-square"></i>
                 </button>
-                <button class="btn btn-outline-light boton_transparente ml-auto m-0 mx-1 p-0" onclick="">
+                <button class="btn btn-outline-light boton_transparente ml-auto m-0 mx-1 p-0" onclick="window.open('https://github.com/alejandrobarriuso/visualizador_HD')" target="_blank">
                   <i class="fab fa-github-square"></i>
                 </button>
                 <button class="btn btn-outline-light boton_transparente ml-auto m-0 mx-1 mr-3 p-0" onclick="">
@@ -87,12 +138,15 @@
     </footer>
 
     <!-- CÓDIGO FUENTE -->
-    <script src="js/fuente/jquery-3.3.1.min.js"></script>
-    <script src="js/fuente/popper.js"></script>
-    <script src="js/fuente/bootstrap.min.js"></script>
+    <script src="js/fuente/jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script src="js/fuente/popper.js" type="text/javascript"></script>
+    <script src="js/fuente/bootstrap.min.js" type="text/javascript"></script>
     <script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
+    <script src="js/fuente/ol-layerswitcher.js" type="text/javascript"></script>
+
 
     <!-- JS FUNCIONAMIENTO -->
+    <script type="text/javascript" src="js/estilo_vector_tile.js"></script>
     <script type="text/javascript" src="js/map.js"></script>
   </body>
 </html>
