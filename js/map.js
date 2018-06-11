@@ -1,6 +1,6 @@
 /* --- MAPA --- */
 /* Capas */
-/*var layer = new ol.layer.Tile({
+var layer = new ol.layer.Tile({
   source: new ol.source.OSM({
     attributions: [
       new ol.Attribution({
@@ -9,10 +9,10 @@
     ]
   })
 });
-*/
 
 
 
+/*
 var layer = new ol.layer.VectorTile({
         declutter: true,
         source: new ol.source.VectorTile({
@@ -22,8 +22,8 @@ var layer = new ol.layer.VectorTile({
         }),
         style: estilo_mapa_base_mvt(ol.style.Style, ol.style.Fill, ol.style.Stroke, ol.style.Icon, ol.style.Text)
       });
+*/
 
-/*
 var grupo_capas_base = new ol.layer.Group({
   'title': 'Mapa base',
   layers: [
@@ -48,6 +48,18 @@ var grupo_capas_base = new ol.layer.Group({
         ]
       })
     }),
+    new ol.layer.VectorTile({
+      title: 'Nuestro VT',
+      type: 'base',
+      visible: false,
+      declutter: true,
+      source: new ol.source.VectorTile({
+        attributions: '© Tania</a>',
+        format: new ol.format.MVT(),
+        url: 'http://161.111.72.12:8080/data/v3/{z}/{x}/{y}.pbf'
+      }),
+      style: estilo_mapa_base_mvt(ol.style.Style, ol.style.Fill, ol.style.Stroke, ol.style.Icon, ol.style.Text)
+    })
 
 
 
@@ -73,7 +85,7 @@ var grupo_capas_contenido = new ol.layer.Group({
 
 
 
-*/
+
 
 
 /* Centro (Lon, Lat) y zoom inicial del mapa */
@@ -115,8 +127,8 @@ var attribution = new ol.control.Attribution({
 
 /* Creación del mapa y de la vista */
 var map = new ol.Map({
-  //layers: [grupo_capas_base, grupo_capas_contenido],
-  layers: [layer],
+  layers: [grupo_capas_base, grupo_capas_contenido],
+  //layers: [layer],
   target: 'map',
   view: new ol.View({
     projection: 'EPSG:3857',
@@ -134,12 +146,12 @@ var map = new ol.Map({
     scaleLineControl, mousePositionControl, overviewMapControl, attribution
   ]),
 });
-/*
+
 var layerSwitcher = new ol.control.LayerSwitcher({
     tipLabel: 'Légende' // Optional label for button
 });
 map.addControl(layerSwitcher);
-*/
+
 
 /*
 
