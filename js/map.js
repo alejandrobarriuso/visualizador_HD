@@ -67,7 +67,9 @@ var grupo_capas_contenido = new ol.layer.Group({
   ]
 });
 
-var cambio_capa = new ol.control.LayerSwitcher();
+
+
+//var cambio_capa = new ol.control.LayerSwitcher();
 
 
 /* Centro (Lon, Lat) y zoom inicial del mapa */
@@ -125,10 +127,39 @@ var map = new ol.Map({
       collapsible: false
     }
   }).extend([
-    cambio_capa, scaleLineControl, mousePositionControl, overviewMapControl, attribution
+    scaleLineControl, mousePositionControl, overviewMapControl, attribution
   ]),
 });
 
+
+/* LayerSwitcher - Control de capas en la barra lateral */
+var switcher = new ol.control.LayerSwitcher(
+	{	target:$(".layerSwitcher").get(0),
+		// displayInLayerSwitcher: function (l) { return false; },
+		show_progress:true,
+		extent: true,
+		trash: true,
+		oninfo: function (l) { alert(l.get("title")); }
+	});
+// Add a button to show/hide the layers
+var button = $('<div class="toggleVisibility" title="show/hide">')
+	.text("Show/hide all")
+	.click(function()
+	{	var a = map.getLayers().getArray();
+		var b = !a[0].getVisible();
+		if (b) button.removeClass("show");
+		else button.addClass("show");
+		for (var i=0; i<a.length; i++)
+		{	a[i].setVisible(b);
+		}
+	});
+switcher.setHeader($('<div>').append(button))
+
+map.addControl(switcher);
+	// Insert mapbox layer in layer switcher
+function displayInLayerSwitcher(b)
+{	mapbox.set('displayInLayerSwitcher', b);
+}
 
 
 

@@ -28,7 +28,7 @@ header {
 /* --- BARRA SUPERIOR HEADER --- */
 header nav {
   min-height: 1em;
-  background: #94346E;
+  background: #CC503E;
   overflow: hidden;
   padding: 0.2em;
 }
@@ -239,47 +239,75 @@ main {
 
 /* Control de capas */
 .ol-control.ol-layerswitcher{
-  top: 15em;
+  top: 14em;
+
 }
 .ol-control.ol-layerswitcher button{
   background-image: none !important;
+}
+.ol-layerswitcher.panel{
+  background: #d8d8d8 !important;
+  font-family: 'Open Sans', sans-serif !important;
+  color: #353535 !important;
 }
 
 
 
 /* --- MENÚ LATERAL IZQUIERDO - CAPAS --- */
-.ol-overlay.menu {
-	width: 30%;
-  background: #fff;
-  color: #333;
-  box-shadow: 0px 0px 5px #000;
-  padding: 0.5em;
-  -webkit-transition: all 0.25s;
-  transition: all 0.25s;
+.sidebar {
+    position: fixed;
+    height: 100%;
+    width: 0;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color: #f2f2f2;
+    overflow-x: hidden;
+    transition: 0.4s;
+    padding: 1em 0;
+    box-sizing:border-box;
 }
-/* style the close box */
-.ol-overlay.menu .ol-closebox
-{	color: #369;
-  left: 1em;
-  top: 3em;
+
+.sidebar ul, .sidebar li{
+    margin:0;
+    padding:0;
+    list-style:none inside;
 }
-.ol-overlay.menu .ol-closebox:before
-{	content:"\f0c9";
-  font-family:FontAwesome;
+
+.sidebar ul {
+    margin: 4em auto;
+    display: block;
+    width: 80%;
+    min-width:200px;
 }
-#menu
-{	padding-top: 1.5em;
-  font-size: 0.9em;
-  z-index: 100;
+
+.sidebar a {
+    display: block;
+    font-size: 1em;
+    color: #606060;
+    text-decoration: none;
 }
-/* menu button */
-.ol-control.menu
-{	top: 3em;
-  left: 0.5em;
+
+.sidebar a:hover{
+    color: #f2f2f2;
+    background-color: #606060;
 }
-.ol-control.menu i
-{	color: #fff;
+
+#btn_abrir_cerrar_menu_lateral {
+    transition: margin-left .4s;
+    padding: 1em;
 }
+
+.abrir_cerrar_menu_lat {
+    font-size:1.5em;
+    position: absolute;
+    top: 3em;
+}
+#cerrar_menu_lat {
+    display:none;
+}
+
+
 
 
 

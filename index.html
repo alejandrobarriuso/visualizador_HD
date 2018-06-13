@@ -84,28 +84,33 @@
               </div>
             </div>
           </div>
-
-
-
-
-
-
         </div>
       </nav>
-
-
-
-
-
     </header>
     <main>
       <div id="map" class="map"></div>
-      <div id="menu">
-        <h1>Menu</h1>
-        <p style="border-bottom:1px solid #999;">
-          <i>ol.control.Overlay</i> can be used to display a menu or information on the top of the map.
-        </p>
-        <div class="data"></div>
+      <div id="sidebar" class="sidebar container-fluid">
+        <div class="row mt-4">
+          <div class="col-12">
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active p-1" id="nav-anadir-tab" data-toggle="tab" href="#nav-anadir" role="tab" aria-controls="nav-anadir" aria-selected="true">Añadir</a>
+                <a class="nav-item nav-link p-1" id="nav-gestionar-tab" data-toggle="tab" href="#nav-gestionar" role="tab" aria-controls="nav-gestionar" aria-selected="false">Gestionar</a>
+                <a class="nav-item nav-link p-1" id="nav-dib_exp-tab" data-toggle="tab" href="#nav-dib_exp" role="tab" aria-controls="nav-dib_exp" aria-selected="false">Dibujar / Exportar</a>
+              </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-anadir" role="tabpanel" aria-labelledby="nav-anadir-tab">.</div>
+              <div class="tab-pane fade" id="nav-gestionar" role="tabpanel" aria-labelledby="nav-gestionar-tab">
+                <div class="layerSwitcher"><b>External layer switcher</b></div>
+              </div>
+              <div class="tab-pane fade" id="nav-dib_exp" role="tabpanel" aria-labelledby="nav-dib_exp-tab">...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="btn_abrir_cerrar_menu_lateral">
+        <a id="abrir_menu_lat" class="abrir_cerrar_menu_lat ol-control" href="javascript:void(0)" onclick="mostrar_menu_lat()"><i class="fas fa-angle-double-right"></i></a><a id="cerrar_menu_lat" class="abrir_cerrar_menu_lat ol-control" href="#" onclick="ocultar_menu_lat()"><i class="fas fa-angle-double-left"></i></a>
       </div>
     </main>
     <footer class="w-100">
@@ -156,5 +161,20 @@
     <!-- JS FUNCIONAMIENTO -->
     <script type="text/javascript" src="js/estilo_vector_tile.js"></script>
     <script type="text/javascript" src="js/map.js"></script>
+    <script>
+      function mostrar_menu_lat() {
+          document.getElementById("sidebar").style.width = "22%";
+          document.getElementById("btn_abrir_cerrar_menu_lateral").style.marginLeft = "22%";
+          document.getElementById("abrir_menu_lat").style.display = "none";
+          document.getElementById("cerrar_menu_lat").style.display = "inline";
+      }
+
+      function ocultar_menu_lat() {
+          document.getElementById("sidebar").style.width = "0";
+          document.getElementById("btn_abrir_cerrar_menu_lateral").style.marginLeft = "0";
+          document.getElementById("abrir_menu_lat").style.display = "inline";
+          document.getElementById("cerrar_menu_lat").style.display = "none";
+      }
+      </script>
   </body>
 </html>
