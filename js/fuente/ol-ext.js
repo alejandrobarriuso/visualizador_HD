@@ -477,6 +477,7 @@ ol.control.LayerSwitcher = function(options)
 	{	element = $("<div>").addClass((options.switcherClass || 'ol-layerswitcher') +' ol-unselectable ol-control ol-collapsed');
 		this.button = $("<button>")
 					.attr('type','button')
+					.attr('class','fas fa-clone')
 					.on("touchstart", function(e)
 					{	element.toggleClass("ol-collapsed"); 
 						e.preventDefault(); 
