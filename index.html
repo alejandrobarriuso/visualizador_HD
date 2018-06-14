@@ -10,108 +10,133 @@
     <link rel="stylesheet" href="css/imago.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/ol-geocoder.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
   </head>
   <body onload="getDPI();">
     <header class="w-100">
       <!-- Barra superior -->
       <nav class="navbar p-0 m-0 navbar-expand-0">
-        <a class="navbar-brand m-0 p-0" href="#">
-          <img src="img/imago2.png" alt="logo" style="height:1.8em;width:auto" class="img-fluid">
-        </a>
+        <a id="abrir_menu_lat" class="nav-link p-2 m-0" href="javascript:void(0)" onclick="mostrar_menu_lat()"><i class="fas fa-angle-double-right"></i></a>
+        <a id="cerrar_menu_lat" class="nav-link p-2 m-0" href="#" onclick="ocultar_menu_lat()"><i class="fas fa-angle-double-left"></i></a>
         <a class="nav-link m-0 p-0 mx-2" href="#">
           <h1 class="p-0 m-0">Nombre del visualizador</h1>
         </a>
-        <button class="navbar-toggler boton_transparente ml-auto m-0 p-0 mx-2" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <i class="fas fa-boxes"></i>
-        </button>
-        <div class="collapse navbar-collapse mb-1" id="navbarNavAltMarkup">
-          <div class="container">
-            <div class="row justify-content-end">
-              <div class="col-auto col-sm-10 col-md-8 col-lg-6 ml-auto">
-                <div class="card-deck">
-                  <div class="card nodo_i tematica_1">
-                    <div class="card-image-top">
-                      <a href="http://www.idearqueologia.org/index.php" target="_blank">
-                        <img src="img/idearq.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
-                      </a>
-                    </div>
-                    <div class="card-block p-1">
-                      <h3>IDEARQ</h3>
-                    </div>
-                  </div>
-                  <div class="card nodo_i tematica_2">
-                    <div class="card-image-top">
-                      <a href="#">
-                        <img src="img/img1.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
-                      </a>
-                    </div>
-                    <div class="card-block p-1">
-                      <h3>NODO 2</h3>
-                    </div>
-                  </div>
-                  <div class="card nodo_i tematica_3">
-                    <div class="card-image-top">
-                      <a href="#">
-                        <img src="img/img1.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
-                      </a>
-                    </div>
-                    <div class="card-block p-1">
-                      <h3>NODO 3</h3>
-                    </div>
-                  </div>
-                  <div class="card nodo_i tematica_2">
-                    <div class="card-image-top">
-                      <a href="#">
-                        <img src="img/img1.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
-                      </a>
-                    </div>
-                    <div class="card-block p-1">
-                      <h3>NODO 4</h3>
-                    </div>
-                  </div>
-                  <div class="card nodo_i tematica_4">
-                    <div class="card-image-top">
-                      <a href="#">
-                        <img src="img/img1.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
-                      </a>
-                    </div>
-                    <div class="card-block p-1">
-                      <h3>NODO 5</h3>
-                    </div>
-                  </div>
+        <a id="abrir_menu_nodos" class="nav-link p-2 m-0" href="javascript:void(0)" onclick="mostrar_menu_nodos()"><i class="fas fa-box"></i></a>
+        <a id="cerrar_menu_nodos" class="nav-link p-2 m-0" href="#" onclick="ocultar_menu_nodos()"><i class="fas fa-box-open"></i></a>
+        <a class="navbar-brand ml-auto m-0 p-0" href="#">
+          <img src="img/imago2.png" alt="logo" style="height:1.8em;width:auto" class="img-fluid">
+        </a>
+      </nav>
+    </header>
+    <main>
+      <div id="map" class="map"></div>
+
+      <div id="menu_nodos" class="menu_nodos container-fluid p-0 m-0">
+        <div class="row justify-content-end">
+          <div id="grupo_nodos" class="col-12" style="display:none">
+            <div class="card-deck">
+              <div class="card nodo_i tematica_1">
+                <div class="card-image-top">
+                  <a href="http://www.idearqueologia.org/index.php" target="_blank">
+                    <img src="img/idearq.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
+                  </a>
+                </div>
+                <div class="card-block p-1">
+                  <h3>IDEARQ</h3>
+                </div>
+              </div>
+              <div class="card nodo_i tematica_2">
+                <div class="card-image-top">
+                  <a href="#">
+                    <img src="img/img1.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
+                  </a>
+                </div>
+                <div class="card-block p-1">
+                  <h3>NODO 2</h3>
+                </div>
+              </div>
+              <div class="card nodo_i tematica_3">
+                <div class="card-image-top">
+                  <a href="#">
+                    <img src="img/img1.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
+                  </a>
+                </div>
+                <div class="card-block p-1">
+                  <h3>NODO 3</h3>
+                </div>
+              </div>
+              <div class="card nodo_i tematica_2">
+                <div class="card-image-top">
+                  <a href="#">
+                    <img src="img/img1.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
+                  </a>
+                </div>
+                <div class="card-block p-1">
+                  <h3>NODO 4</h3>
+                </div>
+              </div>
+              <div class="card nodo_i tematica_4">
+                <div class="card-image-top">
+                  <a href="#">
+                    <img src="img/img1.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
+                  </a>
+                </div>
+                <div class="card-block p-1">
+                  <h3>NODO 5</h3>
+                </div>
+              </div>
+              <div class="card nodo_i tematica_4">
+                <div class="card-image-top">
+                  <a href="#">
+                    <img src="img/img1.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
+                  </a>
+                </div>
+                <div class="card-block p-1">
+                  <h3>NODO 5</h3>
+                </div>
+              </div>
+              <div class="card nodo_i tematica_4">
+                <div class="card-image-top">
+                  <a href="#">
+                    <img src="img/img1.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
+                  </a>
+                </div>
+                <div class="card-block p-1">
+                  <h3>NODO 5</h3>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </nav>
-    </header>
-    <main>
-      <div id="map" class="map"></div>
+      </div>
+
+
       <div id="sidebar" class="sidebar container-fluid">
         <div class="row mt-4">
           <div class="col-12">
-            <nav>
-              <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active p-1" id="nav-anadir-tab" data-toggle="tab" href="#nav-anadir" role="tab" aria-controls="nav-anadir" aria-selected="true">Añadir</a>
-                <a class="nav-item nav-link p-1" id="nav-gestionar-tab" data-toggle="tab" href="#nav-gestionar" role="tab" aria-controls="nav-gestionar" aria-selected="false">Gestionar</a>
-                <a class="nav-item nav-link p-1" id="nav-dib_exp-tab" data-toggle="tab" href="#nav-dib_exp" role="tab" aria-controls="nav-dib_exp" aria-selected="false">Dibujar / Exportar</a>
+              <a class="btn btn-primary" data-toggle="collapse" href="#cargar_capas" role="button" aria-expanded="true" aria-controls="cargar_capas">
+                Cargar
+              </a>
+            <div class="collapse show" id="cargar_capas">
+              <div class="card card-body">
+                CARGAS CAPAS
               </div>
-            </nav>
-            <div class="tab-content" id="nav-tabContent">
-              <div class="tab-pane fade show active" id="nav-anadir" role="tabpanel" aria-labelledby="nav-anadir-tab">.</div>
-              <div class="tab-pane fade" id="nav-gestionar" role="tabpanel" aria-labelledby="nav-gestionar-tab">
+            </div>
+            <a class="btn btn-primary" data-toggle="collapse" href="#gestionar_capas" role="button" aria-expanded="false" aria-controls="gestionar_capas">
+              Gestionar
+            </a>
+            <div class="collapse" id="gestionar_capas">
+              <div class="card card-body">
+                GESTIONAR CAPAS
                 <div class="layerSwitcher"><b>External layer switcher</b></div>
               </div>
-              <div class="tab-pane fade" id="nav-dib_exp" role="tabpanel" aria-labelledby="nav-dib_exp-tab">...</div>
             </div>
           </div>
         </div>
       </div>
-      <div id="btn_abrir_cerrar_menu_lateral">
-        <a id="abrir_menu_lat" class="abrir_cerrar_menu_lat ol-control" href="javascript:void(0)" onclick="mostrar_menu_lat()"><i class="fas fa-angle-double-right"></i></a><a id="cerrar_menu_lat" class="abrir_cerrar_menu_lat ol-control" href="#" onclick="ocultar_menu_lat()"><i class="fas fa-angle-double-left"></i></a>
-      </div>
+
     </main>
     <footer class="w-100">
       <div class="container-fluid">
@@ -134,9 +159,9 @@
                 <button class="btn btn-outline-light boton_transparente ml-auto m-0 mx-1 p-0" onclick="">
                   <i class="fas fa-share-alt-square"></i>
                 </button>
-                <button class="btn btn-outline-light boton_transparente ml-auto m-0 mx-1 p-0" onclick="window.open('https://twitter.com/usig_cchs_csic?lang=es')" target="_blank">
+                <!--<button class="btn btn-outline-light boton_transparente ml-auto m-0 mx-1 p-0" onclick="window.open('https://twitter.com/usig_cchs_csic?lang=es')" target="_blank">
                   <i class="fab fa-twitter-square"></i>
-                </button>
+                </button>-->
                 <button class="btn btn-outline-light boton_transparente ml-auto m-0 mx-1 p-0" onclick="window.open('https://github.com/alejandrobarriuso/visualizador_HD')" target="_blank">
                   <i class="fab fa-github-square"></i>
                 </button>
@@ -156,24 +181,39 @@
     <script src="js/fuente/bootstrap.min.js" type="text/javascript"></script>
     <script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
     <script src="js/fuente/ol-ext.js" type="text/javascript"></script>
+    <script src="js/fuente/ol-geocoder.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
 
     <!-- JS FUNCIONAMIENTO -->
     <script type="text/javascript" src="js/estilo_vector_tile.js"></script>
     <script type="text/javascript" src="js/map.js"></script>
+
+    <!-- JS FUNCIONAMIENTO PANEL SUPERIOR Y PANEL LATERAL IZQUIERDO -->
     <script>
       function mostrar_menu_lat() {
           document.getElementById("sidebar").style.width = "22%";
-          document.getElementById("btn_abrir_cerrar_menu_lateral").style.marginLeft = "22%";
           document.getElementById("abrir_menu_lat").style.display = "none";
           document.getElementById("cerrar_menu_lat").style.display = "inline";
       }
 
       function ocultar_menu_lat() {
           document.getElementById("sidebar").style.width = "0";
-          document.getElementById("btn_abrir_cerrar_menu_lateral").style.marginLeft = "0";
           document.getElementById("abrir_menu_lat").style.display = "inline";
           document.getElementById("cerrar_menu_lat").style.display = "none";
+      }
+      function mostrar_menu_nodos() {
+          document.getElementById("menu_nodos").style.height = "auto";
+          document.getElementById("grupo_nodos").style.display = "inline";
+          document.getElementById("abrir_menu_nodos").style.display = "none";
+          document.getElementById("cerrar_menu_nodos").style.display = "inline";
+      }
+
+      function ocultar_menu_nodos() {
+          document.getElementById("menu_nodos").style.height = "0";
+          document.getElementById("grupo_nodos").style.display = "none";
+          document.getElementById("abrir_menu_nodos").style.display = "inline";
+          document.getElementById("cerrar_menu_nodos").style.display = "none";
       }
       </script>
   </body>

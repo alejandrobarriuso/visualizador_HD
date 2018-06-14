@@ -10,51 +10,58 @@ var layer = new ol.layer.Tile({
   })
 });
 
+/* -- CAPAS BASE -- */
+var capa_base_Stamen = new ol.layer.Tile({
+  title: 'Water color',
+  displayInLayerSwitcher: false,
+  displayInLayerSwitcher_base: true,
+  visible: false,
+  source: new ol.source.Stamen({
+    layer: 'watercolor'
+  })
+});
+
+var capa_base_OSM = new ol.layer.Tile({
+  title: 'OSM',
+  displayInLayerSwitcher: false,
+  displayInLayerSwitcher_base: true,
+  visible: false,
+  source: new ol.source.OSM({
+    attributions: [
+      new ol.Attribution({
+        html: '<a href="http://unidadsig.cchs.csic.es/sig/">Unidad SIG </a>' + ol.source.OSM.ATTRIBUTION
+      })
+    ]
+  })
+});
+
+var capa_base_VT = new ol.layer.VectorTile({
+  title: 'Nuestro VT',
+  baseLayer: true,
+  visible: true,
+  displayInLayerSwitcher: false,
+  displayInLayerSwitcher_base: true,
+  declutter: true,
+  source: new ol.source.VectorTile({
+    attributions: '© Tania</a>',
+    format: new ol.format.MVT(),
+    url: 'http://161.111.72.12:8080/data/v3/{z}/{x}/{y}.pbf'
+  }),
+  style: estilo_mapa_base_mvt(ol.style.Style, ol.style.Fill, ol.style.Stroke, ol.style.Icon, ol.style.Text)
+});
+
 /* Grupo de capas base */
 var grupo_capas_base = new ol.layer.Group({
   'title': 'Mapa base',
-  openInLayerSwitcher: true,
-  layers: [
-
-    new ol.layer.Tile({
-      title: 'Water color',
-      baseLayer: true,
-      visible: false,
-      source: new ol.source.Stamen({
-        layer: 'watercolor'
-      })
-    }),
-    new ol.layer.Tile({
-      title: 'OSM',
-      baseLayer: true,
-      visible: false,
-      source: new ol.source.OSM({
-        attributions: [
-          new ol.Attribution({
-            html: '<a href="http://unidadsig.cchs.csic.es/sig/">Unidad SIG </a>' + ol.source.OSM.ATTRIBUTION
-          })
-        ]
-      })
-    }),
-    new ol.layer.VectorTile({
-      title: 'Nuestro VT',
-      baseLayer: true,
-      visible: true,
-      declutter: true,
-      source: new ol.source.VectorTile({
-        attributions: '© Tania</a>',
-        format: new ol.format.MVT(),
-        url: 'http://161.111.72.12:8080/data/v3/{z}/{x}/{y}.pbf'
-      }),
-      style: estilo_mapa_base_mvt(ol.style.Style, ol.style.Fill, ol.style.Stroke, ol.style.Icon, ol.style.Text)
-    })
-  ]
+  layers: [capa_base_Stamen,capa_base_OSM,capa_base_VT]
 });
 
 /* Grupo de capas cargadas */
 var grupo_capas_contenido = new ol.layer.Group({
   title: 'Capas cargadas',
-  openInLayerSwitcher: true,
+  displayInLayerSwitcher: true,
+  displayInLayerSwitcher_base: false,
+
   layers: [
     new ol.layer.Image({
       title: 'Countries',
@@ -111,7 +118,7 @@ var attribution = new ol.control.Attribution({
 
 /* Creación del mapa y de la vista */
 var map = new ol.Map({
-  layers: [grupo_capas_base, grupo_capas_contenido],
+  layers: [capa_base_Stamen,capa_base_OSM,capa_base_VT,grupo_capas_contenido],
   //layers: [layer],
   target: 'map',
   view: new ol.View({
@@ -129,6 +136,32 @@ var map = new ol.Map({
   }).extend([
     scaleLineControl, mousePositionControl, overviewMapControl, attribution
   ]),
+});
+
+/* Control de mapa base */
+map.addControl (new ol.control.LayerSwitcherImage());
+
+
+
+
+/* Buscador de lugares */
+//Instantiate with some options and add the Control
+var geocoder = new Geocoder('nominatim', {
+  provider: 'photon',
+  targetType: 'text-input',
+  lang: 'en',
+  placeholder: 'Search for ...',
+  limit: 5,
+  keepOpen: false
+});
+
+map.addControl(geocoder);
+
+//Listen when an address is chosen
+geocoder.on('addresschosen', function (evt) {
+  window.setTimeout(function () {
+    popup.show(evt.coordinate, evt.address.formatted);
+  }, 3000);
 });
 
 
@@ -156,10 +189,7 @@ var button = $('<div class="toggleVisibility" title="show/hide">')
 switcher.setHeader($('<div>').append(button))
 
 map.addControl(switcher);
-	// Insert mapbox layer in layer switcher
-function displayInLayerSwitcher(b)
-{	mapbox.set('displayInLayerSwitcher', b);
-}
+
 
 
 
@@ -213,24 +243,6 @@ function escala_numerica () {
 }
 //3º: que la función escala_numerica() se ejecute cada vez que se cambie de zoom o de pan:
 map.on('moveend', escala_numerica);
-
-// --- MENÚ LATERAL IZQUIERDA - CAPAS --- //
-// Overlay:
-var menu = new ol.control.Overlay ({ closeBox : true, className: "slide-left menu", content: $("#menu") });
-map.addControl(menu);
-
-// A toggle control to show/hide the menu
-var t = new ol.control.Toggle(
-    {	html: '<i class="fa fa-bars" ></i>',
-      className: "menu",
-      title: "Menu",
-      onToggle: function() { menu.toggle(); }
-    });
-map.addControl(t);
-
-
-
-
 
 
 /*

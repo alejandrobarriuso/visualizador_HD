@@ -20,15 +20,15 @@ body {
 
 header {
   margin-top: 0;
-  z-index: 100;
+  z-index: 300;
   position: fixed;
   top: 0;
 }
 
 /* --- BARRA SUPERIOR HEADER --- */
 header nav {
-  min-height: 1em;
-  background: #CC503E;
+  height: 3em !important;
+  background: #94346E;
   overflow: hidden;
   padding: 0.2em;
 }
@@ -45,12 +45,42 @@ header h3 {
 
 }
 
+#abrir_menu_lat{
+  text-shadow:none !important;
+  background-color: #606060 !important;
+  color: #f2f2f2 !important;
+  outline: none !important;
+  font-size:1.5em;
+}
+#cerrar_menu_lat {
+  text-shadow:none !important;
+  background-color: #606060 !important;
+  color: #f2f2f2 !important;
+  outline: none !important;
+  font-size:1.5em;
+  display:none;
+}
+
+#abrir_menu_nodos{
+  text-shadow:none !important;
+  color: #f2f2f2 !important;
+  outline: none !important;
+  font-size:1.5em;
+}
+#cerrar_menu_nodos {
+  text-shadow:none !important;
+  color: #606060 !important;
+  outline: none !important;
+  font-size:1.5em;
+  display:none;
+}
+
 header .boton_transparente {
   border: 0;
 }
 header i {
   font-size: 1.5em;
-  color: #efefef;
+  /*color: #efefef;*/
 }
 
 header .boton_transparente:focus {
@@ -59,23 +89,14 @@ header .boton_transparente:focus {
   border:0;
 }
 
-header .grupo_nodos {
-
-}
-
-header .nodo_i {
+.nodo_i {
   padding: 0em;
-  margin: 0.2em;
+  margin: 0em !important;
   border-radius: 0;
   border-width: 0.3em;
-  width: auto;
 }
 
 header .imagen_nodo_i {
-  height: auto;
-  max-height: 6em;
-  width: auto;
-
   border:0;
   border-radius: 0;
 }
@@ -99,6 +120,51 @@ header .imagen_nodo_i {
 .tematica_5 {
   border-color: #CC503E;
 }
+
+/* --- MENÚ HORIZONTAL NODOS --- */
+.menu_nodos {
+    position: absolute;
+    height: 0;
+    width: 100%;
+    top: 3em;
+    left: 0;
+    z-index: 1;
+    background-color: #f2f2f2;
+    overflow-x: hidden;
+    transition: 0.4s;
+    padding: 1em 0;
+    box-sizing:border-box;
+}
+
+.menu_nodos ul, .menu_nodos li{
+    margin:0;
+    padding:0;
+    list-style:none inside;
+}
+
+.menu_nodos ul {
+    margin: 4em auto;
+    display: block;
+    width: 80%;
+    min-width:200px;
+}
+
+.menu_nodos a {
+    display: block;
+    font-size: 1em;
+    color: #606060;
+    text-decoration: none;
+}
+
+.menu_nodos a:hover{
+    color: #f2f2f2;
+    background-color: #606060;
+}
+
+
+
+
+
 
 
 
@@ -178,6 +244,12 @@ main {
 /* Escala gráfica */
 .ol-scale-line{
   background: #94346E;
+  position: absolute !important;
+  top: auto !important;
+  bottom: 2.5em !important;
+  left: 0.5em !important;
+  right: auto !important;
+  z-index: 100;
 }
 
 /* Mapa de localización */
@@ -185,7 +257,7 @@ main {
 .ol-custom-overviewmap.ol-uncollapsible {
   bottom: 4.2em;
   left: auto;
-  right: 0;
+  right: 0.5em;
   top: auto;
   padding: 0;
   margin: 0;
@@ -217,11 +289,28 @@ main {
   top: auto;
   padding: 0;
   margin: 0;
-
 }
 
 .ol-viewport{
   position: absolute !important;
+}
+
+/* Control de mapas base */
+.ol-layerswitcher-image{
+  position: absolute !important;
+  top: auto !important;
+  bottom: 14.5em !important;
+  left: auto !important;
+  right: 0.5em !important;
+  z-index: 300;
+}
+.ol-control.ol-layerswitcher-image button{
+  background-image: none !important;
+}
+.ol-layerswitcher-image.panel{
+  background: #d8d8d8 !important;
+  font-family: 'Open Sans', sans-serif !important;
+  color: #353535 !important;
 }
 
 /* Atribuciones */
@@ -237,19 +326,19 @@ main {
   color: #353535;
 }
 
-/* Control de capas */
-.ol-control.ol-layerswitcher{
-  top: 14em;
+/* Buscador */
+.ol-geocoder{
+  position: absolute !important;
+  top: 3.5em !important;
+  left: auto !important;
+  right: 0.5em !important;
+}
+.gcd-txt-input{
+  padding:
+}
 
-}
-.ol-control.ol-layerswitcher button{
-  background-image: none !important;
-}
-.ol-layerswitcher.panel{
-  background: #d8d8d8 !important;
-  font-family: 'Open Sans', sans-serif !important;
-  color: #353535 !important;
-}
+
+
 
 
 
@@ -266,6 +355,7 @@ main {
     transition: 0.4s;
     padding: 1em 0;
     box-sizing:border-box;
+    z-index:200;
 }
 
 .sidebar ul, .sidebar li{
@@ -293,30 +383,12 @@ main {
     background-color: #606060;
 }
 
-#btn_abrir_cerrar_menu_lateral {
-    transition: margin-left .4s;
-    padding: 1em;
-}
-
-.abrir_cerrar_menu_lat {
-    font-size:1.5em;
-    position: absolute;
-    top: 3em;
-}
-#cerrar_menu_lat {
-    display:none;
-}
 
 
 
 
 
 
-
-
-#div_nodos {
-  display:none;
-}
 
 footer {
   position: fixed;
