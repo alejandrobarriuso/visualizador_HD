@@ -14,7 +14,9 @@ var layer = new ol.layer.Tile({
 var capa_base_Stamen = new ol.layer.Tile({
   title: 'Water color',
   baseLayer: true,
-  displayInLayerSwitcher: true,
+  displayInLayerSwitcher: false,
+  displayInLayerSwitcher_base: true,
+  preview: "img/img1.jpg",
   visible: false,
   source: new ol.source.Stamen({
     layer: 'watercolor'
@@ -24,7 +26,9 @@ var capa_base_Stamen = new ol.layer.Tile({
 var capa_base_OSM = new ol.layer.Tile({
   title: 'OSM',
   baseLayer: true,
-  displayInLayerSwitcher: true,
+  displayInLayerSwitcher: false,
+  displayInLayerSwitcher_base: true,
+  preview: "img/img1.jpg",
   visible: false,
   source: new ol.source.OSM({
     attributions: [
@@ -39,7 +43,9 @@ var capa_base_VT = new ol.layer.VectorTile({
   title: 'Nuestro VT',
   baseLayer: true,
   visible: true,
-  displayInLayerSwitcher: true,
+  displayInLayerSwitcher: false,
+  displayInLayerSwitcher_base: true,
+  preview: "img/img1.jpg",
   declutter: true,
   source: new ol.source.VectorTile({
     attributions: '© Tania</a>',
@@ -59,6 +65,7 @@ var grupo_capas_base = new ol.layer.Group({
 var grupo_capas_contenido = new ol.layer.Group({
   title: 'Capas cargadas',
   displayInLayerSwitcher: true,
+  displayInLayerSwitcher_base: false,
 
   layers: [
     new ol.layer.Image({
