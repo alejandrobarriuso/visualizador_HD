@@ -148,28 +148,6 @@ map.addControl (new ol.control.LayerSwitcherImage());
 
 
 
-
-/* Buscador de lugares */
-//Instantiate with some options and add the Control
-var geocoder = new Geocoder('nominatim', {
-  provider: 'photon',
-  targetType: 'text-input',
-  lang: 'en',
-  placeholder: 'Search for ...',
-  limit: 5,
-  keepOpen: false
-});
-
-map.addControl(geocoder);
-
-//Listen when an address is chosen
-geocoder.on('addresschosen', function (evt) {
-  window.setTimeout(function () {
-    popup.show(evt.coordinate, evt.address.formatted);
-  }, 3000);
-});
-
-
 /* LayerSwitcher - Control de capas en la barra lateral */
 var switcher = new ol.control.LayerSwitcher(
 	{	target:$(".layerSwitcher").get(0),
@@ -194,6 +172,96 @@ var button = $('<div class="toggleVisibility" title="show/hide">')
 switcher.setHeader($('<div>').append(button))
 
 map.addControl(switcher);
+
+
+/* Buscador de lugares - GeoNames */
+
+function search(callbackData) {
+        $.ajax({
+            url: 'http://api.geonames.org/search?',
+            data: {
+              username: 'visualizador_hd',
+              q:localizar.value,
+              maxRows: 2
+            },
+            dataType: 'json',
+            success:function(data){
+              callbackData(data);
+            }
+        });
+
+    };
+
+function despliega_opciones(resultado){
+
+  console.log("hola");
+    console.log(resultado);
+}
+
+
+function nomenclar (form){//en un futuro hay que crear una pequeÃ±a cache para que no sea necesario hacer una nueva llamada cada vez
+		//tambien hay que conseguir que se borre la lista al pinchar en cualquier otro lugar del mapa
+
+
+
+	$.get(
+    'http://api.geonames.org/search?',
+	//'http://open.mapquestapi.com/nominatim/v1/search.php?',
+    {username:'visualizador_HD', q:form.localizar.value,format : 'json', polygon : 0,countrycodes:'es,pt,ad',limit:5},
+		function(data) {
+
+			if (data.length === 0) {
+				var texto = document.createTextNode('No disponemos de datos de '+form.localizar.value);
+				lugar = document.createElement("DIV");
+				lugar.setAttribute("style","width:100%;background:white;border-bottom: outset 2px;border-bottom-opacity:0;padding:10px 10px 10px 10px");
+				lugar.appendChild(texto);
+				document.getElementById("formulario1").appendChild(lugar);
+			}
+			else {
+					for (var i=0;i<data.length;i++){
+						bbox = data[i].boundingbox;
+						var texto = document.createTextNode(data[i].display_name);
+						lugar = document.createElement("DIV");
+						lugar.setAttribute("id","resultado");
+						lugar.setAttribute("class","divRatonFuera");
+						lugar.onmouseover = function (){this.setAttribute("class","divRatonDentro");};
+						lugar.onmouseout = function (){this.setAttribute("class","divRatonFuera");};
+						lugar.setAttribute("style", "padding:10px 10px 10px 10px");
+						lugar.setAttribute("onclick","hacerZoomABbox("+bbox[2]+','+bbox[3]+','+bbox[0]+','+bbox[1]+")");
+						lugar.style.cursor="pointer";
+						lugar.appendChild(texto);
+
+						document.getElementById("formulario1").appendChild(lugar);
+					}
+				}
+			var attrib = document.createElement("DIV");
+				attrib.innerHTML = 'Nominatim Search Courtesy <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="./images/mq_logo.png">';
+				attrib.setAttribute("class","divRatonFuera");
+				attrib.setAttribute("style","border-bottom:0px;padding:5px 10px 5px 10px;font-size:9px;color:#6E6E6E");
+			document.getElementById("formulario1").appendChild(attrib);
+			}
+		,"json"
+	);
+}
+
+
+function hacerZoomA (x,y){
+	var coordenadas = new OpenLayers.LonLat.fromString(x+','+y);
+	markers.clearMarkers();
+	markers.addMarker(new OpenLayers.Marker(coordenadas,simb_encontrado));
+	map.setCenter(coordenadas,11);
+}
+
+function hacerZoomABbox (xmin,xmax,ymin,ymax){
+	var coordenadas = [];
+	coordenadas.push(xmin);
+	coordenadas.push(ymin);
+	coordenadas.push(xmax);
+	coordenadas.push(ymax);
+	map.zoomToExtent(new OpenLayers.Bounds(coordenadas).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913")));
+}
+
+
 
 
 

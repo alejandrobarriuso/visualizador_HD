@@ -327,14 +327,20 @@ main {
 }
 
 /* Buscador */
-.ol-geocoder{
-  position: absolute !important;
-  top: 3.5em !important;
-  left: auto !important;
-  right: 0.5em !important;
-}
-.gcd-txt-input{
-  padding:
+.search_field {
+    position: absolute;
+    height: auto;
+    width: 200px;
+    top: 30px;
+    right: 35px;
+    z-index: 20100;
+    border-color: #424242;
+    background: #FFFFFF;
+    color: #424242;
+    z-index: 20200;
+    font-family: arial,helvetica;
+    font-size: 12px;
+    display: inline-block;
 }
 
 

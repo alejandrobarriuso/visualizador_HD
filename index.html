@@ -14,16 +14,16 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
   </head>
-  <body onload="getDPI();">
+  <body onload="getDPI();getrecords('dataset');">
     <header class="w-100">
       <!-- Barra superior -->
       <nav class="navbar p-0 m-0 navbar-expand-0">
-        <a id="abrir_menu_lat" class="nav-link p-2 m-0" href="javascript:void(0)" onclick="mostrar_menu_lat()"><i class="fas fa-angle-double-right"></i></a>
+        <a id="abrir_menu_lat" class="nav-link p-2 m-0" href="#" onclick="mostrar_menu_lat()"><i class="fas fa-angle-double-right"></i></a>
         <a id="cerrar_menu_lat" class="nav-link p-2 m-0" href="#" onclick="ocultar_menu_lat()"><i class="fas fa-angle-double-left"></i></a>
         <a class="nav-link m-0 p-0 mx-2" href="#">
           <h1 class="p-0 m-0">Nombre del visualizador</h1>
         </a>
-        <a id="abrir_menu_nodos" class="nav-link p-2 m-0" href="javascript:void(0)" onclick="mostrar_menu_nodos()"><i class="fas fa-box"></i></a>
+        <a id="abrir_menu_nodos" class="nav-link p-2 m-0" href="#" onclick="mostrar_menu_nodos()"><i class="fas fa-box"></i></a>
         <a id="cerrar_menu_nodos" class="nav-link p-2 m-0" href="#" onclick="ocultar_menu_nodos()"><i class="fas fa-box-open"></i></a>
         <a class="navbar-brand ml-auto m-0 p-0" href="#">
           <img src="img/imago2.png" alt="logo" style="height:1.8em;width:auto" class="img-fluid">
@@ -32,6 +32,15 @@
     </header>
     <main>
       <div id="map" class="map"></div>
+
+
+
+       <div class="search_field" >
+           <input name="localizar" id="localizar" placeholder="centrar mapa en..." onFocus="this.value=''">
+           <button type="submit" id="ir1" name="button1" onClick="javascript:search(despliega_opciones())"><img src="img/img1.jpg" style="width:10px;"></button>
+       </div>
+
+
 
       <div id="menu_nodos" class="menu_nodos container-fluid p-0 m-0">
         <div class="row justify-content-end">
@@ -121,7 +130,46 @@
               </a>
             <div class="collapse show" id="cargar_capas">
               <div class="card card-body">
-                CARGAS CAPAS
+                <div class="row">
+                  <div class="col-6">
+                    <div class="card" style="">
+                      <img class="card-img-top" src="img/img1.jpg" alt="Título recurso 1">
+                      <div class="card-body">
+                        <a href="#" class="btn btn-primary" style="width:40%;font-size:0.5em;">Añadir al mapa</a>
+                        <a href="#" class="btn btn-primary" style="width:40%">Ir al metadato</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="card" style="">
+                      <img class="card-img-top" src="img/img1.jpg" alt="Título recurso 1">
+                      <div class="card-body">
+                        <a href="#" class="btn btn-primary">Añadir al mapa</a>
+                        <a href="#" class="btn btn-primary">Ir al metadato</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="card" style="">
+                      <img class="card-img-top" src="img/img1.jpg" alt="Título recurso 1">
+                      <div class="card-body">
+                        <a href="#" class="btn btn-primary">Añadir al mapa</a>
+                        <a href="#" class="btn btn-primary">Ir al metadato</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="card" style="">
+                      <img class="card-img-top" src="img/img1.jpg" alt="Título recurso 1">
+                      <div class="card-body">
+                        <a href="#" class="btn btn-primary">Añadir al mapa</a>
+                        <a href="#" class="btn btn-primary">Ir al metadato</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <select class="select" style="width:100%;">
+                </select>
               </div>
             </div>
             <a class="btn btn-primary" data-toggle="collapse" href="#gestionar_capas" role="button" aria-expanded="false" aria-controls="gestionar_capas">
@@ -176,18 +224,53 @@
     </footer>
 
     <!-- CÓDIGO FUENTE -->
-    <script src="js/fuente/jquery-3.3.1.min.js" type="text/javascript"></script>
-    <script src="js/fuente/popper.js" type="text/javascript"></script>
-    <script src="js/fuente/bootstrap.min.js" type="text/javascript"></script>
-    <script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
-    <script src="js/fuente/ol-ext.js" type="text/javascript"></script>
-    <script src="js/fuente/ol-geocoder.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/fuente/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/fuente/popper.js"></script>
+    <script type="text/javascript" src="js/fuente/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
+    <script type="text/javascript" src="js/fuente/ol-ext.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
+    <!-- JS FUNCIONAMIENTO PETICIONES AL CATÁLOGO -->
+    <script type="text/javascript" src="js/fuente/catalogo/jsonix/jsonix.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/OWS_1_0_0.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/DC_1_1.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/DCT.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/w3c-schemas/lib/XLink_1_0.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/CSW_2_0_2.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/Filter_1_1_0.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/GML_3_1_1.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/SMIL_2_0_Language.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/SMIL_2_0.js"></script>
+    <!-- ISO Profile -->
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/GML_3_2_1.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/GML_3_2_0.js"></script>
+    <!-- NO NECESARIAS
+	<script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/ISO19139_GCO_20060504.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/ISO19139_GMD_20060504.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/ISO19139_GTS_20060504.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/ISO19139_GSS_20060504.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/ISO19139_GSR_20060504.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/ISO19139_GMX_20060504.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/ISO19139_SRV_20060504.js"></script>
+	-->
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/ISO19139_GCO_20070417.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/ISO19139_GMD_20070417.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/ISO19139_GTS_20070417.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/ISO19139_GSS_20070417.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/ISO19139_GSR_20070417.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/ISO19139_GMX_20070417.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/ISO19139_2_GMI_1_0.js"></script>
+    <!-- ISO Profile -->
+    <script type="text/javascript" src="js/fuente/catalogo/ows.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/csw.js"></script>
+    <script type="text/javascript" src="js/fuente/catalogo/filter.js"></script>
+	  <script type="text/javascript" src="js/fuente/catalogo/xmltojson.js"></script>
 
-    <!-- JS FUNCIONAMIENTO -->
-    <script type="text/javascript" src="js/estilo_vector_tile.js"></script>
+    <!-- JS FUNCIONAMIENTO MAPA -->
+    <script type="text/javascript" src="js/estiloVT.js"></script>
     <script type="text/javascript" src="js/map.js"></script>
+    <script type="text/javascript" src="js/getRecords.js"></script>
 
     <!-- JS FUNCIONAMIENTO PANEL SUPERIOR Y PANEL LATERAL IZQUIERDO -->
     <script>
