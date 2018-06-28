@@ -1,6 +1,6 @@
 /* --- MAPA --- */
 /* Capa para el mapa en miniatura */
-var layer = new ol.layer.Tile({
+var capaMiniatura = new ol.layer.Tile({
   source: new ol.source.OSM({
     attributions: [
       new ol.Attribution({
@@ -61,29 +61,9 @@ var grupo_capas_base = new ol.layer.Group({
   layers: [capa_base_Stamen,capa_base_OSM,capa_base_VT]
 });
 
-/* Grupo de capas cargadas */
-var grupo_capas_contenido = new ol.layer.Group({
-  title: 'Capas cargadas',
-  displayInLayerSwitcher: true,
-  displayInLayerSwitcher_base: false,
-
-  layers: [
-    new ol.layer.Image({
-      title: 'Countries',
-      source: new ol.source.ImageArcGISRest({
-        ratio: 1,
-        params: {'LAYERS': 'show:0'},
-        url: "https://ons-inspire.esriuk.com/arcgis/rest/services/Administrative_Boundaries/Countries_December_2016_Boundaries/MapServer"
-      })
-    })
-  ]
-});
 
 
-
-//var cambio_capa = new ol.control.LayerSwitcher();
-
-
+/* -- CREACIÓN DEL MAPA -- */
 /* Centro (Lon, Lat) y zoom inicial del mapa */
 var LonLat_centro = [-3, 39];
 var Zoom_inicial = 6;
@@ -107,7 +87,7 @@ var mousePositionControl = new ol.control.MousePosition({
 var overviewMapControl = new ol.control.OverviewMap({
         // see in overviewmap-custom.html to see the custom CSS used
         className: 'ol-overviewmap ol-custom-overviewmap',
-        layers: [layer],
+        layers: [capaMiniatura],
         collapseLabel: '\u00BB',
         label: '\u00AB',
         collapsed: true
@@ -121,19 +101,22 @@ var attribution = new ol.control.Attribution({
 //Escala numérica: creada de manera manual. Por eso es necesario que aparezca después de la creación del mapa.
 
 
-/* Creación del mapa y de la vista */
+/* Creación de la vista */
+var vistaMapa = new ol.View({
+  projection: 'EPSG:3857',
+  center: ol.proj.fromLonLat(LonLat_centro),
+  zoom: Zoom_inicial,
+  minZoom: 2,
+  maxZoom: 28,
+  extent: [-20026376.39, -20048966.10, 20026376.39, 20048966.10]
+});
+
+/* Creación del mapa */
 var map = new ol.Map({
-  layers: [capa_base_Stamen,capa_base_OSM,capa_base_VT,grupo_capas_contenido],
+  layers: [capa_base_Stamen,capa_base_OSM,capa_base_VT],
   //layers: [layer],
   target: 'map',
-  view: new ol.View({
-    projection: 'EPSG:3857',
-    center: ol.proj.fromLonLat(LonLat_centro),
-    zoom: Zoom_inicial,
-    minZoom: 2,
-    maxZoom: 28,
-    extent: [-20026376.39, -20048966.10, 20026376.39, 20048966.10]
-  }),
+  view: vistaMapa,
   controls: ol.control.defaults({
     attributionOptions: {
       collapsible: false
@@ -176,27 +159,52 @@ map.addControl(switcher);
 
 /* Buscador de lugares - GeoNames */
 
-function search(callbackData) {
+function Localiza(callbackData) {
         $.ajax({
-            url: 'http://api.geonames.org/search?',
+            url: 'http://api.geonames.org/searchJSON?',
             data: {
               username: 'visualizador_hd',
               q:localizar.value,
-              maxRows: 2
+              maxRows: 2,
+              country: 'ES'
             },
             dataType: 'json',
             success:function(data){
+
               callbackData(data);
             }
         });
 
-    };
+};
 
-function despliega_opciones(resultado){
+function CentraMapa(resultado){
+  var lugares = resultado.geonames;
+  var coord = [Number(lugares[0].lng),Number(lugares[0].lat)];
+  var coordProj = ol.proj.fromLonLat(coord);
+  map.getView().setCenter(coordProj);
+  map.getView().setZoom(10);
 
-  console.log("hola");
-    console.log(resultado);
+
+  for (var i = 0; i < lugares.length; i++) {
+  bbox = lugares[i].boundingbox;
+  console.log(bbox);
+  var texto = document.createTextNode(lugares[i].display_name);
+  lugar = document.createElement("DIV");
+  lugar.setAttribute("id","resultado");
+  lugar.setAttribute("class","divRatonFuera");
+  lugar.onmouseover = function (){this.setAttribute("class","divRatonDentro");};
+  lugar.onmouseout = function (){this.setAttribute("class","divRatonFuera");};
+  lugar.setAttribute("style", "padding:10px 10px 10px 10px");
+  lugar.setAttribute("onclick","hacerZoomABbox("+bbox[2]+','+bbox[3]+','+bbox[0]+','+bbox[1]+")");
+  lugar.style.cursor="pointer";
+  lugar.appendChild(texto);
+
+  document.getElementById("formulario1").appendChild(lugar);
+
+  }
 }
+
+
 
 
 function nomenclar (form){//en un futuro hay que crear una pequeÃ±a cache para que no sea necesario hacer una nueva llamada cada vez
@@ -267,13 +275,13 @@ function hacerZoomABbox (xmin,xmax,ymin,ymax){
 
 
 /* Controles del mapa 2/2: escala numérica */
-var DPI_usuario = 0;
-function getDPI() {
+var DPIUsuario = 0;
+function CalculaDPIEscalaNum() {
   // 1º: función para obtener el DPI de la pantalla del usuario (número de puntos dibujados por pulgada):
     // EJECUCIÓN: Se ejecuta en la carga inicial del body.
     // FUNCIONAMIENTO: Crea un elemento div en la pantalla completa que le sirve para calcular el DPI, y después lo elimina.
     // ENTRADA: nada.
-    // SALIDA: DPI_usuario.
+    // SALIDA: DPIUsuario.
     var div = document.createElement( "div");
     div.style.height = "1in";
     div.style.width = "1in";
@@ -282,16 +290,16 @@ function getDPI() {
     div.style.position = "absolute";
 
     document.body.appendChild(div);
-    DPI_usuario =  div.offsetHeight;
+    DPIUsuario =  div.offsetHeight;
     document.body.removeChild( div );
 
     // Se ejecuta por primera vez el cálculo de la escala numérica:
-    escala_numerica();
-    return DPI_usuario;
+    EscalaNumerica();
+    return DPIUsuario;
 }
 
-var escala_num = 0;
-function escala_numerica () {
+var escalaNum = 0;
+function EscalaNumerica () {
   // 2º: función para obtener el valor x de la escala numérica: 1:x en cada momento.
     // EJECUCIÓN: Se ejecuta cada vez que se cambie de zoom o de pan:
     // FUNCIONAMIENTO: La escala numérica se obtiene a partir de la multiplicación de los siguientes términos:
@@ -299,23 +307,23 @@ function escala_numerica () {
     //  - Metros por unidad (m/ud)
     //  - Pulgadas por metro (pulgada/m)
     //  - DPI de la pantalla del usuario en cada caso (puntos/pulgada)
-    // Los tres primeros valores se obtienen dentro de la función. El cuarto se ha obtenido con la función getPDI anteriormente (una vez por usuario)
+    // Los tres primeros valores se obtienen dentro de la función. El cuarto se ha obtenido con la función CalculaDPIEscalaNum anteriormente (una vez por usuario)
     // ENTRADA: nada.
-    // SALIDA: escala_numerica.
+    // SALIDA: EscalaNumerica.
     var unit = map.getView().getProjection().getUnits();
-    var resolution = map.getView().getResolution();
-    var inchesPerMetre = 39.3701;
+    var resolucion = map.getView().getResolution();
+    var pulgadasPorMetro = 39.3701;
   //  console.log('Unidad: '+ unit);
   //  console.log('Resolución: '+ resolution);
   //  console.log('Metros por unidad: ' + ol.proj.METERS_PER_UNIT[unit]);
 
-    escala_num = resolution * ol.proj.METERS_PER_UNIT[unit] * inchesPerMetre * DPI_usuario;
-  //  console.log('Escala numérica: '+ escala_num);
-    document.getElementById("escala_numerica").innerHTML = '1:' + Intl.NumberFormat("de-DE").format(Math.round(escala_num));
-    return escala_num;
+    escalaNum = resolucion * ol.proj.METERS_PER_UNIT[unit] * pulgadasPorMetro * DPIUsuario;
+  //  console.log('Escala numérica: '+ escalaNum);
+    document.getElementById("espEscalaNum").innerHTML = '1:' + Intl.NumberFormat("de-DE").format(Math.round(escalaNum));
+    return escalaNum;
 }
-//3º: que la función escala_numerica() se ejecute cada vez que se cambie de zoom o de pan:
-map.on('moveend', escala_numerica);
+//3º: que la función EscalaNumerica() se ejecute cada vez que se cambie de zoom o de pan:
+map.on('moveend', EscalaNumerica);
 
 
 /*

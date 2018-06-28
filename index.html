@@ -14,19 +14,25 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
   </head>
-  <body onload="getDPI();getrecords('dataset');">
+  <body onload="CalculaDPIEscalaNum();GetRecords('dataset');PonerIdioma('');CargarTematicas()">
     <header class="w-100">
       <!-- Barra superior -->
       <nav class="navbar p-0 m-0 navbar-expand-0">
         <a id="abrir_menu_lat" class="nav-link p-2 m-0" href="#" onclick="mostrar_menu_lat()"><i class="fas fa-angle-double-right"></i></a>
         <a id="cerrar_menu_lat" class="nav-link p-2 m-0" href="#" onclick="ocultar_menu_lat()"><i class="fas fa-angle-double-left"></i></a>
         <a class="nav-link m-0 p-0 mx-2" href="#">
-          <h1 class="p-0 m-0">Nombre del visualizador</h1>
+          <h1 id="txtVisualizador" class="p-0 m-0"></h1>
         </a>
         <a id="abrir_menu_nodos" class="nav-link p-2 m-0" href="#" onclick="mostrar_menu_nodos()"><i class="fas fa-box"></i></a>
         <a id="cerrar_menu_nodos" class="nav-link p-2 m-0" href="#" onclick="ocultar_menu_nodos()"><i class="fas fa-box-open"></i></a>
         <a class="navbar-brand ml-auto m-0 p-0" href="#">
-          <img src="img/imago2.png" alt="logo" style="height:1.8em;width:auto" class="img-fluid">
+          <form class="form-inline">
+    				<div class="btn-group mr-2 grupo_btn_idioma_cerrar">
+    					<button id="boton_es" type="button" class="btn btn_idioma m-0 p-0" onclick="PonerIdioma('es')"><p class="m-0 p-0 px-1">ES</p></button>
+    					<button id="boton_en" type="button" class="btn btn_idioma m-0 p-0" onclick="PonerIdioma('en')"><p class="m-0 p-0 px-1">EN</p></button>
+    				</div>
+            <img src="img/imago2.png" alt="logo" style="height:1.8em;width:auto" class="img-fluid">
+          </form>
         </a>
       </nav>
     </header>
@@ -37,10 +43,12 @@
 
        <div class="search_field" >
            <input name="localizar" id="localizar" placeholder="centrar mapa en..." onFocus="this.value=''">
-           <button type="submit" id="ir1" name="button1" onClick="javascript:search(despliega_opciones())"><img src="img/img1.jpg" style="width:10px;"></button>
+           <button type="submit" id="ir1" name="button1" onclick="javascript:Localiza(CentraMapa)"><img src="img/img1.jpg" style="width:10px;"></button>
+           <div id="div1"></div>
        </div>
 
 
+       <div id="textoGetFeatureInfo"></div>
 
       <div id="menu_nodos" class="menu_nodos container-fluid p-0 m-0">
         <div class="row justify-content-end">
@@ -122,21 +130,32 @@
       </div>
 
 
-      <div id="sidebar" class="sidebar container-fluid">
-        <div class="row mt-4">
-          <div class="col-12">
-              <a class="btn btn-primary" data-toggle="collapse" href="#cargar_capas" role="button" aria-expanded="true" aria-controls="cargar_capas">
-                Cargar
-              </a>
+      <div id="sidebar" class="sidebar container-fluid mt-4">
+        <div class="row m-0 mt-3 p-0">
+          <div id="espMenuTematicas" class="col-12 card-columns m-0 p-0" >
+            <!-- Se carga contenido con la función CargarTematicas() -->
+          </div>
+        </div>
+
+
+
+
+
+          <div class="row mt-4">
+            <div class="col-12">
+
+              <a id="txtBotonAnadir" class="btn btn-primary" data-toggle="collapse" href="#cargar_capas" role="button" aria-expanded="true" aria-controls="cargar_capas"></a>
             <div class="collapse show" id="cargar_capas">
               <div class="card card-body">
                 <div class="row">
                   <div class="col-6">
                     <div class="card" style="">
-                      <img class="card-img-top" src="img/img1.jpg" alt="Título recurso 1">
+                      <img class="card-img-top" src="img/idearq.jpg" alt="Título recurso 1">
                       <div class="card-body">
-                        <a href="#" class="btn btn-primary" style="width:40%;font-size:0.5em;">Añadir al mapa</a>
-                        <a href="#" class="btn btn-primary" style="width:40%">Ir al metadato</a>
+                        <button type="button" class="btn btn_idioma m-0 p-0" onclick="AnadirWMS('http://www.idearqueologia.org/idearq/wms?','idearq_c14')">
+                          <p>Añadir al mapa</p>
+                        </button>
+                        <a href="#" class="btn btn-primary">Ir al metadato</a>
                       </div>
                     </div>
                   </div>
@@ -172,13 +191,10 @@
                 </select>
               </div>
             </div>
-            <a class="btn btn-primary" data-toggle="collapse" href="#gestionar_capas" role="button" aria-expanded="false" aria-controls="gestionar_capas">
-              Gestionar
-            </a>
+            <a id="txtBotonGestion" class="btn btn-primary" data-toggle="collapse" href="#gestionar_capas" role="button" aria-expanded="false" aria-controls="gestionar_capas"></a>
             <div class="collapse" id="gestionar_capas">
               <div class="card card-body">
-                GESTIONAR CAPAS
-                <div class="layerSwitcher"><b>External layer switcher</b></div>
+                <div class="layerSwitcher"></div>
               </div>
             </div>
           </div>
@@ -192,12 +208,12 @@
           <div class="col-12 col-sm-6 col-md-4 col-lg-3">
             <div class="row barra_coordenadas_escala justify-content-left">
               <div class="col-8">
-                <p class="m-0 p-0" id="tx_coordenadas">Coordenadas (lon, lat): </p>
+                <p class="m-0 p-0" id="txtCoordenadas"></p>
                 <p class="m-0 p-0" id="mouse-position"></p>
               </div>
               <div class="col-4">
-                <p class="m-0 p-0" id="tx_escala">Escala </p>
-                <p class="m-0 p-0" id="escala_numerica"></p>
+                <p class="m-0 p-0" id="txtEscalaNum"></p>
+                <p class="m-0 p-0" id="espEscalaNum"></p>
               </div>
             </div>
           </div>
@@ -271,6 +287,9 @@
     <script type="text/javascript" src="js/estiloVT.js"></script>
     <script type="text/javascript" src="js/map.js"></script>
     <script type="text/javascript" src="js/getRecords.js"></script>
+    <script type="text/javascript" src="js/anadirWMS.js"></script>
+    <script type="text/javascript" src="js/ponerIdioma.js"></script>
+    <script type="text/javascript" src="js/menuCapas.js"></script>
 
     <!-- JS FUNCIONAMIENTO PANEL SUPERIOR Y PANEL LATERAL IZQUIERDO -->
     <script>

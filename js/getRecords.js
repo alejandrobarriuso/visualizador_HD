@@ -76,7 +76,7 @@ FUNCIONALIDAD:
 					(ver la descripción de estas dos funciones en sus respectivos archivos).
 */
 
-function getrecords(service_or_dataset) {
+function GetRecords(service_or_dataset) {
 
 	var type = service_or_dataset;
 	var filter = new Ows4js.Filter().PropertyName(['ogc:type']).isLike(type);
