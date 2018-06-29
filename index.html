@@ -14,7 +14,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
   </head>
-  <body onload="CalculaDPIEscalaNum();GetRecords('dataset');PonerIdioma('');CargarTematicas()">
+  <body onload="CalculaDPIEscalaNum();GetRecords('dataset');PonerIdioma('');CargarTematicas(8)">
     <header class="w-100">
       <!-- Barra superior -->
       <nav class="navbar p-0 m-0 navbar-expand-0">
@@ -131,11 +131,13 @@
 
 
       <div id="sidebar" class="sidebar container-fluid mt-4">
-        <div class="row m-0 mt-3 p-0">
-          <div id="espMenuTematicas" class="col-12 card-columns m-0 p-0" >
+        <div id="espMenuTematicas" class="row m-0 mt-3 p-0">
+
             <!-- Se carga contenido con la función CargarTematicas() -->
-          </div>
+
+
         </div>
+
 
 
 
@@ -294,7 +296,7 @@
     <!-- JS FUNCIONAMIENTO PANEL SUPERIOR Y PANEL LATERAL IZQUIERDO -->
     <script>
       function mostrar_menu_lat() {
-          document.getElementById("sidebar").style.width = "22%";
+          document.getElementById("sidebar").style.width = "21em";
           document.getElementById("abrir_menu_lat").style.display = "none";
           document.getElementById("cerrar_menu_lat").style.display = "inline";
       }

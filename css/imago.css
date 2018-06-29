@@ -391,6 +391,7 @@ main {
     z-index: 1;
     background-color: #f2f2f2;
     overflow-x: hidden;
+    overflow-y: hidden;
     transition: 0.4s;
     padding: 1em 0;
     box-sizing:border-box;
@@ -422,10 +423,12 @@ main {
     background-color: #606060;
 }
 
-.card-columns {
+.menu_tematicas {
     column-count: 2;
     column-gap:0.1em;
 }
+
+
 
 h4{
   text-align: center;
