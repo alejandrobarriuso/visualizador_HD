@@ -14,7 +14,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
   </head>
-  <body onload="CalculaDPIEscalaNum();GetRecords('dataset');PonerIdioma('');CargarTematicas(8)">
+  <body onload="CalculaDPIEscalaNum();GetRecords('dataset');PonerIdioma('');CargarTematicas(8,'es')">
     <header class="w-100">
       <!-- Barra superior -->
       <nav class="navbar p-0 m-0 navbar-expand-0">
@@ -28,8 +28,8 @@
         <a class="navbar-brand ml-auto m-0 p-0" href="#">
           <form class="form-inline">
     				<div class="btn-group mr-2 grupo_btn_idioma_cerrar">
-    					<button id="boton_es" type="button" class="btn btn_idioma m-0 p-0" onclick="PonerIdioma('es')"><p class="m-0 p-0 px-1">ES</p></button>
-    					<button id="boton_en" type="button" class="btn btn_idioma m-0 p-0" onclick="PonerIdioma('en')"><p class="m-0 p-0 px-1">EN</p></button>
+    					<button id="boton_es" type="button" class="btn btn_idioma m-0 p-0" onclick="PonerIdioma('es');CargarTematicas(8,'es')"><p class="m-0 p-0 px-1">ES</p></button>
+    					<button id="boton_en" type="button" class="btn btn_idioma m-0 p-0" onclick="PonerIdioma('en');CargarTematicas(8,'en')"><p class="m-0 p-0 px-1">EN</p></button>
     				</div>
             <img src="img/imago2.png" alt="logo" style="height:1.8em;width:auto" class="img-fluid">
           </form>
@@ -131,76 +131,14 @@
 
 
       <div id="sidebar" class="sidebar container-fluid mt-4">
+        <div id="espMenuGestionCapas" class="row m-0 mt-3 p-0">
+            <!-- Se carga contenido con la función GestionCapas() -->
+        </div>
         <div id="espMenuTematicas" class="row m-0 mt-3 p-0">
-
             <!-- Se carga contenido con la función CargarTematicas() -->
-
-
         </div>
-
-
-
-
-
-
-          <div class="row mt-4">
-            <div class="col-12">
-
-              <a id="txtBotonAnadir" class="btn btn-primary" data-toggle="collapse" href="#cargar_capas" role="button" aria-expanded="true" aria-controls="cargar_capas"></a>
-            <div class="collapse show" id="cargar_capas">
-              <div class="card card-body">
-                <div class="row">
-                  <div class="col-6">
-                    <div class="card" style="">
-                      <img class="card-img-top" src="img/idearq.jpg" alt="Título recurso 1">
-                      <div class="card-body">
-                        <button type="button" class="btn btn_idioma m-0 p-0" onclick="AnadirWMS('http://www.idearqueologia.org/idearq/wms?','idearq_c14')">
-                          <p>Añadir al mapa</p>
-                        </button>
-                        <a href="#" class="btn btn-primary">Ir al metadato</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="card" style="">
-                      <img class="card-img-top" src="img/img1.jpg" alt="Título recurso 1">
-                      <div class="card-body">
-                        <a href="#" class="btn btn-primary">Añadir al mapa</a>
-                        <a href="#" class="btn btn-primary">Ir al metadato</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="card" style="">
-                      <img class="card-img-top" src="img/img1.jpg" alt="Título recurso 1">
-                      <div class="card-body">
-                        <a href="#" class="btn btn-primary">Añadir al mapa</a>
-                        <a href="#" class="btn btn-primary">Ir al metadato</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="card" style="">
-                      <img class="card-img-top" src="img/img1.jpg" alt="Título recurso 1">
-                      <div class="card-body">
-                        <a href="#" class="btn btn-primary">Añadir al mapa</a>
-                        <a href="#" class="btn btn-primary">Ir al metadato</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <select class="select" style="width:100%;">
-                </select>
-              </div>
-            </div>
-            <a id="txtBotonGestion" class="btn btn-primary" data-toggle="collapse" href="#gestionar_capas" role="button" aria-expanded="false" aria-controls="gestionar_capas"></a>
-            <div class="collapse" id="gestionar_capas">
-              <div class="card card-body">
-                <div class="layerSwitcher"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <select class="select" style="width:100%;">
+        </select>
       </div>
 
     </main>

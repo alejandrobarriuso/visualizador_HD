@@ -133,7 +133,7 @@ map.addControl (new ol.control.LayerSwitcherImage());
 
 /* LayerSwitcher - Control de capas en la barra lateral */
 var switcher = new ol.control.LayerSwitcher(
-	{	target:$(".layerSwitcher").get(0),
+	{	target:$("#espMenuGestionCapas").get(0),
 		// displayInLayerSwitcher: function (l) { return false; },
 		show_progress:true,
 		extent: true,
