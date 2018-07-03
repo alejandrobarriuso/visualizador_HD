@@ -398,34 +398,26 @@ main {
     z-index:200;
 }
 
-.sidebar ul, .sidebar li{
-    margin:0;
-    padding:0;
-    list-style:none inside;
-}
-
-.sidebar ul {
-    margin: 4em auto;
-    display: block;
-    width: 80%;
-    min-width:200px;
-}
-
 .sidebar a {
-    display: block;
-    font-size: 1em;
-    color: #606060;
-    text-decoration: none;
+  text-decoration: none;
 }
 
-.sidebar a:hover{
-    color: #f2f2f2;
-    background-color: #606060;
+.ol-layerswitcher{
+  width:100%;
 }
 
-.menu_tematicas {
-    column-count: 2;
-    column-gap:0.1em;
+.ol-layerswitcher .panel{
+  margin: 0;
+  padding: 0;
+}
+
+.ol-layer-tile{
+  background-color: #c4c4c4;
+  padding: 0.25em;
+  margin: 0.25em;
+}
+.ol-layer-tile:hover{
+  background-color: #a8a8a8;
 }
 
 

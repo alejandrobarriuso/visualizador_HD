@@ -126,35 +126,17 @@ var map = new ol.Map({
   ]),
 });
 
+/* Número de mapas base cargados*/
+  // Importante para controlar el número de capas cargadas después:
+var numeroMapasBaseCargados = map.getLayers().N.length;
+console.log(numeroMapasBaseCargados);
+
 /* Control de mapa base */
 map.addControl (new ol.control.LayerSwitcherImage());
 
 
 
-/* LayerSwitcher - Control de capas en la barra lateral */
-var switcher = new ol.control.LayerSwitcher(
-	{	target:$("#espMenuGestionCapas").get(0),
-		// displayInLayerSwitcher: function (l) { return false; },
-		show_progress:true,
-		extent: true,
-		trash: true,
-		oninfo: function (l) { alert(l.get("title")); }
-	});
-// Add a button to show/hide the layers
-var button = $('<div class="toggleVisibility" title="show/hide">')
-	.text("Show/hide all")
-	.click(function()
-	{	var a = map.getLayers().getArray();
-		var b = !a[0].getVisible();
-		if (b) button.removeClass("show");
-		else button.addClass("show");
-		for (var i=0; i<a.length; i++)
-		{	a[i].setVisible(b);
-		}
-	});
-switcher.setHeader($('<div>').append(button))
 
-map.addControl(switcher);
 
 
 /* Buscador de lugares - GeoNames */

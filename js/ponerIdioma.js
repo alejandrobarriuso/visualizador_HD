@@ -1,3 +1,6 @@
+//Variable que guarda el idioma seleccionado:
+var idioma = 'es';
+
 // CONTROL DE LOS TEXTOS MOSTRADOS SÓLO EN LA PÁGINA EN FUNCIÓN DEL IDIOMA
 //Variables y función para cambiar los textos.
 

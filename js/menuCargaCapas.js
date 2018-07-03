@@ -1,129 +1,24 @@
-//FUNCIÓN CargarTematicas(numMaxTematicas)
+//FUNCIÓN CargarTematicas(numMaxTematicas,posicion,idioma)
 /*
 ENTRADAS:
   numMaxTematicas: número máximo de temáticas a mostrar.
-SALIDAS:
-	Dependiendo del valor de la variable "service_or_dataset", la salida será:
-		- El resultado de la función obten_campos_dataset, o:
-		- El resultado de la función obten_campos_service.
-		(ver la descripción de estas dos funciones en sus respectivos archivos).
+  posicion: que podrá ser:
+    - 'inferior': en los casos en que haya que mostrar encima el menú de gestión de capas.
+    - 'superior' (o cualquier otro valor): en los casos en los que se muestre ocupando todo el menú lateral.
+  idioma: variable que habrá cogido su valor al clickar sobre los botones de selección de idioma (archivo ponerIdioma.js). Por defecto: 'es'.
 FUNCIONALIDAD:
-	Esta función realiza la operación getrecords sobre el servicio csw indicado anteriormente en la variable csw (el servicio
-		completo o algún servicio virtual), filtrando el resultado, ofreciendo servicios o datasets, en función del valor de la variable de entrada.
-	Por último, con el número de resultados, el filtro y el esquema de salida, se ejecuta la petición, con una función anidada, a
-		partir del método "csw.GetRecords". Esta función tiene como:
-			ENTRADAS:
-				- La posición del primer recurso a mostrar en el resultado. Lo habitual será 1.
-				- El número de resultados que se quiere mostrar.
-				- El filtro a aplicar en la consulta (creado anteriormente).
-				- El esquema de salida para los datos (creado como variable anteriormente).
-			SALIDAS:
-				Dependiendo del valor de la variable "service_or_dataset", la salida será:
-					- El resultado de la función obten_campos_dataset, o:
-					- El resultado de la función obten_campos_service.
-					(ver la descripción de estas dos funciones en sus respectivos archivos).
+  Crea un cuadrado por cada temática y un submenú asociado, que sólo se mostrará cuando se ejecute la función AparecerSubmenuTematicaNumi(idTematica,colorFondo,colorLetraBorde),
+  a la que se llama desde los propios elementos creados aquí.
 */
 
-var idioma = 'es';
-
-function CargarTematicas(numMaxTematicas,idioma){
+function CargarTematicas(numMaxTematicas,posicion,idioma){
   //Primero elimina todas las temáticas o submenús que pudieran existir (antes de crear las nuevas):
-  //Parte muy importante para evitar duplicados cada vez que se recrea el menú:
+  //Muy importante para evitar duplicados cada vez que se recrea el menú:
   $("[id*=tematica]").remove();
   $("[id*=submenutematica]").remove();
 
-  //Array de temáticas con sus capas a cargar:
-  var arrayObjetosTematicas = [
-    {
-      "id": "Arq",
-      "nombre": "Arqueología",
-      "nombre_en": "Archeology",
-      "color_fondo": "#FFB299",
-      "color_letra_borde": "#DF3A2C",
-      "capas": [
-        {
-          "nombre": "Carbono 14",
-          "nombre_en": "Radiocarbon data",
-          "tipo": "wms",
-          "ruta": "http://www.idearqueologia.org/idearq/wms?",
-          "id": "idearq_c14"
-        },{
-          "nombre": "Arte rupestre levantino",
-          "nombre_en": "Levantine cave art sets",
-          "tipo": "wms",
-          "ruta": "http://www.idearqueologia.org/idearq/wms?",
-          "id": "idearq_cprl"
-        },{
-          "nombre": "Isótopos",
-          "nombre_en": "Isotopes",
-          "tipo": "wms",
-          "ruta": "http://www.idearqueologia.org/idearq/wms?",
-          "id": "idearq_dimp"
-        }
-      ]
-    }, {
-      "id": "His",
-      "nombre": "Historia",
-      "nombre_en": "History",
-      "color_fondo": "#FFFF99",
-      "color_letra_borde": "#F3AB00",
-      "capas": [
-        {
-          "nombre": "Historia 1",
-          "nombre_en": "History 1",
-          "tipo": "wms",
-          "ruta": "",
-          "id": "idearq_c14"
-        },{
-          "nombre": "Historia 2",
-          "nombre_en": "History 2",
-          "tipo": "wms",
-          "ruta": "",
-          "id": "idearq_cprl"
-        }
-      ]
-    }, {
-      "id": "Dem",
-      "nombre": "Demografía",
-      "nombre_en": "Demography",
-      "color_fondo": "#AAEEC8",
-      "color_letra_borde": "#008A47",
-      "capas": [
-      ]
-    }, {
-      "id": "Lin",
-      "nombre": "Lingüística",
-      "nombre_en": "Linguistics",
-      "color_fondo": "#E9A5E9",
-      "color_letra_borde": "#7D3280",
-      "capas": [
-        {
-          "nombre": "Lingüística 1",
-          "nombre_en": "Linguistics 1",
-          "tipo": "wms",
-          "ruta": "",
-          "id": "idearq_c14"
-        },{
-          "nombre": "Lingüística 2",
-          "nombre_en": "Linguistics 2",
-          "tipo": "wms",
-          "ruta": "http://www.idearqueologia.org/idearq/wms?",
-          "id": "idearq_cprl"
-        }
-      ]
-    }, {
-      "id": "Eco",
-      "nombre": "Economía y Geografía Aplicadas",
-      "nombre_en": "Applied Economy and Geography",
-      "color_fondo": "#B9DAF7",
-      "color_letra_borde": "#006DB4",
-      "capas": [
-      ]
-    }
-  ];
-
+  //Crear un cuadrado por cada temática, y un submenú asociado:
   for (var i=0; i<Math.min(numMaxTematicas,arrayObjetosTematicas.length); i++){
-    //Crear el menú lateral con todas las temáticas del array anterior:
     var tematicaNumi = document.createElement("a");
     if (idioma == 'en'){
       tematicaNumi.innerHTML = '<div class="row m-0 p-1" style="height:100%;"><h4 class="col-12 m-0 p-0 align-self-center">' + arrayObjetosTematicas[i].nombre_en.toUpperCase() + '</h4></div>';
@@ -154,16 +49,21 @@ function CargarTematicas(numMaxTematicas,idioma){
         capaNumjTematicaNumi.innerHTML = '<div class="row m-0 p-1" style="height:100%;"><h4 class="col-12 m-0 p-0 align-self-center">' + arrayObjetosTematicas[i].capas[j].nombre.toUpperCase() + '</h4></div>';
       }
       capaNumjTematicaNumi.setAttribute("class","card m-1 p-0");
+      var idCapaNumj = "capa" + arrayObjetosTematicas[i].capas[j].id;
+      capaNumjTematicaNumi.setAttribute("id",idCapaNumj);
       capaNumjTematicaNumi.setAttribute("style","height:10em;width:10em;border-radius:0;border-width:0.1em" +
         ";background-color:" + arrayObjetosTematicas[i].color_fondo +
         ";color:" + arrayObjetosTematicas[i].color_letra_borde +
         ";border-color:" + arrayObjetosTematicas[i].color_letra_borde
       );
+      capaNumjTematicaNumi.setAttribute("onmouseover","document.getElementById('" + idCapaNumj + "').style.backgroundColor='" + arrayObjetosTematicas[i].color_letra_borde + "';document.getElementById('" + idCapaNumj + "').style.color='" + arrayObjetosTematicas[i].color_fondo + "';document.getElementById('" + idCapaNumj + "').style.borderColor='" + arrayObjetosTematicas[i].color_fondo + "'");
+      capaNumjTematicaNumi.setAttribute("onmouseout","document.getElementById('" + idCapaNumj + "').style.backgroundColor='" + arrayObjetosTematicas[i].color_fondo + "';document.getElementById('" + idCapaNumj + "').style.color='" + arrayObjetosTematicas[i].color_letra_borde + "';document.getElementById('" + idCapaNumj + "').style.borderColor='" + arrayObjetosTematicas[i].color_letra_borde + "'");
 
       capaNumjTematicaNumi.setAttribute("href","javascript:CargarCapaNumjTematicaNumi('" + arrayObjetosTematicas[i].capas[j].id + "','" + arrayObjetosTematicas[i].capas[j].tipo + "','" + arrayObjetosTematicas[i].capas[j].ruta + "');");
-      console.log(arrayObjetosTematicas[i].capas[j].id);
+
       //Añadir a cada objeto Temática el submenú que saldrá al clickar sobre él:
       document.getElementById("submenu" + idTematicaNumi).appendChild(capaNumjTematicaNumi);
+
     };
 
 
@@ -171,8 +71,26 @@ function CargarTematicas(numMaxTematicas,idioma){
     tematicaNumi.setAttribute("href","javascript:AparecerSubmenuTematicaNumi('" + idTematicaNumi + "','" + arrayObjetosTematicas[i].color_fondo + "','" + arrayObjetosTematicas[i].color_letra_borde + "');");
     document.getElementById("espMenuTematicas").appendChild(tematicaNumi);
   };
+
+  //Desplazarlo hasta la parte baja de la barra lateral (caso en el que esté el menú Gestión de Capas disponible), o colocarlo ocupando toda la barra lateral:
+  if (posicion == "inferior"){
+    $("#espMenuTematicas").css({'position':'absolute','bottom':'3.6em'});
+  } else {
+    $("#espMenuTematicas").css({'position':'absolute','bottom':'auto'});
+  }
 }
 
+//FUNCIÓN AparecerSubmenuTematicaNumi(idTematica,colorFondo,colorLetraBorde)
+/*
+ENTRADAS:
+  idTematica: el id de la temática sobre la que se está haciendo click.
+  colorFondo: el color de fondo que habrá que asignar a letras y bordes (porque se invierten colores al clickar).
+  colorLetraBorde: el color de fondo que habrá que asignar al fondo (porque se invierten colores al clickar).
+FUNCIONALIDAD:
+  - Hace aparecer el div del submenú ya creado en la función anterior, en el momento en el que se hace click en la temática correspondiente;
+  - Crea los eventos onclick (tanto dentro como fuera del submenú) y su comportamiento;
+  - Modifica el estilo de todos los cuadros de temáticas.
+*/
 function AparecerSubmenuTematicaNumi(idTematica,colorFondo,colorLetraBorde){
   var idSubmenuTematicaNumi = "submenu" + idTematica;
   //Hago aparecer el div del submenú:
@@ -187,12 +105,12 @@ function AparecerSubmenuTematicaNumi(idTematica,colorFondo,colorLetraBorde){
   document.getElementById(idSubmenuTematicaNumi).style.top = topTematicai + "px";
   document.getElementById(idSubmenuTematicaNumi).style.left = leftTematicai + "px";
 
-  // Una vez ha aparecido el submenú:
-  //  - Cualquier click fuera del mismo lo cerrará.
-  //  - Un click dentro del mismo no lo cerrará (de forma que llevará al href correspondiente a cada capa; definido anteriormente).
+  // Control del evento click una vez se ha abierto el submenú:
+  //  - Cualquier click fuera del mismo lo cerrará:
   $("html").click(function() {
     CerrarSubmenus();
   });
+  //  - Un click dentro del mismo no lo cerrará (de forma que llevará al href correspondiente a cada capa; definido anteriormente):
   $('#' + idSubmenuTematicaNumi).click(function (e) {
     e.stopPropagation();
   });
@@ -200,10 +118,20 @@ function AparecerSubmenuTematicaNumi(idTematica,colorFondo,colorLetraBorde){
   //Oscurecer el resto de temáticas:
   $("[id*=tematica]").css({'background-color': '#d8d8d8', 'color':'#b5b5b5', 'border-color':'#b5b5b5'});
   console.log(idTematica);
-
-  $("#"+idTematica).css({'background-color': colorLetraBorde, 'color': colorFondo});
+  //Mantener el color de la clickada:
+  $("#"+idTematica).css({'background-color': colorLetraBorde, 'color': colorFondo, 'border-color': colorFondo});
 }
 
+//FUNCIÓN CargarCapaNumjTematicaNumi(idCapa,tipo,ruta)
+/*
+ENTRADAS:
+  idCapa: el id de la capa sobre la que se ha clickado, y que se tiene que cargar.
+  tipo: de recurso que es la capa sobre la que se ha hecho click.
+  ruta: del recurso.
+FUNCIONALIDAD:
+  Detecta el tipo de recurso del que se trata, y en función de eso ejecuta una función de carga u otra.
+  Además, después de esto ejecuta la función CerrarSubmenus() para cerrar el que estaba abierto.
+*/
 function CargarCapaNumjTematicaNumi(idCapa,tipo,ruta){
   if (tipo == "wms") {
     AnadirWMS(ruta,idCapa);
@@ -211,8 +139,25 @@ function CargarCapaNumjTematicaNumi(idCapa,tipo,ruta){
   CerrarSubmenus();
 }
 
+//FUNCIÓN CerrarSubmenus()
+/*
+FUNCIONALIDAD:
+  - Cierra cualquier submenú que estuviera abierto.
+  - En función del número de capas que estén cargadas (comparando con el número de capas base ya cargadas); llama a la función para construir el menú inferior o superior.
+  - Elimina el evento onclick fuera de los submenús para eliminarlos, ya que estos ya se han eliminado.
+*/
 function CerrarSubmenus(){
+  //Cerrar cualquier submenú abierto:
   $("[id*=submenutematica]").hide();
-  CargarTematicas(8,idioma);
-
+  //Calcular el número de capas cargadas:
+  var numeroMapasTotalCargados = map.getLayers().N.length;
+  //Si hay alguna cargada (a parte de los mapa base): menú inferior con x elementos:
+  if (numeroMapasTotalCargados > numeroMapasBaseCargados){
+    CargarTematicas(4,'inferior',idioma);
+  //Si no (a parte de los mapa base): menú superior con x elementos:
+  } else {
+    CargarTematicas(8,'superior',idioma);
+  }
+  //Eliminar el control de click fuera del submenú para cerrarlo; porque ya se ha cerrado:
+  $("html").unbind('click');
 }

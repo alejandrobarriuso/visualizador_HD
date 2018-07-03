@@ -14,7 +14,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
   </head>
-  <body onload="CalculaDPIEscalaNum();GetRecords('dataset');PonerIdioma('');CargarTematicas(8,'es')">
+  <body onload="CalculaDPIEscalaNum();GetRecords('dataset');PonerIdioma('');CargarTematicas(8,'superior','es')">
     <header class="w-100">
       <!-- Barra superior -->
       <nav class="navbar p-0 m-0 navbar-expand-0">
@@ -133,12 +133,15 @@
       <div id="sidebar" class="sidebar container-fluid mt-4">
         <div id="espMenuGestionCapas" class="row m-0 mt-3 p-0">
             <!-- Se carga contenido con la función GestionCapas() -->
+            <select class="select" style="width:100%;">
+            </select>
         </div>
         <div id="espMenuTematicas" class="row m-0 mt-3 p-0">
             <!-- Se carga contenido con la función CargarTematicas() -->
         </div>
-        <select class="select" style="width:100%;">
-        </select>
+        <div class="row m-0 mt-3 p-0 ">
+
+        </div>
       </div>
 
     </main>
@@ -224,16 +227,19 @@
 	  <script type="text/javascript" src="js/fuente/catalogo/xmltojson.js"></script>
 
     <!-- JS FUNCIONAMIENTO MAPA -->
+    <script type="text/javascript" src="js/arrayTematicas.js"></script>
     <script type="text/javascript" src="js/estiloVT.js"></script>
     <script type="text/javascript" src="js/map.js"></script>
     <script type="text/javascript" src="js/getRecords.js"></script>
     <script type="text/javascript" src="js/anadirWMS.js"></script>
     <script type="text/javascript" src="js/ponerIdioma.js"></script>
-    <script type="text/javascript" src="js/menuCapas.js"></script>
+    <script type="text/javascript" src="js/menuCargaCapas.js"></script>
+    <script type="text/javascript" src="js/menuGestionCapas.js"></script>
 
     <!-- JS FUNCIONAMIENTO PANEL SUPERIOR Y PANEL LATERAL IZQUIERDO -->
     <script>
       function mostrar_menu_lat() {
+          //OJO! Sólo se debe poner: 21em o 10.5 em. Si no, el ajuste de los cuadros de temáticas no será correcto.
           document.getElementById("sidebar").style.width = "21em";
           document.getElementById("abrir_menu_lat").style.display = "none";
           document.getElementById("cerrar_menu_lat").style.display = "inline";

@@ -1,3 +1,5 @@
+//Basado en la siguiente fuente:
+
 /**
  * ol-ext - A set of cool extensions for OpenLayers (ol) in node modules structure
  * @description ol3,openlayers,popup,menu,symbol,renderer,filter,canvas,interaction,split,statistic,charts,pie,LayerSwitcher,toolbar,animation
@@ -6,6 +8,15 @@
  * @see https://github.com/Viglino/ol-ext#,
  * @license BSD-3-Clause
  */
+
+//En primero lugar se tiene el CONTROL DE CAPAS CARGADAS para las capas añadidas en el MENÚ lateral
+	// Se mostrarán las capas con:
+		// - displayInLayerSwitcher: true,
+	  // - displayInLayerSwitcher_base: false,
+//En segundo lugar se tiene el CONTROL DE CAPAS BASE para mostrar en el selector del MAPA
+	// Se mostrarán las capas con:
+		// - displayInLayerSwitcher: false,
+		// - displayInLayerSwitcher_base: true,
 
 /* ------------------------- CONTROL DE CAPAS CARGADAS ---------------------------------- /*
 
@@ -512,16 +523,52 @@ ol.control.LayerSwitcher.prototype.drawList = function(ul, collection)
 	{	var layer = layers[i];
 		if (!self.displayInLayerSwitcher(layer)) continue;
 		var li = $("<li>").addClass((layer.getVisible()?"visible ":" ")+(layer.get('baseLayer')?"baselayer":""))
-						.data("layer",layer).appendTo(ul);
+						.data("layer",layer).on("mousedown touchstart",{self:this},this.dragOrdering_)
+						.on("click", aparecerTablaControles)
+						.appendTo(ul);
 		var layer_buttons = $("<div>").addClass("ol-layerswitcher-buttons").appendTo(li);
+
+/* ----------------------------------------------------------------------------- */
+		// Barra de controles de capa:
+		var anchoSidebar = document.getElementById('sidebar').offsetWidth - 16;
+		var tablaControles = $("<ul>").addClass("list-group").css({'position':'fixed','z-index':'20200','left':anchoSidebar + 'px','display':'none'}).appendTo(li);
+
+
+		// Opacity
+		var opacity = $("<div>").addClass("layerswitcher-opacity")
+				.on("click", function(e)
+				{	e.stopPropagation();
+					e.preventDefault();
+					var x = e.pageX
+						|| (e.originalEvent.touches && e.originalEvent.touches.length && e.originalEvent.touches[0].pageX)
+						|| (e.originalEvent.changedTouches && e.originalEvent.changedTouches.length && e.originalEvent.changedTouches[0].pageX);
+					var dx = Math.max ( 0, Math.min( 1, (x - $(this).offset().left) / $(this).width() ));
+					$(this).closest("li").data('layer').setOpacity(dx);
+				})
+				.appendTo(tablaControles);
+		$("<div>").addClass("layerswitcher-opacity-cursor")
+				.on("mousedown touchstart", { self: this }, self.dragOpacity_ )
+				.css ('left', (layer.getOpacity()*100)+"%")
+				.appendTo(opacity);
+
+
+
+
+		var controlOpacidad = $("<li>").addClass("list-group-item").html('Opacidad').appendTo(tablaControles);
+		var controlZoom = $("<li>").addClass("list-group-item").html('Zoom a la capa').appendTo(tablaControles);
+
+		var controlTabla = $("<li>").addClass("list-group-item").html('Ver la tabla').appendTo(tablaControles);
+		var controlDescargar = $("<li>").addClass("list-group-item").html('Descargar').appendTo(tablaControles);
+
+		function aparecerTablaControles(){
+			$(this).children(".list-group").css("display", "block" );
+			console.log("apareciendo");
+		}
+
+
 		var d = $("<div>").addClass('li-content').appendTo(li);
 		if (!this.testLayerVisibility(layer)) d.addClass("ol-layer-hidden");
-		// Visibility
-		$("<input>")
-			.attr('type', layer.get('baseLayer') ? 'radio' : 'checkbox')
-			.attr("checked",layer.getVisible())
-			.on ('click', setVisibility)
-			.appendTo(d);
+
 		// Label
 		$("<label>").text(layer.get("title") || layer.get("name"))
 			.attr('title', layer.get("title") || layer.get("name"))
@@ -529,17 +576,7 @@ ol.control.LayerSwitcher.prototype.drawList = function(ul, collection)
 			.attr('unselectable', 'on')
 			.css('user-select', 'none')
 			.on('selectstart', false)
-			.appendTo(d);
-		//  up/down
-		if (this.reordering)
-		{	if ( (i<layers.length-1 && (layer.get("allwaysOnTop") || !layers[i+1].get("allwaysOnTop")) )
-				|| (i>0 && (!layer.get("allwaysOnTop") || layers[i-1].get("allwaysOnTop")) ) )
-			{	$("<div>").addClass("layerup")
-					.on ("mousedown touchstart", {self:this}, this.dragOrdering_ )
-					.attr("title", this.tip.up)
-					.appendTo(layer_buttons);
-			}
-		}
+			.appendTo(li);
 		// Show/hide sub layers
 		if (layer.getLayers)
 		{	var nb = 0;
@@ -558,18 +595,21 @@ ol.control.LayerSwitcher.prototype.drawList = function(ul, collection)
 		}
 		// $("<div>").addClass("ol-separator").appendTo(layer_buttons);
 		// Info button
+
+
 		if (this.oninfo)
-		{	$("<div>").addClass("layerInfo")
+		{	$("<li>").addClass("list-group-item")
+					.html('Info de la capa')
 					.on ('click', onInfo)
 					.attr("title", this.tip.info)
-					.appendTo(layer_buttons);
+					.appendTo(tablaControles);
 		}
 		// Layer remove
 		if (this.hastrash && !layer.get("noSwitcherDelete"))
 		{	$("<div>").addClass("layerTrash")
 					.on ('click', removeLayer)
 					.attr("title", this.tip.trash)
-					.appendTo(layer_buttons);
+					.appendTo(li);
 		}
 		// Layer extent
 		if (this.hasextent && layers[i].getExtent())
@@ -578,37 +618,22 @@ ol.control.LayerSwitcher.prototype.drawList = function(ul, collection)
 			{	$("<div>").addClass("layerExtent")
 					.on ('click', zoomExtent)
 					.attr("title", this.tip.extent)
-					.appendTo(layer_buttons);
+					.appendTo(tablaControles);
 			}
 		}
 		// Progress
 		if (this.show_progress && layer instanceof ol.layer.Tile)
 		{	var p = $("<div>")
 				.addClass("layerswitcher-progress")
-				.appendTo(d);
+				.appendTo(li);
 			this.setprogress_(layer);
 			layer.layerswitcher_progress = $("<div>").appendTo(p);
 		}
-		// Opacity
-		var opacity = $("<div>").addClass("layerswitcher-opacity")
-				.on("click", function(e)
-				{	e.stopPropagation();
-					e.preventDefault();
-					var x = e.pageX
-						|| (e.originalEvent.touches && e.originalEvent.touches.length && e.originalEvent.touches[0].pageX)
-						|| (e.originalEvent.changedTouches && e.originalEvent.changedTouches.length && e.originalEvent.changedTouches[0].pageX);
-					var dx = Math.max ( 0, Math.min( 1, (x - $(this).offset().left) / $(this).width() ));
-					$(this).closest("li").data('layer').setOpacity(dx);
-				})
-				.appendTo(d);
-		$("<div>").addClass("layerswitcher-opacity-cursor")
-				.on("mousedown touchstart", { self: this }, self.dragOpacity_ )
-				.css ('left', (layer.getOpacity()*100)+"%")
-				.appendTo(opacity);
+
 		// Percent
 		$("<div>").addClass("layerswitcher-opacity-label")
 			.text(Math.round(layer.getOpacity()*100))
-			.appendTo(d);
+			.appendTo(li);
 		// Layer group
 		if (layer.getLayers)
 		{	li.addClass('ol-layer-group');
@@ -666,7 +691,7 @@ ol.control.LayerSwitcher.prototype.setprogress_ = function(layer)
 
 
 
-/* NUEVO */
+/* CONTROL DE CAPAS BASE CARGADAS (EN EL MAPA) */
 
 ol.control.LayerSwitcher_base = function(options)
 {	options = options || {};
