@@ -92,6 +92,7 @@ FUNCIONALIDAD:
   - Modifica el estilo de todos los cuadros de temáticas.
 */
 function AparecerSubmenuTematicaNumi(idTematica,colorFondo,colorLetraBorde){
+  console.log(idTematica);
   var idSubmenuTematicaNumi = "submenu" + idTematica;
   //Hago aparecer el div del submenú:
   document.getElementById(idSubmenuTematicaNumi).style.display = "";
@@ -117,7 +118,7 @@ function AparecerSubmenuTematicaNumi(idTematica,colorFondo,colorLetraBorde){
 
   //Oscurecer el resto de temáticas:
   $("[id*=tematica]").css({'background-color': '#d8d8d8', 'color':'#b5b5b5', 'border-color':'#b5b5b5'});
-  console.log(idTematica);
+
   //Mantener el color de la clickada:
   $("#"+idTematica).css({'background-color': colorLetraBorde, 'color': colorFondo, 'border-color': colorFondo});
 }

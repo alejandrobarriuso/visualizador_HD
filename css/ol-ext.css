@@ -964,29 +964,24 @@
 
 .ol-layerswitcher .layerswitcher-opacity
 {	position:relative;
-	border: 1px solid #369;
-	height: 3px;
-	width: 120px;
+	border: 1px solid #b7b7b7;
+	height: auto;
+	vertical-align: middle;
+	width: 40px;
 	margin:5px 1em 10px 7px;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
-	border-radius: 3px;
-	background: #69c;
-	background: -webkit-gradient(linear, left top, right top, from(rgba(0,60,136,0)), to(rgba(0,60,136,0.6)));
-	background: linear-gradient(to right, rgba(0,60,136,0), rgba(0,60,136,0.6));
+	background: #f2f2f2;
 	cursor: pointer;
-	-webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
-	        box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }
 
 .ol-layerswitcher .layerswitcher-opacity .layerswitcher-opacity-cursor,
 .ol-layerswitcher .layerswitcher-opacity .layerswitcher-opacity-cursor:before
 {	position: absolute;
-	width: 20px;
-	height: 20px;
+	width: 10px;
+	height: 10px;
 	top: 50%;
 	left: 50%;
-	background: rgba(0,60,136,0.5);
+	background: #b7b7b7;
+	border: 1px solid #969696;
 	border-radius: 50%;
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
@@ -1001,17 +996,6 @@
 .ol-touch .ol-layerswitcher .layerswitcher-opacity .layerswitcher-opacity-cursor
 {	width: 26px;
 	height: 26px;
-}
-
-.ol-layerswitcher .layerswitcher-opacity-label {
-	display:none;
-	position: absolute;
-    right: -2.5em;
-    bottom: 5px;
-    font-size: 0.8em;
-}
-.ol-layerswitcher .layerswitcher-opacity-label::after {
-	content:"%";
 }
 
 .ol-layerswitcher .layerswitcher-progress

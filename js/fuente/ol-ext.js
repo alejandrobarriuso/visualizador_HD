@@ -429,7 +429,7 @@ ol.control.LayerSwitcher.prototype.dragOpacity_ = function(e)
 					|| (e.originalEvent.touches && e.originalEvent.touches.length && e.originalEvent.touches[0].pageX)
 					|| (e.originalEvent.changedTouches && e.originalEvent.changedTouches.length && e.originalEvent.changedTouches[0].pageX);
 			drag.elt = $(e.target);
-			drag.layer = drag.elt.closest("li").data('layer')
+			drag.layer = drag.elt.closest("ul").closest("li").data('layer')
 			drag.self.dragging_ = true;
 			$(document).on("mouseup touchend mousemove touchmove touchcancel", drag, drag.self.dragOpacity_);
 			break;
@@ -522,17 +522,31 @@ ol.control.LayerSwitcher.prototype.drawList = function(ul, collection)
 	for (var i=layers.length-1; i>=0; i--)
 	{	var layer = layers[i];
 		if (!self.displayInLayerSwitcher(layer)) continue;
+		var id_li = 'control_' + layer.N.title;
 		var li = $("<li>").addClass((layer.getVisible()?"visible ":" ")+(layer.get('baseLayer')?"baselayer":""))
 						.data("layer",layer).on("mousedown touchstart",{self:this},this.dragOrdering_)
-						.on("click", aparecerTablaControles)
+						.attr('id',id_li)
 						.appendTo(ul);
 		var layer_buttons = $("<div>").addClass("ol-layerswitcher-buttons").appendTo(li);
 
 /* ----------------------------------------------------------------------------- */
 		// Barra de controles de capa:
-		var anchoSidebar = document.getElementById('sidebar').offsetWidth - 16;
-		var tablaControles = $("<ul>").addClass("list-group").css({'position':'fixed','z-index':'20200','left':anchoSidebar + 'px','display':'none'}).appendTo(li);
+		var anchoSidebar = document.getElementById('sidebar').offsetWidth + 6;
+		var tablaControles = $("<ul>").addClass("tabla_controles list-group").attr("id","tabla_control_" + layer.N.title).css({'position':'fixed','z-index':'20200','left':anchoSidebar + 'px','display':'none'}).appendTo(li);
 
+		//Funciones para controlar la aparición y desaparición de las diferentes tablas de controles:
+		$('#' + id_li).click(function(e){
+			e.stopPropagation();
+			$("[id*=control_]").children('.tabla_controles').css({'display': 'none'});
+			$(this).children('.tabla_controles').css({'display': 'block'});
+
+			$("html").click(function(e) {
+				e.stopPropagation();
+				$("[id*=control_]").children('.tabla_controles').css({'display': 'none'});
+			});
+		});
+
+		var controlOpacidad = $("<li>").addClass("list-group-item").html('Opacidad').appendTo(tablaControles);
 
 		// Opacity
 		var opacity = $("<div>").addClass("layerswitcher-opacity")
@@ -543,9 +557,10 @@ ol.control.LayerSwitcher.prototype.drawList = function(ul, collection)
 						|| (e.originalEvent.touches && e.originalEvent.touches.length && e.originalEvent.touches[0].pageX)
 						|| (e.originalEvent.changedTouches && e.originalEvent.changedTouches.length && e.originalEvent.changedTouches[0].pageX);
 					var dx = Math.max ( 0, Math.min( 1, (x - $(this).offset().left) / $(this).width() ));
-					$(this).closest("li").data('layer').setOpacity(dx);
+					console.log(dx);
+					$(this).closest("ul").closest("li").data('layer').setOpacity(dx);
 				})
-				.appendTo(tablaControles);
+				.appendTo(controlOpacidad);
 		$("<div>").addClass("layerswitcher-opacity-cursor")
 				.on("mousedown touchstart", { self: this }, self.dragOpacity_ )
 				.css ('left', (layer.getOpacity()*100)+"%")
@@ -554,16 +569,13 @@ ol.control.LayerSwitcher.prototype.drawList = function(ul, collection)
 
 
 
-		var controlOpacidad = $("<li>").addClass("list-group-item").html('Opacidad').appendTo(tablaControles);
+
 		var controlZoom = $("<li>").addClass("list-group-item").html('Zoom a la capa').appendTo(tablaControles);
 
 		var controlTabla = $("<li>").addClass("list-group-item").html('Ver la tabla').appendTo(tablaControles);
 		var controlDescargar = $("<li>").addClass("list-group-item").html('Descargar').appendTo(tablaControles);
 
-		function aparecerTablaControles(){
-			$(this).children(".list-group").css("display", "block" );
-			console.log("apareciendo");
-		}
+
 
 
 		var d = $("<div>").addClass('li-content').appendTo(li);
@@ -612,13 +624,16 @@ ol.control.LayerSwitcher.prototype.drawList = function(ul, collection)
 					.appendTo(li);
 		}
 		// Layer extent
+			console.log(this.hasextent);
+			console.log(layers[i].getSource());
 		if (this.hasextent && layers[i].getExtent())
-		{	var ex = layers[i].getExtent();
+		{		console.log("estoy calculando extent");
+			var ex = layers[i].getExtent();
 			if (ex.length==4 && ex[0]<ex[2] && ex[1]<ex[3])
 			{	$("<div>").addClass("layerExtent")
 					.on ('click', zoomExtent)
 					.attr("title", this.tip.extent)
-					.appendTo(tablaControles);
+					.appendTo(layer_buttons);
 			}
 		}
 		// Progress
@@ -630,17 +645,15 @@ ol.control.LayerSwitcher.prototype.drawList = function(ul, collection)
 			layer.layerswitcher_progress = $("<div>").appendTo(p);
 		}
 
-		// Percent
-		$("<div>").addClass("layerswitcher-opacity-label")
-			.text(Math.round(layer.getOpacity()*100))
-			.appendTo(li);
 		// Layer group
 		if (layer.getLayers)
 		{	li.addClass('ol-layer-group');
 			if (layer.get("openInLayerSwitcher")===true)
 			{	this.drawList ($("<ul>").appendTo(li), layer.getLayers());
+
 			}
 		}
+
 		else if (layer instanceof ol.layer.Vector) li.addClass('ol-layer-vector');
 		else if (layer instanceof ol.layer.VectorTile) li.addClass('ol-layer-vector');
 		else if (layer instanceof ol.layer.Tile) li.addClass('ol-layer-tile');
