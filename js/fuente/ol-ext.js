@@ -45,6 +45,10 @@
  *	- displayInLayerSwitcher {boolean} display in switcher, default true
  *	- noSwitcherDelete {boolean} to prevent layer deletion (w. trash option = true), default false
  */
+
+
+
+
 ol.control.LayerSwitcher = function(options)
 {	options = options || {};
 	var self = this;
@@ -498,13 +502,15 @@ ol.control.LayerSwitcher.prototype.drawList = function(ul, collection)
 	function onInfo(e)
 	{	e.stopPropagation();
 		e.preventDefault();
-		self.oninfo($(this).closest('li').data("layer"));
+		self.oninfo($(this).closest('ul').closest('li').data("layer"));
 	};
 	function zoomExtent(e)
 	{	e.stopPropagation();
 		e.preventDefault();
-		if (self.onextent) self.onextent($(this).closest('li').data("layer"));
-		else self.map_.getView().fit ($(this).closest('li').data("layer").getExtent(), self.map_.getSize());
+		if (self.onextent) self.onextent($(this).closest('ul').closest('li').data("layer"));
+		//Modificado para que tenga en cuenta el ancho de la barra lateral izquierda:
+		else self.map_.getView().fit ($(this).closest('ul').closest('li').data("layer").getExtent(), {size:self.map_.getSize(),padding:[10,10,10,anchoSidebar]});
+
 	};
 	function removeLayer(e)
 	{	e.stopPropagation();
@@ -570,7 +576,15 @@ ol.control.LayerSwitcher.prototype.drawList = function(ul, collection)
 
 
 
-		var controlZoom = $("<li>").addClass("list-group-item").html('Zoom a la capa').appendTo(tablaControles);
+		var controlZoom = $("<li>").addClass("list-group-item accion").html('Zoom a la capa').on('click',zoomExtent).appendTo(tablaControles);
+
+		if (this.oninfo)
+		{	$("<li>").addClass("list-group-item")
+					.html('Info de la capa')
+					.on ('click', onInfo)
+					.attr("title", this.tip.info)
+					.appendTo(tablaControles);
+		}
 
 		var controlTabla = $("<li>").addClass("list-group-item").html('Ver la tabla').appendTo(tablaControles);
 		var controlDescargar = $("<li>").addClass("list-group-item").html('Descargar').appendTo(tablaControles);
@@ -609,13 +623,7 @@ ol.control.LayerSwitcher.prototype.drawList = function(ul, collection)
 		// Info button
 
 
-		if (this.oninfo)
-		{	$("<li>").addClass("list-group-item")
-					.html('Info de la capa')
-					.on ('click', onInfo)
-					.attr("title", this.tip.info)
-					.appendTo(tablaControles);
-		}
+
 		// Layer remove
 		if (this.hastrash && !layer.get("noSwitcherDelete"))
 		{	$("<div>").addClass("layerTrash")
@@ -623,19 +631,7 @@ ol.control.LayerSwitcher.prototype.drawList = function(ul, collection)
 					.attr("title", this.tip.trash)
 					.appendTo(li);
 		}
-		// Layer extent
-			console.log(this.hasextent);
-			console.log(layers[i].getSource());
-		if (this.hasextent && layers[i].getExtent())
-		{		console.log("estoy calculando extent");
-			var ex = layers[i].getExtent();
-			if (ex.length==4 && ex[0]<ex[2] && ex[1]<ex[3])
-			{	$("<div>").addClass("layerExtent")
-					.on ('click', zoomExtent)
-					.attr("title", this.tip.extent)
-					.appendTo(layer_buttons);
-			}
-		}
+
 		// Progress
 		if (this.show_progress && layer instanceof ol.layer.Tile)
 		{	var p = $("<div>")

@@ -9,7 +9,7 @@ var switcher = new ol.control.LayerSwitcher(
 		show_progress:true,
 		extent: true,
 		trash: true,
-		oninfo: function (l) { console.log(l); }
+		oninfo: function (l) { console.log(l.N.abstract); }
 	});
 
 

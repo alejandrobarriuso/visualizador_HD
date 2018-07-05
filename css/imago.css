@@ -216,8 +216,11 @@ main {
 
 #textoGetFeatureInfo{
   background: #94346E;
-  width: 256px;
-  height: 256px;
+  position: fixed;
+  top:10em;
+  right:10em;
+  width: auto;
+  height: auto;
   z-index: 100;
 }
 /* -- Controles -- */
@@ -432,6 +435,9 @@ main {
   margin: 0 !important;
   border-radius: 0 !important;
   border-color: #b7b7b7;
+}
+.tabla_controles li.accion{
+  cursor: pointer;
 }
 
 
