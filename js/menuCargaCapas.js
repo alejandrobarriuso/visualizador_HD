@@ -134,9 +134,24 @@ FUNCIONALIDAD:
   Además, después de esto ejecuta la función CerrarSubmenus() para cerrar el que estaba abierto.
 */
 function CargarCapaNumjTematicaNumi(idCapa,tipo,ruta){
-  if (tipo == "wms") {
-    AnadirWMS(ruta,idCapa);
-  };
+  //Obtener el conjunto de capas ya cargadas, y crear un array con sus títulos:
+  var arrayCapasCargadasYa = map.getLayers().getArray();
+  var arrayTitulosCapasCargadasYa = [];
+  for (var i=0; i<arrayCapasCargadasYa.length; i++){
+    var tituloCapaCargadaYai = arrayCapasCargadasYa[i].get('title');
+    arrayTitulosCapasCargadasYa.push(tituloCapaCargadaYai);
+  }
+  console.log(arrayTitulosCapasCargadasYa);
+
+  //Comprobar que el nombre de la capa que se desea cargar no se encuentra en el array creado anteriormente. Es decir, que esta capa no está ya cargada:
+  if (arrayTitulosCapasCargadasYa.indexOf(idCapa) === -1){
+    //Caso en el que la capa es nueva: se añade con la función apropiada dependiendo del tipo de servicio que sea:
+    if (tipo == "wms") {
+      AnadirWMS(ruta,idCapa);
+    };
+  } else {
+    alert("Capa ya cargada");
+  }
   CerrarSubmenus();
 }
 
