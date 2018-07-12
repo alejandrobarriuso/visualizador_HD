@@ -141,7 +141,7 @@ function CargarCapaNumjTematicaNumi(idCapa,tipo,ruta){
     alert("Capa ya cargada");
   }
   CerrarSubmenus();
-  variarPosiciones('capas_cargadas');
+  variarPosiciones('capas_cargadas_tematicas');
 }
 
 //FUNCIÓN CerrarSubmenus()

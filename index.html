@@ -18,12 +18,12 @@
     <header class="w-100">
       <!-- Barra superior -->
       <nav class="navbar p-0 m-0 navbar-expand-0">
-        <a id="abrir_menu_lat" class="nav-link p-2 m-0" href="#" onclick="mostrar_menu_lat()"><i class="fas fa-angle-double-right"></i></a>
+        <a id="abrir_menu_lat" class="nav-link p-2 m-0" href="#" onclick="mostrar_menu_lat();ocultar_menu_nodos();"><i class="fas fa-angle-double-right"></i></a>
         <a id="cerrar_menu_lat" class="nav-link p-2 m-0" href="#" onclick="ocultar_menu_lat()"><i class="fas fa-angle-double-left"></i></a>
         <a class="nav-link m-0 p-0 mx-2" href="#">
           <h1 id="txtVisualizador" class="p-0 m-0"></h1>
         </a>
-        <a id="abrir_menu_nodos" class="nav-link p-2 m-0" href="#" onclick="mostrar_menu_nodos()"><i class="fas fa-box"></i></a>
+        <a id="abrir_menu_nodos" class="nav-link p-2 m-0" href="#" onclick="mostrar_menu_nodos();ocultar_menu_lat();"><i class="fas fa-box"></i></a>
         <a id="cerrar_menu_nodos" class="nav-link p-2 m-0" href="#" onclick="ocultar_menu_nodos()"><i class="fas fa-box-open"></i></a>
         <a class="navbar-brand ml-auto m-0 p-0" href="#">
           <form class="form-inline">
@@ -131,19 +131,19 @@
 
 
       <div id="sidebar" class="sidebar container-fluid mt-4">
-        <div id="espMenuGestionCapas" class="row m-0 mt-3 p-0" style="width:100%;position:absolute;top:0.6em;">
+        <div id="espMenuGestionCapas" class="row m-0 mt-3 p-0" style="width:100%;position:absolute;top:1%;max-height:54%;overflow:auto;">
             <!-- Se carga contenido con la función GestionCapas() -->
         </div>
-        <div id="espMenuTematicas" class="row m-0 mt-3 p-0" style="position:absolute;top:0.6em">
+        <div id="espMenuTematicas" class="row m-0 mt-3 p-0" style="position:absolute;top:1%">
             <!-- Se carga contenido con la función CargarTematicas() -->
         </div>
-        <div id="barraMenuBusqueda" class="input-group mb-2" style="position:absolute;bottom:10em;text-align:center;">
-          <input type="text" class="form-control" id="abrirBusqueda" placeholder="Añadir datos">
+        <div id="barraMenuBusqueda" class="input-group m-1 p-0" style="position:absolute;bottom:4em;text-align:center;">
+          <input type="text" class="form-control" id="abrirBusqueda" placeholder="Añadir datos" onclick="variarPosiciones('busqueda_abierta')">
           <div class="input-group-prepend">
-            <div class="input-group-text">@</div>
+            <div class="input-group-text mr-3"><i class="fas fa-search"></i></div>
           </div>
         </div>
-        <div id="espMenuBusqueda" class="row m-0 mt-3 p-0" style="position:absolute;bottom:100px;text-align:center;display:none">
+        <div id="espMenuBusqueda" class="row m-0 mt-3 p-0" style="position:absolute;text-align:center;display:none">
 
 
 
@@ -167,7 +167,7 @@
           <div class="tab-content w-100 m-1" id="myTabContent">
             <div class="tab-pane fade show active" id="espCatalogo" role="tabpanel" aria-labelledby="tabCatalogo">
               <div class="form-group">
-                <select class="form-control" name="b-centro" id="selCatalogo" >
+                <select class="form-control" name="b-centro" id="selCatalogo" style="width:100em;">
                   <option value=""></option>
                 </select>
               </div>

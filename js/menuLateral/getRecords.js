@@ -299,7 +299,8 @@ function GetRecords(service_or_dataset) {
       placeholder: 'Selecciona un registro',
       allowClear: true,
       theme: "bootstrap",
-      width: 'copy',
+      width: '100%',
+      maximumSelectionLength: 3,
       matcher: FuncionEmparejadora
     })
     //Al seleccionar un resultado:
@@ -309,5 +310,6 @@ function GetRecords(service_or_dataset) {
       servicioWMSACargar = $("#selCatalogo").select2('data')[0];
       ConsultarCapasWMS(servicioWMSACargar.url);
     });
+
   });
 };
