@@ -115,7 +115,7 @@
  	down: "down",
  	info: "informations...",
  	extent: "zoom to extent",
- 	trash: "remove layer",
+ 	trash: "Eliminar capa",
  	plus: "expand/shrink"
  };
  /** Test if a layer should be displayed in the switcher
@@ -521,6 +521,13 @@
  			}
  		}
  		else self.map_.removeLayer($(this).closest('li').data("layer"));
+
+    //Calcular el número de capas cargadas:
+    var numeroMapasTotalCargados = map.getLayers().N.length;
+    //Si hay alguna cargada (a parte de los mapa base): menú inferior con x elementos:
+    if (numeroMapasTotalCargados == numeroMapasBaseCargados){
+      variarPosiciones("inicial");
+    }
  	};
  	// Add the layer list
  	for (var i=layers.length-1; i>=0; i--)
@@ -531,7 +538,7 @@
  						.data("layer",layer).on("mousedown touchstart",{self:this},this.dragOrdering_)
  						.attr('id',id_li)
  						.appendTo(ul);
- 		var layer_buttons = $("<div>").addClass("ol-layerswitcher-buttons").appendTo(li);
+
 
  /* ----------------------------------------------------------------------------- */
  		/* BARRA DE CONTROLES DE CAPA */
@@ -602,6 +609,14 @@
  		var d = $("<div>").addClass('li-content').appendTo(li);
  		if (!this.testLayerVisibility(layer)) d.addClass("ol-layer-hidden");
 
+		// Layer remove
+ 		if (this.hastrash && !layer.get("noSwitcherDelete"))
+ 		{	$("<div>").addClass("layerTrash")
+ 					.on ('click', removeLayer)
+ 					.attr("title", this.tip.trash)
+ 					.appendTo(li);
+ 		}
+
  		// Label
  		$("<label>").text(layer.get("title") || layer.get("name"))
  			.attr('title', layer.get("title") || layer.get("name"))
@@ -610,32 +625,8 @@
  			.css('user-select', 'none')
  			.on('selectstart', false)
  			.appendTo(li);
- 		// Show/hide sub layers
- 		if (layer.getLayers)
- 		{	var nb = 0;
- 			layer.getLayers().forEach(function(l)
- 			{	if (self.displayInLayerSwitcher(l)) nb++;
- 			});
- 			if (nb)
- 			{	$("<div>").addClass(layer.get("openInLayerSwitcher") ? "collapse-layers" : "expend-layers" )
- 					.click(function()
- 					{	var l = $(this).closest('li').data("layer");
- 						l.set("openInLayerSwitcher", !l.get("openInLayerSwitcher") )
- 					})
- 					.attr("title", this.tip.plus)
- 					.appendTo(layer_buttons);
- 			}
- 		}
 
- 		// Layer remove
- 		if (this.hastrash && !layer.get("noSwitcherDelete"))
- 		{	$("<div>").addClass("layerTrash")
- 					.on ('click', removeLayer)
- 					.attr("title", this.tip.trash)
- 					.appendTo(li);
- 		}
-
- 		// Progress
+		// Progress
  		if (this.show_progress && layer instanceof ol.layer.Tile)
  		{	var p = $("<div>")
  				.addClass("layerswitcher-progress")

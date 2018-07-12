@@ -763,11 +763,11 @@
 .ol-layerswitcher .panel li label
 {	display: inline-block;
 	height: 1.4em;
-	max-width: 12em;
+	width: 100%;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	padding: 0 0.2em 0 1.7em;
+	padding: 0 0.2em 0 0.2em;
 	position: relative;
 }
 
@@ -884,13 +884,11 @@
 .ol-layerswitcher .layerTrash
 {}
 .ol-layerswitcher .layerTrash:before
-{	color: #fff;
+{
 	content: "\00d7";
 	font-size:1em;
 	right: 0;
-	text-align: top;
-	line-height: 1em;
-	margin: -0.5em 0;
+	bottom:0;
 	position: relative;
 }
 

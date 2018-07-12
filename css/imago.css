@@ -418,10 +418,12 @@ main {
   background-color: #c4c4c4;
   padding: 0.25em;
   margin: 0.25em;
+  justify-content: space-between !important;
 }
 .ol-layer-tile:hover{
   background-color: #a8a8a8;
 }
+
 
 .tabla_controles{
   padding: 0 !important;
@@ -453,12 +455,26 @@ main {
   background-color: #f2f2f2;
 }
 
-
-
 h4{
   text-align: center;
   font-size: 1em;
 }
+
+h5{
+  text-align: center;
+  font-size: 0.94em;
+}
+
+.select2 .select2-container .select2-container--bootstrap{
+  background-color: rgba(255,255,255,0.9);
+}
+
+.select2-container{
+  font-size: 0.8em;
+}
+
+
+
 
 
 

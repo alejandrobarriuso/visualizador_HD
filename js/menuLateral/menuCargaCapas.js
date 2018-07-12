@@ -1,17 +1,14 @@
-//FUNCIÓN CargarTematicas(numMaxTematicas,posicion,idioma)
+//FUNCIÓN CargarTematicas(numMaxTematicas,idioma)
 /*
 ENTRADAS:
   numMaxTematicas: número máximo de temáticas a mostrar.
-  posicion: que podrá ser:
-    - 'inferior': en los casos en que haya que mostrar encima el menú de gestión de capas.
-    - 'superior' (o cualquier otro valor): en los casos en los que se muestre ocupando todo el menú lateral.
   idioma: variable que habrá cogido su valor al clickar sobre los botones de selección de idioma (archivo ponerIdioma.js). Por defecto: 'es'.
 FUNCIONALIDAD:
   Crea un cuadrado por cada temática y un submenú asociado, que sólo se mostrará cuando se ejecute la función AparecerSubmenuTematicaNumi(idTematica,colorFondo,colorLetraBorde),
   a la que se llama desde los propios elementos creados aquí.
 */
 
-function CargarTematicas(numMaxTematicas,posicion,idioma){
+function CargarTematicas(numMaxTematicas,idioma){
   //Primero elimina todas las temáticas o submenús que pudieran existir (antes de crear las nuevas):
   //Muy importante para evitar duplicados cada vez que se recrea el menú:
   $("[id*=tematica]").remove();
@@ -65,19 +62,10 @@ function CargarTematicas(numMaxTematicas,posicion,idioma){
       document.getElementById("submenu" + idTematicaNumi).appendChild(capaNumjTematicaNumi);
 
     };
-
-
     //Añadir el objeto Temática al menú lateral:
     tematicaNumi.setAttribute("href","javascript:AparecerSubmenuTematicaNumi('" + idTematicaNumi + "','" + arrayObjetosTematicas[i].color_fondo + "','" + arrayObjetosTematicas[i].color_letra_borde + "');");
     document.getElementById("espMenuTematicas").appendChild(tematicaNumi);
   };
-
-  //Desplazarlo hasta la parte baja de la barra lateral (caso en el que esté el menú Gestión de Capas disponible), o colocarlo ocupando toda la barra lateral:
-  if (posicion == "inferior"){
-    $("#espMenuTematicas").css({'position':'absolute','bottom':'3.6em'});
-  } else {
-    $("#espMenuTematicas").css({'position':'absolute','bottom':'auto'});
-  }
 }
 
 //FUNCIÓN AparecerSubmenuTematicaNumi(idTematica,colorFondo,colorLetraBorde)
@@ -153,6 +141,7 @@ function CargarCapaNumjTematicaNumi(idCapa,tipo,ruta){
     alert("Capa ya cargada");
   }
   CerrarSubmenus();
+  variarPosiciones('capas_cargadas');
 }
 
 //FUNCIÓN CerrarSubmenus()
@@ -165,15 +154,7 @@ FUNCIONALIDAD:
 function CerrarSubmenus(){
   //Cerrar cualquier submenú abierto:
   $("[id*=submenutematica]").hide();
-  //Calcular el número de capas cargadas:
-  var numeroMapasTotalCargados = map.getLayers().N.length;
-  //Si hay alguna cargada (a parte de los mapa base): menú inferior con x elementos:
-  if (numeroMapasTotalCargados > numeroMapasBaseCargados){
-    CargarTematicas(4,'inferior',idioma);
-  //Si no (a parte de los mapa base): menú superior con x elementos:
-  } else {
-    CargarTematicas(8,'superior',idioma);
-  }
+
   //Eliminar el control de click fuera del submenú para cerrarlo; porque ya se ha cerrado:
   $("html").unbind('click');
 }
