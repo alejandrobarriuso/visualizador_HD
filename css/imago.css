@@ -149,19 +149,24 @@ header .imagen_nodo_i {
 }
 
 /* --- MENÚ HORIZONTAL NODOS --- */
-.menu_nodos {
+#menuNodos {
     position: absolute;
     height: 0;
     width: 100%;
     top: 3em;
     left: 0;
     z-index: 1;
-    background-color: #f2f2f2;
+    background-color: none;
     overflow-y: hidden;
+    overflow-x: hidden;
     z-index: 20300;
     transition: 0.4s;
     padding: 1em 0;
     box-sizing:border-box;
+}
+
+.row_menu_nodos{
+  border-top: 0.2em solid #232323;
 }
 
 .menu_nodos ul, .menu_nodos li{

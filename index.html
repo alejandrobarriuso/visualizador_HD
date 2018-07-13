@@ -14,7 +14,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
   </head>
-  <body onload="CalculaDPIEscalaNum();GetRecords('dataset');PonerIdioma('');CargarTematicas(8,'es')">
+  <body onload="CalculaDPIEscalaNum();GetRecords('dataset');PonerIdioma('');CargarTematicas(8,'es');CargarNodos(8);">
     <header class="w-100">
       <!-- Barra superior -->
       <nav class="navbar p-0 m-0 navbar-expand-0">
@@ -50,80 +50,10 @@
 
        <div id="textoGetFeatureInfo"></div>
 
-      <div id="menu_nodos" class="menu_nodos container-fluid p-0 m-0">
-        <div class="row justify-content-end">
-          <div id="grupo_nodos" class="col-12" style="display:none">
-            <div class="card-deck">
-              <div class="card nodo_i tematica_1">
-                <div class="card-image-top">
-                  <a href="http://www.idearqueologia.org/index.php" target="_blank">
-                    <img src="img/idearq.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
-                  </a>
-                </div>
-                <div class="card-block p-1">
-                  <h3>IDEARQ</h3>
-                </div>
-              </div>
-              <div class="card nodo_i tematica_2">
-                <div class="card-image-top">
-                  <a href="#">
-                    <img src="img/img1.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
-                  </a>
-                </div>
-                <div class="card-block p-1">
-                  <h3>NODO 2</h3>
-                </div>
-              </div>
-              <div class="card nodo_i tematica_3">
-                <div class="card-image-top">
-                  <a href="#">
-                    <img src="img/img1.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
-                  </a>
-                </div>
-                <div class="card-block p-1">
-                  <h3>NODO 3</h3>
-                </div>
-              </div>
-              <div class="card nodo_i tematica_2">
-                <div class="card-image-top">
-                  <a href="#">
-                    <img src="img/img1.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
-                  </a>
-                </div>
-                <div class="card-block p-1">
-                  <h3>NODO 4</h3>
-                </div>
-              </div>
-              <div class="card nodo_i tematica_4">
-                <div class="card-image-top">
-                  <a href="#">
-                    <img src="img/img1.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
-                  </a>
-                </div>
-                <div class="card-block p-1">
-                  <h3>NODO 5</h3>
-                </div>
-              </div>
-              <div class="card nodo_i tematica_4">
-                <div class="card-image-top">
-                  <a href="#">
-                    <img src="img/img1.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
-                  </a>
-                </div>
-                <div class="card-block p-1">
-                  <h3>NODO 5</h3>
-                </div>
-              </div>
-              <div class="card nodo_i tematica_4">
-                <div class="card-image-top">
-                  <a href="#">
-                    <img src="img/img1.jpg" class="card-image-top img-fluid imagen_nodo_i" alt="">
-                  </a>
-                </div>
-                <div class="card-block p-1">
-                  <h3>NODO 5</h3>
-                </div>
-              </div>
+      <div id="menuNodos" class="container-fluid p-0 m-0">
+        <div class="row_menu_nodos row justify-content-center">
+          <div class="col-auto">
+            <div id="espNodos" class="card-deck">
             </div>
           </div>
         </div>
@@ -267,14 +197,19 @@
     <script type="text/javascript" src="js/arrayTematicas.js"></script>
     <script type="text/javascript" src="js/estiloVT.js"></script>
     <script type="text/javascript" src="js/map.js"></script>
-    <script type="text/javascript" src="js/menuLateral/getRecords.js"></script>
+    <script type="text/javascript" src="js/ponerIdioma.js"></script>
+
     <script type="text/javascript" src="js/wms/anadirWMS.js"></script>
     <script type="text/javascript" src="js/wms/consultarCapasWMS.js"></script>
-    <script type="text/javascript" src="js/ponerIdioma.js"></script>
+
+    <script type="text/javascript" src="js/menuLateral/getRecords.js"></script>
     <script type="text/javascript" src="js/menuLateral/menuCargaCapas.js"></script>
     <script type="text/javascript" src="js/menuLateral/menuGestionCapas.js"></script>
     <script type="text/javascript" src="js/menuLateral/variarPosiciones.js"></script>
+    <script type="text/javascript" src="js/menuLateral/getRecords.js"></script>
 
+    <script type="text/javascript" src="js/menuSuperior/arrayNodos.js"></script>
+    <script type="text/javascript" src="js/menuSuperior/menuNodos.js"></script>
     <!-- JS FUNCIONAMIENTO PANEL SUPERIOR Y PANEL LATERAL IZQUIERDO -->
     <script>
       function mostrar_menu_lat() {
@@ -290,15 +225,15 @@
           document.getElementById("cerrar_menu_lat").style.display = "none";
       }
       function mostrar_menu_nodos() {
-          document.getElementById("menu_nodos").style.height = "15%";
-          document.getElementById("grupo_nodos").style.display = "inline";
+          document.getElementById("menuNodos").style.height = "9em";
+
           document.getElementById("abrir_menu_nodos").style.display = "none";
           document.getElementById("cerrar_menu_nodos").style.display = "inline";
       }
 
       function ocultar_menu_nodos() {
-          document.getElementById("menu_nodos").style.height = "0";
-          document.getElementById("grupo_nodos").style.display = "none";
+          document.getElementById("menuNodos").style.height = "0";
+
           document.getElementById("abrir_menu_nodos").style.display = "inline";
           document.getElementById("cerrar_menu_nodos").style.display = "none";
       }
