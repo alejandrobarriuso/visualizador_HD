@@ -273,6 +273,43 @@ main {
 
 
 
+/* Div posicion_escala: */
+.posicion_escala{
+  position: absolute;
+  left: 0.5em;
+  bottom: 2.6em;
+  width: 220px;
+  background-color: #f2f2f2;
+  border-radius: 0.25em;
+  color: #606060;
+  text-align: left;
+  padding: 0.4em;
+  display: inline;
+}
+
+/* Escala gráfica */
+.ol-scale-line{
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  background-color: inherit;
+  bottom: 0;
+  left: 0;
+}
+
+.ol-scale-line-inner{
+  color: #454545;
+  border-color: #454545;
+}
+
+/* Posición del ratón */
+.custom-mouse-position{
+  font-size: 0.8em;
+  margin-top: 0.2em;
+  margin-left: 0.2em;
+}
+
+
 
 /* Control de zoom */
 .ol-zoom{
@@ -283,16 +320,7 @@ main {
   color: #606060 !important;
 }
 
-/* Escala gráfica */
-.ol-scale-line{
-  background: #94346E;
-  position: absolute !important;
-  top: auto !important;
-  bottom: 2.5em !important;
-  left: 0.5em !important;
-  right: auto !important;
-  z-index: 100;
-}
+
 
 /* Mapa de localización */
 .ol-custom-overviewmap,
@@ -478,6 +506,12 @@ h5{
 
 .select2-container{
   font-size: 0.8em;
+}
+
+.select2-dropdown{
+  height: 17em;
+  overflow-y: scroll;
+  font-size: 1em;
 }
 
 

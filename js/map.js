@@ -70,16 +70,18 @@ var Zoom_inicial = 6;
 
 /* Controles del mapa 1/2*/
 // Escala lineal:
-var scaleLineControl = new ol.control.ScaleLine();
+var scaleLineControl = new ol.control.ScaleLine({
+          target: 'escalaLineal'
+        });
 
 // Longitud y latitud de la posición del puntero:
 var mousePositionControl = new ol.control.MousePosition({
-        coordinateFormat: ol.coordinate.createStringXY(4),
+        coordinateFormat: function(coord){ return ol.coordinate.format(coord, '{x}, {y}', 4)+' (lon, lat) WGS84';},
         projection: 'EPSG:4326',
         // comment the following two lines to have the mouse position
         // be placed within the map.
         className: 'custom-mouse-position',
-        target: document.getElementById('mouse-position'),
+        target: document.getElementById('posicionMouse'),
         undefinedHTML: '&nbsp;'
       });
 
@@ -250,68 +252,3 @@ function hacerZoomABbox (xmin,xmax,ymin,ymax){
 	coordenadas.push(ymax);
 	map.zoomToExtent(new OpenLayers.Bounds(coordenadas).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913")));
 }
-
-
-
-
-
-
-/* Controles del mapa 2/2: escala numérica */
-var DPIUsuario = 0;
-function CalculaDPIEscalaNum() {
-  // 1º: función para obtener el DPI de la pantalla del usuario (número de puntos dibujados por pulgada):
-    // EJECUCIÓN: Se ejecuta en la carga inicial del body.
-    // FUNCIONAMIENTO: Crea un elemento div en la pantalla completa que le sirve para calcular el DPI, y después lo elimina.
-    // ENTRADA: nada.
-    // SALIDA: DPIUsuario.
-    var div = document.createElement( "div");
-    div.style.height = "1in";
-    div.style.width = "1in";
-    div.style.top = "-100%";
-    div.style.left = "-100%";
-    div.style.position = "absolute";
-
-    document.body.appendChild(div);
-    DPIUsuario =  div.offsetHeight;
-    document.body.removeChild( div );
-
-    // Se ejecuta por primera vez el cálculo de la escala numérica:
-    EscalaNumerica();
-    return DPIUsuario;
-}
-
-var escalaNum = 0;
-function EscalaNumerica () {
-  // 2º: función para obtener el valor x de la escala numérica: 1:x en cada momento.
-    // EJECUCIÓN: Se ejecuta cada vez que se cambie de zoom o de pan:
-    // FUNCIONAMIENTO: La escala numérica se obtiene a partir de la multiplicación de los siguientes términos:
-    //  - Resolución (ud/pixel)
-    //  - Metros por unidad (m/ud)
-    //  - Pulgadas por metro (pulgada/m)
-    //  - DPI de la pantalla del usuario en cada caso (puntos/pulgada)
-    // Los tres primeros valores se obtienen dentro de la función. El cuarto se ha obtenido con la función CalculaDPIEscalaNum anteriormente (una vez por usuario)
-    // ENTRADA: nada.
-    // SALIDA: EscalaNumerica.
-    var unit = map.getView().getProjection().getUnits();
-    var resolucion = map.getView().getResolution();
-    var pulgadasPorMetro = 39.3701;
-  //  console.log('Unidad: '+ unit);
-  //  console.log('Resolución: '+ resolution);
-  //  console.log('Metros por unidad: ' + ol.proj.METERS_PER_UNIT[unit]);
-
-    escalaNum = resolucion * ol.proj.METERS_PER_UNIT[unit] * pulgadasPorMetro * DPIUsuario;
-  //  console.log('Escala numérica: '+ escalaNum);
-    document.getElementById("espEscalaNum").innerHTML = '1:' + Intl.NumberFormat("de-DE").format(Math.round(escalaNum));
-    return escalaNum;
-}
-//3º: que la función EscalaNumerica() se ejecute cada vez que se cambie de zoom o de pan:
-map.on('moveend', EscalaNumerica);
-
-
-/*
-function mostrar_div_nodos() {
-    div = document.getElementById('div_nodos');
-    div.style.display = '';
-    console.log("hola");
-}
-*/

@@ -279,12 +279,14 @@ function GetRecords(service_or_dataset) {
       }
 
       // PARTE MODIFICADA PARA BUSCAR TAMBIÉN EN LAS PALABRAS CLAVE de cada REGISTRO ----
-      var originalPalabrasClave = data.keywords;
-      var originalPalabrasClaveLon = originalPalabrasClave.length;
-      for (var i=0; i<originalPalabrasClaveLon; i++){
-        originalPalabrasClaveI = stripDiacritics(originalPalabrasClave[i]).toUpperCase();
-        if (originalPalabrasClaveI.indexOf(term) > -1) {
-          return data;
+      if (data.keywords != undefined){
+        var originalPalabrasClave = data.keywords;
+        var originalPalabrasClaveLon = originalPalabrasClave.length;
+        for (var i=0; i<originalPalabrasClaveLon; i++){
+          originalPalabrasClaveI = stripDiacritics(originalPalabrasClave[i]).toUpperCase();
+          if (originalPalabrasClaveI.indexOf(term) > -1) {
+            return data;
+          }
         }
       }
       // -----
@@ -300,16 +302,29 @@ function GetRecords(service_or_dataset) {
       allowClear: true,
       theme: "bootstrap",
       width: '100%',
-      maximumSelectionLength: 3,
-      matcher: FuncionEmparejadora
+      matcher: FuncionEmparejadora,
+      closeOnSelect: false,
+      dropdownParent: $('#espBusquedaCatalogo')
     })
     //Al seleccionar un resultado:
     // - Si es un servicio: se ejecuta la función correspondiente para buscar las capas que lo forman:
     // - Si es un dataset: ...
+
+    $('#selCatalogo').on('select2:open',function(){
+    //  $('.select2-dropdown').attr('id','fix');
+    //  $('#fix').css('height:4em;color:red');
+      console.log("open");
+
+    });
+
     $('#selCatalogo').on('select2:select',function(){
+      console.log("select");
+      console.log($("#selCatalogo").select2('data')[0]);
       servicioWMSACargar = $("#selCatalogo").select2('data')[0];
       ConsultarCapasWMS(servicioWMSACargar.url);
     });
+
+
 
   });
 };

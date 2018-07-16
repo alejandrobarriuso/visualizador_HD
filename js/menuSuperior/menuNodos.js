@@ -23,7 +23,6 @@ function CargarNodos(numMaxNodos){
       ";background-color:" + arrayNodos[i].color_fondo +
       ";color:#f2f2f2"
     );
-    console.log(nodoNumi);
     //Añadir el objeto Nodo al menú superior:
     nodoNumi.setAttribute("href",arrayNodos[i].url);
     nodoNumi.setAttribute("target","_blank");

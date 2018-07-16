@@ -33,8 +33,11 @@ function variarPosiciones(posicion){
       CargarTematicas(6,idioma);
       $("#espMenuTematicas").css({'position':'absolute','top':'1%'});
       $("#espMenuBusqueda").css({'display':'inline','position':'absolute','top':'65%'});
+      $('#tabMenuBusqueda a').click(function (e) {
+         e.preventDefault();
+         $(this).tab('show');
+      });
       $("#barraMenuBusqueda").css({'display':'none'});
-
       $("#espMenuGestionCapas").css({'max-height':'54%'});
     } else {
       CargarTematicas(8,idioma);
@@ -59,6 +62,10 @@ function variarPosiciones(posicion){
         CargarTematicas(6,idioma);
         $("#espMenuTematicas").css({'position':'absolute','top':'1%'});
         $("#espMenuBusqueda").css({'display':'inline','position':'absolute','top':'65%'});
+        $('#tabMenuBusqueda a').click(function (e) {
+        	 e.preventDefault();
+        	 $(this).tab('show');
+        });
         $("#barraMenuBusqueda").css({'display':'none'});
         $("#espMenuGestionCapas").css({'max-height':'54%'});
       } else if (capasCargadas == true){
@@ -66,6 +73,10 @@ function variarPosiciones(posicion){
         CargarTematicas(2,idioma);
         $("#espMenuTematicas").css({'position':'absolute','top':'48%'});
         $("#espMenuBusqueda").css({'display':'inline','position':'absolute','top':'65%'});
+        $('#tabMenuBusqueda a').click(function (e) {
+        	 e.preventDefault();
+        	 $(this).tab('show');
+        });
         $("#barraMenuBusqueda").css({'display':'none'});
         $("#espMenuGestionCapas").css({'max-height':'47%'});
       }
