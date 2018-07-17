@@ -18,20 +18,20 @@
     <header class="w-100">
       <!-- Barra superior -->
       <nav class="navbar p-0 m-0 navbar-expand-0">
-        <a id="abrir_menu_lat" class="nav-link p-2 m-0" href="#" onclick="mostrar_menu_lat();ocultar_menu_nodos();"><i class="fas fa-angle-double-right"></i></a>
-        <a id="cerrar_menu_lat" class="nav-link p-2 m-0" href="#" onclick="ocultar_menu_lat()"><i class="fas fa-angle-double-left"></i></a>
+        <a id="abrir_menu_lat" class="nav-link p-2 m-0" href="#" onclick="mostrar_menu_lat();ocultar_menu_nodos();"><i class="fas fa-caret-right" style="vertical-align:middle;"></i><img class="img-fluid p-2 m-2" style="height:2em;width:auto;" src="img/layers4.png"></img></a>
+        <a id="cerrar_menu_lat" class="nav-link p-2 m-0" href="#" onclick="ocultar_menu_lat()"><i class="fas fa-caret-left" style="vertical-align:middle;"></i><img class="img-fluid p-2 m-2" style="height:2em;width:auto;" src="img/layers4.png"></img></a>
         <a class="nav-link m-0 p-0 mx-2" href="#">
-          <h1 id="txtVisualizador" class="p-0 m-0"></h1>
+          <h1 id="txtVisualizador" class="p-1 m-0"></h1>
         </a>
-        <a id="abrir_menu_nodos" class="nav-link p-2 m-0" href="#" onclick="mostrar_menu_nodos();ocultar_menu_lat();"><i class="fas fa-box"></i></a>
-        <a id="cerrar_menu_nodos" class="nav-link p-2 m-0" href="#" onclick="ocultar_menu_nodos()"><i class="fas fa-box-open"></i></a>
+        <a id="abrir_menu_nodos" class="nav-link p-2 m-0" href="#" onclick="mostrar_menu_nodos();ocultar_menu_lat();"><i class="fas fa-caret-down"></i></a>
+        <a id="cerrar_menu_nodos" class="nav-link p-2 m-0" href="#" onclick="ocultar_menu_nodos()"><i class="fas fa-caret-up"></i></a>
         <a class="navbar-brand ml-auto m-0 p-0" href="#">
           <form class="form-inline">
-    				<div class="btn-group mr-2 grupo_btn_idioma_cerrar">
+    				<div class="btn-group mr-2 mt-4">
     					<button id="boton_es" type="button" class="btn btn_idioma m-0 p-0" onclick="PonerIdioma('es');CargarTematicas(8,'es')"><p class="m-0 p-0 px-1">ES</p></button>
     					<button id="boton_en" type="button" class="btn btn_idioma m-0 p-0" onclick="PonerIdioma('en');CargarTematicas(8,'en')"><p class="m-0 p-0 px-1">EN</p></button>
     				</div>
-            <img src="img/imago2.png" alt="logo" style="height:1.8em;width:auto" class="img-fluid">
+            <img src="img/imago2.png" alt="logo" style="height:4em;width:auto" class="img-fluid">
           </form>
         </a>
       </nav>
@@ -63,14 +63,14 @@
       </div>
 
 
-      <div id="sidebar" class="sidebar container-fluid mt-4">
-        <div id="espMenuGestionCapas" class="row m-0 mt-3 p-0" style="width:100%;position:absolute;top:1%;max-height:54%;overflow:auto;">
+      <div id="sidebar" class="sidebar container-fluid m-0 p-0">
+        <div id="espMenuGestionCapas" class="row m-0 p-0" style="width:100%;position:absolute;top:1%;max-height:54%;overflow:auto;">
             <!-- Se carga contenido con la función GestionCapas() -->
         </div>
-        <div id="espMenuTematicas" class="row m-0 mt-3 p-0" style="position:absolute;top:1%">
+        <div id="espMenuTematicas" class="row m-0 p-0" style="position:absolute;top:1%">
             <!-- Se carga contenido con la función CargarTematicas() -->
         </div>
-        <div id="barraMenuBusqueda" class="input-group m-1 p-0" style="position:absolute;bottom:4em;text-align:center;">
+        <div id="barraMenuBusqueda" class="input-group m-1 p-0" style="position:absolute;bottom:8em;text-align:center;">
           <input type="text" class="form-control" id="abrirBusqueda" placeholder="Añadir datos" onclick="variarPosiciones('busqueda_abierta')">
           <div class="input-group-prepend">
             <div class="input-group-text mr-3"><i class="fas fa-search"></i></div>
@@ -80,17 +80,17 @@
           <ul class="nav nav-tabs w-100 m-1" id="tabMenuBusqueda" role="tablist">
             <li class="nav-item">
               <a class="nav-link active" id="tabCatalogo" data-toggle="tab" role="tab" href="#espCatalogo" aria-selected="true">
-                <h5 id="txtTabCatalogo" class="p-0 m-0">Catálogo</h1>
+                <h5 id="txtTabCatalogo" class="p-0 m-0">Catálogo</h5>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="tabFichero" data-toggle="tab" role="tab" href="#espFichero" aria-selected="false">
-                <h5 id="txtTabCatalogo" class="p-0 m-0">Fichero</h1>
+                <h5 id="txtTabCatalogo" class="p-0 m-0">Fichero</h5>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="tabURL" data-toggle="tab" role="tab" href="#espURL" aria-selected="false">
-                <h5 id="txtTabCatalogo" class="p-0 m-0">URL del servicio</h1>
+                <h5 id="txtTabCatalogo" class="p-0 m-0">URL del servicio</h5>
               </a>
             </li>
           </ul>
@@ -202,8 +202,8 @@
     <!-- JS FUNCIONAMIENTO PANEL SUPERIOR Y PANEL LATERAL IZQUIERDO -->
     <script>
       function mostrar_menu_lat() {
-          //OJO! Sólo se debe poner: 21em o 10.5 em. Si no, el ajuste de los cuadros de temáticas no será correcto.
-          document.getElementById("sidebar").style.width = "21em";
+          //OJO! Sólo se debe poner: 21.2em o 10.6 em. Si no, el ajuste de los cuadros de temáticas no será correcto.
+          document.getElementById("sidebar").style.width = "21.2em";
           document.getElementById("abrir_menu_lat").style.display = "none";
           document.getElementById("cerrar_menu_lat").style.display = "inline";
       }
@@ -215,14 +215,12 @@
       }
       function mostrar_menu_nodos() {
           document.getElementById("menuNodos").style.height = "9em";
-
           document.getElementById("abrir_menu_nodos").style.display = "none";
           document.getElementById("cerrar_menu_nodos").style.display = "inline";
       }
 
       function ocultar_menu_nodos() {
           document.getElementById("menuNodos").style.height = "0";
-
           document.getElementById("abrir_menu_nodos").style.display = "inline";
           document.getElementById("cerrar_menu_nodos").style.display = "none";
       }

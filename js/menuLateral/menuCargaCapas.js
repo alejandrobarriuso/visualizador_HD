@@ -8,7 +8,9 @@ FUNCIONALIDAD:
   a la que se llama desde los propios elementos creados aquí.
 */
 
+var ultimoNumMaxTematicas = 0; //Variable que guarda el número de temáticas cargadas la última vez.
 function CargarTematicas(numMaxTematicas,idioma){
+  ultimoNumMaxTematicas = numMaxTematicas;
   //Primero elimina todas las temáticas o submenús que pudieran existir (antes de crear las nuevas):
   //Muy importante para evitar duplicados cada vez que se recrea el menú:
   $("[id*=tematica]").remove();
@@ -157,4 +159,6 @@ function CerrarSubmenus(){
 
   //Eliminar el control de click fuera del submenú para cerrarlo; porque ya se ha cerrado:
   $("html").unbind('click');
+  CargarTematicas(ultimoNumMaxTematicas,idioma);
+
 }

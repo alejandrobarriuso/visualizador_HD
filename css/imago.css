@@ -27,13 +27,14 @@ header {
 
 /* --- BARRA SUPERIOR HEADER --- */
 header nav {
-  height: 3em !important;
+  height: 5em !important;
   background: #A80C76;
   overflow: hidden;
   padding: 0.2em;
+  align-items: flex-end !important;
 }
 header h1 {
-  font-size: 1.2em;
+  font-size: 2.6em;
   font-weight: 300;
   color: #efefef;
 }
@@ -47,20 +48,22 @@ header h3 {
 
 #abrir_menu_lat{
   text-shadow:none !important;
-  background-color: #606060 !important;
-  color: #f2f2f2 !important;
+  background-color: #f2f2f2 !important;
+  color: #A80C76 !important;
   outline: none !important;
   font-size:1.5em;
+  height: 100%;
 }
 #abrir_menu_lat:hover {
   background-color: #bfbfbf !important;
 }
 #cerrar_menu_lat {
   text-shadow:none !important;
-  background-color: #606060 !important;
-  color: #f2f2f2 !important;
+  background-color: #f2f2f2 !important;
+  color: #808080 !important;
   outline: none !important;
   font-size:1.5em;
+  height: 100%;
   display:none;
 }
 #cerrar_menu_lat:hover {
@@ -75,7 +78,7 @@ header h3 {
 }
 #cerrar_menu_nodos {
   text-shadow:none !important;
-  color: #606060 !important;
+  color: #808080 !important;
   outline: none !important;
   font-size:1.5em;
   display:none;
@@ -116,44 +119,13 @@ header .btn_idioma_sel{
 }
 .btn_idioma_sel:focus {outline: none;box-shadow: none;border:2px solid transparent}
 
-.nodo_i {
-  padding: 0em;
-  margin: 0em !important;
-  border-radius: 0;
-  border-width: 0.3em;
-}
-
-header .imagen_nodo_i {
-  border:0;
-  border-radius: 0;
-}
-
-.tematica_1 {
-  border-color: #1D6996;
-}
-
-.tematica_2 {
-  border-color: #0F8554;
-}
-
-.tematica_3 {
-  border-color: #EDAD08;
-}
-
-.tematica_4 {
-  border-color: #E17C05;
-}
-
-.tematica_5 {
-  border-color: #CC503E;
-}
 
 /* --- MENÚ HORIZONTAL NODOS --- */
 #menuNodos {
     position: absolute;
     height: 0;
     width: 100%;
-    top: 3em;
+    top: 5em;
     left: 0;
     z-index: 1;
     background-color: none;
@@ -401,14 +373,14 @@ main {
     position: absolute;
     height: auto;
     width: 200px;
-    top: 5em;
+    top: 7.5em;
     right: 0.5em;
     z-index: 300;
     border-color: #424242;
     background: #FFFFFF;
     color: #424242;
     z-index: 20200;
-    font-family: arial,helvetica;
+
     font-size: 12px;
     display: inline-block;
 }
@@ -423,16 +395,19 @@ main {
     position: fixed;
     height: 100%;
     width: 0;
-    top: 0;
+    top: 5em;
     left: 0;
-    z-index: 1;
     background-color: #f2f2f2;
+    border-color:#A80C76;
+    border-width:0.1em;
+    border-style: solid;
     overflow-x: hidden;
     overflow-y: hidden;
     transition: 0.4s;
     padding: 1em 0;
     box-sizing:border-box;
-    z-index:200;
+    z-index:20300;
+    padding-bottom: 5em;
 }
 
 .sidebar a {
@@ -508,8 +483,8 @@ h5{
   font-size: 0.8em;
 }
 
-.select2-dropdown{
-  height: 17em;
+.select2-results{
+  height: 14em;
   overflow-y: scroll;
   font-size: 1em;
 }
@@ -527,7 +502,7 @@ footer {
   font-size: 0.7em;
   height: 3em;
   border-top: 0.1em solid #c1c1c1;
-  z-index: 200;
+  z-index: 20400;
 }
 
 footer .boton_transparente {

@@ -12,13 +12,13 @@ var escalaNum = '';
 function PonerIdioma(lang){
 	idioma = lang;
 	if(idioma == 'en'){
-		visualizador = 'Visualizer title';
+		visualizador = '<big>V</big>ISUALIZER <big>T</big>ITLE';
 		botonAnadir = "Add";
 		botonGestion = "Manage";
 		escalaNum = "Scale";
 
 	} else {
-		visualizador = 'Título del visualizador';
+		visualizador = '<big>T</big>ÍTULO DEL <big>V</big>ISUALIZADOR';
 		botonAnadir = "Añadir";
 		botonGestion = "Gestionar";
 		escalaNum = "Escala";

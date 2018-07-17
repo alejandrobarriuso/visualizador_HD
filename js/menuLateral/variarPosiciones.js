@@ -26,59 +26,60 @@ function variarPosiciones(posicion){
 
   var alturaSidebar = $("#sidebar").height();
   console.log(alturaSidebar);
+  console.log(posicion);
 
 
   if (posicion == "no_capas_cargadas"){
     if (ultimaPosicion == "busqueda_abierta"){
       CargarTematicas(6,idioma);
       $("#espMenuTematicas").css({'position':'absolute','top':'1%'});
-      $("#espMenuBusqueda").css({'display':'inline','position':'absolute','top':'65%'});
+      $("#espMenuBusqueda").css({'display':'inline','position':'absolute','top':'60%'});
       $('#tabMenuBusqueda a').click(function (e) {
          e.preventDefault();
          $(this).tab('show');
       });
       $("#barraMenuBusqueda").css({'display':'none'});
-      $("#espMenuGestionCapas").css({'max-height':'54%'});
+      $("#espMenuGestionCapas").css({'max-height':'40%'});
     } else {
       CargarTematicas(8,idioma);
       $("#espMenuTematicas").css({'position':'absolute','top':'1%'});
       $("#espMenuBusqueda").css({'display':'none'});
-      $("#barraMenuBusqueda").css({'display':'flex','position':'absolute','bottom':'4em'});
-      $("#espMenuGestionCapas").css({'max-height':'54%'});
+      $("#barraMenuBusqueda").css({'display':'flex','position':'absolute','bottom':'8em'});
+      $("#espMenuGestionCapas").css({'max-height':'40%'});
     }
   } else if (posicion == "capas_cargadas_tematicas"){
     CargarTematicas(4,idioma);
-    $("#espMenuTematicas").css({'position':'absolute','top':'55%'});
+    $("#espMenuTematicas").css({'position':'absolute','top':'50%'});
     $("#espMenuBusqueda").css({'display':'none'});
-    $("#barraMenuBusqueda").css({'display':'flex','position':'absolute','bottom':'4em'});
+    $("#barraMenuBusqueda").css({'display':'flex','position':'absolute','bottom':'8em'});
     /*
     console.log(document.getElementById("barraMenuBusqueda").style.bottom);
     console.log(($("#espMenuTematicas").height()+$("#barraMenuBusqueda").height())/$("#sidebar").height());
 */
-    $("#espMenuGestionCapas").css({'max-height':'54%'});
+    $("#espMenuGestionCapas").css({'max-height':'48%'});
   } else if (posicion == "busqueda_abierta"){
       if (capasCargadas == false){
         console.log("no hay capas cargadas");
         CargarTematicas(6,idioma);
         $("#espMenuTematicas").css({'position':'absolute','top':'1%'});
-        $("#espMenuBusqueda").css({'display':'inline','position':'absolute','top':'65%'});
+        $("#espMenuBusqueda").css({'display':'inline','position':'absolute','top':'60%'});
         $('#tabMenuBusqueda a').click(function (e) {
         	 e.preventDefault();
         	 $(this).tab('show');
         });
         $("#barraMenuBusqueda").css({'display':'none'});
-        $("#espMenuGestionCapas").css({'max-height':'54%'});
+        $("#espMenuGestionCapas").css({'max-height':'40%'});
       } else if (capasCargadas == true){
         console.log("sí hay capas cargadas");
         CargarTematicas(2,idioma);
-        $("#espMenuTematicas").css({'position':'absolute','top':'48%'});
-        $("#espMenuBusqueda").css({'display':'inline','position':'absolute','top':'65%'});
+        $("#espMenuTematicas").css({'position':'absolute','top':'45%'});
+        $("#espMenuBusqueda").css({'display':'inline','position':'absolute','top':'60%'});
         $('#tabMenuBusqueda a').click(function (e) {
         	 e.preventDefault();
         	 $(this).tab('show');
         });
         $("#barraMenuBusqueda").css({'display':'none'});
-        $("#espMenuGestionCapas").css({'max-height':'47%'});
+        $("#espMenuGestionCapas").css({'max-height':'43%'});
       }
   }
   //Variable para guardar la última posición que ha existido:

@@ -250,6 +250,7 @@
  ol.control.LayerSwitcher.prototype.drawPanel_ = function(e)
  {	if (--this.dcount || this.dragging_) return;
  	$("li", this.panel_).not(".ol-header").remove();
+  console.log("puedo estar en el fallo 1");
  	this.drawList (this.panel_, this.getMap().getLayers());
  };
  /** Change layer visibility according to the baselayer option
@@ -258,6 +259,7 @@
   */
  ol.control.LayerSwitcher.prototype.switchLayerVisibility = function(l, layers)
  {
+   console.log(!l.get('baseLayer'));
  	if (!l.get('baseLayer')) l.setVisible(!l.getVisible());
  	else
  	{	if (!l.getVisible()) l.setVisible(true);
@@ -473,6 +475,8 @@
  	{	e.stopPropagation();
  		e.preventDefault();
  		var l = $(this).parent().parent().data("layer");
+    console.log("estoy en el fallo");
+    console.log(self);
  		self.switchLayerVisibility(l,collection);
  	};
  	function moveLayer (l, layers, inc)
@@ -639,7 +643,8 @@
  		if (layer.getLayers)
  		{	li.addClass('ol-layer-group');
  			if (layer.get("openInLayerSwitcher")===true)
- 			{	this.drawList ($("<ul>").appendTo(li), layer.getLayers());
+ 			{	console.log("puedo estar en el fallo 2");
+        this.drawList ($("<ul>").appendTo(li), layer.getLayers());
  			}
  		}
 
