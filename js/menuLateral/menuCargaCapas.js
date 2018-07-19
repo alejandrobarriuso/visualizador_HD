@@ -10,6 +10,10 @@ FUNCIONALIDAD:
 
 var ultimoNumMaxTematicas = 0; //Variable que guarda el número de temáticas cargadas la última vez.
 function CargarTematicas(numMaxTematicas,idioma){
+  //Si es la primera vez que se carga la página: calcula el número de filas de cuadros en función del espacio disponible:
+  if (numMaxTematicas == "inicial"){
+    numMaxTematicas = 2*(Math.floor($("#barraMenuBusqueda").position().top/168));
+  }
   ultimoNumMaxTematicas = numMaxTematicas;
   //Primero elimina todas las temáticas o submenús que pudieran existir (antes de crear las nuevas):
   //Muy importante para evitar duplicados cada vez que se recrea el menú:
@@ -58,7 +62,7 @@ function CargarTematicas(numMaxTematicas,idioma){
       capaNumjTematicaNumi.setAttribute("onmouseover","document.getElementById('" + idCapaNumj + "').style.backgroundColor='" + arrayObjetosTematicas[i].color_letra_borde + "';document.getElementById('" + idCapaNumj + "').style.color='" + arrayObjetosTematicas[i].color_fondo + "';document.getElementById('" + idCapaNumj + "').style.borderColor='" + arrayObjetosTematicas[i].color_fondo + "'");
       capaNumjTematicaNumi.setAttribute("onmouseout","document.getElementById('" + idCapaNumj + "').style.backgroundColor='" + arrayObjetosTematicas[i].color_fondo + "';document.getElementById('" + idCapaNumj + "').style.color='" + arrayObjetosTematicas[i].color_letra_borde + "';document.getElementById('" + idCapaNumj + "').style.borderColor='" + arrayObjetosTematicas[i].color_letra_borde + "'");
 
-      capaNumjTematicaNumi.setAttribute("href","javascript:CargarCapaNumjTematicaNumi('" + arrayObjetosTematicas[i].capas[j].id + "','" + arrayObjetosTematicas[i].capas[j].tipo + "','" + arrayObjetosTematicas[i].capas[j].ruta + "');");
+      capaNumjTematicaNumi.setAttribute("href","javascript:CargarCapa('" + arrayObjetosTematicas[i].capas[j].id + "','" + arrayObjetosTematicas[i].capas[j].tipo + "','" + arrayObjetosTematicas[i].capas[j].ruta + "','menuCarga');");
 
       //Añadir a cada objeto Temática el submenú que saldrá al clickar sobre él:
       document.getElementById("submenu" + idTematicaNumi).appendChild(capaNumjTematicaNumi);
@@ -111,54 +115,4 @@ function AparecerSubmenuTematicaNumi(idTematica,colorFondo,colorLetraBorde){
 
   //Mantener el color de la clickada:
   $("#"+idTematica).css({'background-color': colorLetraBorde, 'color': colorFondo, 'border-color': colorFondo});
-}
-
-//FUNCIÓN CargarCapaNumjTematicaNumi(idCapa,tipo,ruta)
-/*
-ENTRADAS:
-  idCapa: el id de la capa sobre la que se ha clickado, y que se tiene que cargar.
-  tipo: de recurso que es la capa sobre la que se ha hecho click.
-  ruta: del recurso.
-FUNCIONALIDAD:
-  Detecta el tipo de recurso del que se trata, y en función de eso ejecuta una función de carga u otra.
-  Además, después de esto ejecuta la función CerrarSubmenus() para cerrar el que estaba abierto.
-*/
-function CargarCapaNumjTematicaNumi(idCapa,tipo,ruta){
-  //Obtener el conjunto de capas ya cargadas, y crear un array con sus títulos:
-  var arrayCapasCargadasYa = map.getLayers().getArray();
-  var arrayTitulosCapasCargadasYa = [];
-  for (var i=0; i<arrayCapasCargadasYa.length; i++){
-    var tituloCapaCargadaYai = arrayCapasCargadasYa[i].get('title');
-    arrayTitulosCapasCargadasYa.push(tituloCapaCargadaYai);
-  }
-  console.log(arrayTitulosCapasCargadasYa);
-
-  //Comprobar que el nombre de la capa que se desea cargar no se encuentra en el array creado anteriormente. Es decir, que esta capa no está ya cargada:
-  if (arrayTitulosCapasCargadasYa.indexOf(idCapa) === -1){
-    //Caso en el que la capa es nueva: se añade con la función apropiada dependiendo del tipo de servicio que sea:
-    if (tipo == "wms") {
-      AnadirWMS(ruta,idCapa);
-    };
-  } else {
-    alert("Capa ya cargada");
-  }
-  CerrarSubmenus();
-  variarPosiciones('capas_cargadas_tematicas');
-}
-
-//FUNCIÓN CerrarSubmenus()
-/*
-FUNCIONALIDAD:
-  - Cierra cualquier submenú que estuviera abierto.
-  - En función del número de capas que estén cargadas (comparando con el número de capas base ya cargadas); llama a la función para construir el menú inferior o superior.
-  - Elimina el evento onclick fuera de los submenús para eliminarlos, ya que estos ya se han eliminado.
-*/
-function CerrarSubmenus(){
-  //Cerrar cualquier submenú abierto:
-  $("[id*=submenutematica]").hide();
-
-  //Eliminar el control de click fuera del submenú para cerrarlo; porque ya se ha cerrado:
-  $("html").unbind('click');
-  CargarTematicas(ultimoNumMaxTematicas,idioma);
-
 }

@@ -84,7 +84,7 @@ function GetRecords(service_or_dataset) {
 	//var output_schema = "http://www.opengis.net/cat/csw/2.0.2";
 	var output_schema = "http://www.isotc211.org/2005/gmd";
 
-	csw.GetRecords(1,10,filter,output_schema).then(function(result){
+	csw.GetRecords(1,100,filter,output_schema).then(function(result){
 		//Convertir a JSON la respuesta en xml, utilizando la función xmlToJSON, albergada en el archivo xmltojson.js
 		var result_json = xmlToJSON.parseXML(result);
 		console.log(result_json);
@@ -115,7 +115,7 @@ function GetRecords(service_or_dataset) {
           } else if (elementos[i].dataQualityInfo) {
             tipoElementoi = elementos[i].dataQualityInfo[0].DQ_DataQuality[0].scope[0].DQ_Scope[0].level[0].MD_ScopeCode[0]._attr.codeListValue._value;
           }
-        //  console.log(tipoElementoi);
+          console.log(tipoElementoi);
 
           var tituloElementoI = "";
           var urlElementoIOriginal = "";
@@ -143,10 +143,17 @@ function GetRecords(service_or_dataset) {
               keywordsElementoI = [];
             }
             //Añadir la url del servicio:
-            urlElementoIOriginal = elementos[i].distributionInfo[0].MD_Distribution[0].transferOptions[0].MD_DigitalTransferOptions[0].onLine[0].CI_OnlineResource[0].linkage[0].URL[0]._text;
+            if (elementos[i].distributionInfo){
+              urlElementoIOriginal = elementos[i].distributionInfo[0].MD_Distribution[0].transferOptions[0].MD_DigitalTransferOptions[0].onLine[0].CI_OnlineResource[0].linkage[0].URL[0]._text;
+            } else {
+              urlElementoIOriginal = "";
+            }
             //Acortarla hasta donde se encuentre el '?':
-            urlElementoIDefinitiva = urlElementoIOriginal.substring(0,urlElementoIOriginal.indexOf('?')) + '?';
-
+            if (urlElementoIOriginal){
+              urlElementoIDefinitiva = urlElementoIOriginal.substring(0,urlElementoIOriginal.indexOf('?')) + '?';
+            } else {
+              urlElementoIDefinitiva = "";
+            }
 
           //Si se tiene un DATASET:
           } else if (tipoElementoi == "dataset"){
@@ -169,6 +176,7 @@ function GetRecords(service_or_dataset) {
             } else {
               keywordsElementoI = [];
             }
+
           //Si se tiene un SERIES:
         } else if (tipoElementoi == "series"){
       //      console.log("es un harvesting");
@@ -219,7 +227,7 @@ function GetRecords(service_or_dataset) {
         //Añado el objeto creado para el elemento i al array de resultados:
       	arrayResultadoCatalogo.push(elementoCatalogoI);
     	}
-  //  	console.log(arrayResultadoCatalogo);
+    	console.log(arrayResultadoCatalogo);
       return arrayResultadoCatalogo;
     };
 
@@ -303,7 +311,7 @@ function GetRecords(service_or_dataset) {
       theme: "bootstrap",
       width: '100%',
       matcher: FuncionEmparejadora,
-      closeOnSelect: false,
+      closeOnSelect: true,
       dropdownParent: $('#espBusquedaCatalogo')
     })
     //Al seleccionar un resultado:
@@ -314,6 +322,7 @@ function GetRecords(service_or_dataset) {
     //  $('.select2-dropdown').attr('id','fix');
     //  $('#fix').css('height:4em;color:red');
       console.log("open");
+      $("[id*=lista_capas_a_cargar]").remove();
 
     });
 
@@ -328,3 +337,65 @@ function GetRecords(service_or_dataset) {
 
   });
 };
+
+
+
+//FUNCIÓN ConsultarCapasWMS(urlEntrada)
+/*
+ENTRADAS:
+  urlEntrada: url del servicio WMS del cual se quieren conocer las capas (hasta la ?).
+FUNCIONALIDAD:
+  Hace una petición GetCapabilities al servicio indicado, para obtener información de las capas que contiene
+SALIDA:
+	arrayCapasServicioWMS: array de objetos con la información de las capas.
+*/
+function ConsultarCapasWMS(urlEntrada) {
+	//Hacer petición getCapabilities para obtener el extent de la capa a cargar "capaEntrada":
+	var parser = new ol.format.WMSCapabilities();
+	fetch(urlEntrada + 'SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities').then(function(response) {
+		return response.text();
+  }).then(function(text) {
+		// CASO 1. ÉXITO EN LA RESPUESTA AL GETCAPABILITIES: crea la capa con extent:
+    var result = parser.read(text);
+		console.log(result);
+		arrayCapasServicioWMS = [];
+		for (var i=0; i<result.Capability.Layer.Layer.length; i++) {
+			var Capai = {};
+			Capai.id = result.Capability.Layer.Layer[i].Name;
+			Capai.nombre = result.Capability.Layer.Layer[i].Title;
+			Capai.servicio = urlEntrada;
+			arrayCapasServicioWMS.push(Capai);
+		}
+		console.log(arrayCapasServicioWMS);
+    var listaCapasACargar = $("<ul>").addClass("list-group m-0 p-0").attr("id","lista_capas_a_cargar").css({'position':'relative','z-index':'20000','width':'100%'}).appendTo("#espBusquedaCatalogo");
+
+
+    for (var i=0; i<arrayCapasServicioWMS.length; i++){
+
+      var capaServicioWMSi = document.createElement("a");
+      capaServicioWMSi.innerHTML = '<li>' + arrayCapasServicioWMS[i].nombre + '</li>';
+      capaServicioWMSi.setAttribute("href","javascript:CargarCapa('" + arrayCapasServicioWMS[i].id + "','wms','" + arrayCapasServicioWMS[i].servicio + "','menuBusqueda');");
+      capaServicioWMSi.setAttribute("class","list-group-item lista_capas_catalogo m-0 p-2");
+      capaServicioWMSi.setAttribute("style","list-style:none;");
+
+
+      document.getElementById("lista_capas_a_cargar").appendChild(capaServicioWMSi);
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	})
+}

@@ -14,12 +14,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
   </head>
-  <body onload="GetRecords('dataset');PonerIdioma('');CargarTematicas(8,'es');CargarNodos(8);">
+  <body onload="GetRecords('dataset');PonerIdioma('');CargarTematicas('inicial','es');CargarNodos(8);">
     <header class="w-100">
       <!-- Barra superior -->
       <nav class="navbar p-0 m-0 navbar-expand-0">
-        <a id="abrir_menu_lat" class="nav-link p-2 m-0" href="#" onclick="mostrar_menu_lat();ocultar_menu_nodos();"><i class="fas fa-caret-right" style="vertical-align:middle;"></i><img class="img-fluid p-2 m-2" style="height:2em;width:auto;" src="img/layers4.png"></img></a>
-        <a id="cerrar_menu_lat" class="nav-link p-2 m-0" href="#" onclick="ocultar_menu_lat()"><i class="fas fa-caret-left" style="vertical-align:middle;"></i><img class="img-fluid p-2 m-2" style="height:2em;width:auto;" src="img/layers4.png"></img></a>
+        <a id="abrir_menu_lat" class="nav-link p-2 m-0" href="#" onclick="mostrar_menu_lat();ocultar_menu_nodos();"><i class="fas fa-caret-right" style="vertical-align:middle;"></i><img class="img-fluid p-2 m-2" style="height:2em;width:auto;margin:0 !important;" src="img/layers4.png"></img></a>
+        <a id="cerrar_menu_lat" class="nav-link p-2 m-0" href="#" onclick="ocultar_menu_lat()"><i class="fas fa-caret-left" style="vertical-align:middle;"></i><img class="img-fluid p-2 m-2" style="height:2em;width:auto;margin:0 !important;" src="img/layers4.png"></img></a>
         <a class="nav-link m-0 p-0 mx-2" href="#">
           <h1 id="txtVisualizador" class="p-1 m-0"></h1>
         </a>
@@ -28,10 +28,10 @@
         <a class="navbar-brand ml-auto m-0 p-0" href="#">
           <form class="form-inline">
     				<div class="btn-group mr-2 mt-4">
-    					<button id="boton_es" type="button" class="btn btn_idioma m-0 p-0" onclick="PonerIdioma('es');CargarTematicas(8,'es')"><p class="m-0 p-0 px-1">ES</p></button>
-    					<button id="boton_en" type="button" class="btn btn_idioma m-0 p-0" onclick="PonerIdioma('en');CargarTematicas(8,'en')"><p class="m-0 p-0 px-1">EN</p></button>
+    					<button id="boton_es" type="button" class="btn btn_idioma m-0 p-0" onclick="PonerIdioma('es');CargarTematicas(ultimoNumMaxTematicas,'es')"><p class="m-0 p-0 px-1">ES</p></button>
+    					<button id="boton_en" type="button" class="btn btn_idioma m-0 p-0" onclick="PonerIdioma('en');CargarTematicas(ultimoNumMaxTematicas,'en')"><p class="m-0 p-0 px-1">EN</p></button>
     				</div>
-            <img src="img/imago2.png" alt="logo" style="height:4em;width:auto" class="img-fluid">
+            <img src="img/imago2.png" alt="logo" style="height:3em;width:auto" class="img-fluid">
           </form>
         </a>
       </nav>
@@ -70,13 +70,13 @@
         <div id="espMenuTematicas" class="row m-0 p-0" style="position:absolute;top:1%">
             <!-- Se carga contenido con la función CargarTematicas() -->
         </div>
-        <div id="barraMenuBusqueda" class="input-group m-1 p-0" style="position:absolute;bottom:8em;text-align:center;">
-          <input type="text" class="form-control" id="abrirBusqueda" placeholder="Añadir datos" onclick="variarPosiciones('busqueda_abierta')">
+        <div id="barraMenuBusqueda" class="input-group m-1 p-0" style="position:absolute;bottom:6.5em;text-align:center;">
+          <input type="text" class="form-control" id="abrirBusqueda" placeholder="Añadir datos" onclick="VariarPosiciones('busqueda_abierta')">
           <div class="input-group-prepend">
             <div class="input-group-text mr-3"><i class="fas fa-search"></i></div>
           </div>
         </div>
-        <div id="espMenuBusqueda" class="row m-0 mt-3 p-0" style="position:absolute;text-align:center;display:none">
+        <div id="espMenuBusqueda" class="row m-0 mt-3 p-0" style="width:100%;position:absolute;text-align:center;display:none">
           <ul class="nav nav-tabs w-100 m-1" id="tabMenuBusqueda" role="tablist">
             <li class="nav-item">
               <a class="nav-link active" id="tabCatalogo" data-toggle="tab" role="tab" href="#espCatalogo" aria-selected="true">
@@ -94,13 +94,13 @@
               </a>
             </li>
           </ul>
-          <div class="tab-content w-100 m-1" id="myTabContent">
+          <div class="tab-content w-100 m-1" id="espCarga">
             <div class="tab-pane fade show active" id="espCatalogo" role="tabpanel" aria-labelledby="tabCatalogo">
               <div class="form-group">
                 <select class="form-control" name="b-centro" id="selCatalogo" style="width:100em;">
                   <option value=""></option>
                 </select>
-                <div class="col-12" id="espBusquedaCatalogo" style="width:auto;height:20em;">
+                <div class="" id="espBusquedaCatalogo" style="width:98%;height:13em;overflow-y:auto;">
 
                 </div>
               </div>
@@ -189,13 +189,12 @@
     <script type="text/javascript" src="js/ponerIdioma.js"></script>
 
     <script type="text/javascript" src="js/wms/anadirWMS.js"></script>
-    <script type="text/javascript" src="js/wms/consultarCapasWMS.js"></script>
 
-    <script type="text/javascript" src="js/menuLateral/getRecords.js"></script>
+    <script type="text/javascript" src="js/menuLateral/menuBusquedaCapas.js"></script>
     <script type="text/javascript" src="js/menuLateral/menuCargaCapas.js"></script>
     <script type="text/javascript" src="js/menuLateral/menuGestionCapas.js"></script>
     <script type="text/javascript" src="js/menuLateral/variarPosiciones.js"></script>
-    <script type="text/javascript" src="js/menuLateral/getRecords.js"></script>
+    <script type="text/javascript" src="js/menuLateral/cargarCapa.js"></script>
 
     <script type="text/javascript" src="js/menuSuperior/arrayNodos.js"></script>
     <script type="text/javascript" src="js/menuSuperior/menuNodos.js"></script>

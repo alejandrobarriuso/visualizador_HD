@@ -530,7 +530,7 @@
     var numeroMapasTotalCargados = map.getLayers().N.length;
     //Si hay alguna cargada (a parte de los mapa base): menú inferior con x elementos:
     if (numeroMapasTotalCargados == numeroMapasBaseCargados){
-      variarPosiciones("no_capas_cargadas");
+      VariarPosiciones("no_capas_cargadas");
     }
  	};
  	// Add the layer list

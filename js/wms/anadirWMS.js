@@ -15,6 +15,8 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 	var abstract = '';
 	//Hacer petición getCapabilities para obtener el extent de la capa a cargar "capaEntrada":
 	var parser = new ol.format.WMSCapabilities();
+	console.log(urlEntrada);
+	console.log(capaEntrada);
 	fetch(urlEntrada + 'SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities').then(function(response) {
 		return response.text();
   }).then(function(text) {
