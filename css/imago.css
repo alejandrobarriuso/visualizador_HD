@@ -306,7 +306,7 @@ main {
 }
 
 .ol-custom-overviewmap:not(.ol-collapsed)  {
-  border: 0.1em solid #a8a8a8;
+  border: solid 0.07em #A80C76;
   padding: 0;
   margin: 0;
 }
@@ -319,7 +319,7 @@ main {
 }
 
 .ol-custom-overviewmap .ol-overviewmap-box {
-  border: 0.1em solid #94346E;
+  border: solid 0.07em #A80C76;
   padding: 0;
   margin: 0;
 }
@@ -338,21 +338,52 @@ main {
 }
 
 /* Control de mapas base */
-.ol-layerswitcher-image{
-  position: absolute !important;
-  top: auto !important;
-  bottom: 14.5em !important;
-  left: auto !important;
-  right: 0.5em !important;
-  z-index: 300;
+.div_activar_cambio_mapa_base{
+  position: absolute;
+  z-index:20100;
+  right: 16.8em;
+  bottom: 4.2em;
+  width: 3.75em;
+  height: 2.5em;
+  cursor: pointer;
+  border: solid 0.07em #A80C76;
+  border-radius: 0.3em;
+  background-size: cover;
 }
-.ol-control.ol-layerswitcher-image button{
-  background-image: none !important;
+.div_cambio_mapa_base{
+  position: absolute;
+  z-index:20200;
+  right: 16.8em;
+  bottom: 4.2em;
+  width: 15em;
 }
-.ol-layerswitcher-image.panel{
-  background: #d8d8d8 !important;
-  font-family: 'Open Sans', sans-serif !important;
-  color: #353535 !important;
+
+.mapa_base_i{
+  position: relative;
+  width: 100% !important;
+  height: 2.5em;
+  background-size: cover;
+  border: solid 0.07em #A80C76;;
+  border-radius: 0.3em;
+  cursor: pointer;
+  margin-left: 0.1em !important;
+}
+
+.mapa_base:hover{
+  box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2), 0 6px 20px 0 rgba(255, 255, 255, 0.19);
+}
+
+.mapa_base_mapbox{
+  background-image: url('../img/mapbox.jpg');
+}
+.mapa_base_VTusig{
+  background-image: url('../img/VTusig.jpg');
+}
+.mapa_base_osm{
+  background-image: url('../img/osm.jpg');
+}
+.mapa_base_stamen{
+  background-image: url('../img/stamen.jpg');
 }
 
 /* Atribuciones */

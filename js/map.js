@@ -11,55 +11,12 @@ var capaMiniatura = new ol.layer.Tile({
 });
 
 /* -- CAPAS BASE -- */
-var capa_base_Stamen = new ol.layer.Tile({
-  title: 'Water color',
-  baseLayer: true,
-  displayInLayerSwitcher: false,
-  displayInLayerSwitcher_base: true,
-  preview: "img/img1.jpg",
-  visible: false,
-  source: new ol.source.Stamen({
-    layer: 'watercolor'
-  })
-});
 
-var capa_base_OSM = new ol.layer.Tile({
-  title: 'OSM',
-  baseLayer: true,
-  displayInLayerSwitcher: false,
-  displayInLayerSwitcher_base: true,
-  preview: "img/img1.jpg",
-  visible: false,
-  source: new ol.source.OSM({
-    attributions: [
-      new ol.Attribution({
-        html: '<a href="http://unidadsig.cchs.csic.es/sig/">Unidad SIG </a>' + ol.source.OSM.ATTRIBUTION
-      })
-    ]
-  })
-});
 
-var capa_base_VT = new ol.layer.VectorTile({
-  title: 'Nuestro VT',
-  baseLayer: true,
-  visible: true,
-  displayInLayerSwitcher: false,
-  displayInLayerSwitcher_base: true,
-  preview: "img/img1.jpg",
-  declutter: true,
-  source: new ol.source.VectorTile({
-    attributions: '© Tania</a>',
-    format: new ol.format.MVT(),
-    url: 'http://161.111.72.12:8080/data/v3/{z}/{x}/{y}.pbf'
-  }),
-  style: estilo_mapa_base_mvt(ol.style.Style, ol.style.Fill, ol.style.Stroke, ol.style.Icon, ol.style.Text)
-});
 
-/* Grupo de capas base */
-var grupo_capas_base = new ol.layer.Group({
-  'title': 'Mapa base',
-  layers: [capa_base_Stamen,capa_base_OSM,capa_base_VT]
-});
+
+
+
 
 
 
@@ -87,9 +44,8 @@ var mousePositionControl = new ol.control.MousePosition({
 
 // Mapa overview:
 var overviewMapControl = new ol.control.OverviewMap({
-        // see in overviewmap-custom.html to see the custom CSS used
+        // Si no se añade capa, coge por defecto la que sea base en cada momento.
         className: 'ol-overviewmap ol-custom-overviewmap',
-        layers: [capaMiniatura],
         collapseLabel: '\u00BB',
         label: '\u00AB',
         collapsed: true
@@ -97,7 +53,7 @@ var overviewMapControl = new ol.control.OverviewMap({
 
 // Atribución:
 var attribution = new ol.control.Attribution({
-  collapsible: false
+  collapsible: true
 });
 
 //Escala numérica: creada de manera manual. Por eso es necesario que aparezca después de la creación del mapa.
@@ -115,8 +71,7 @@ var vistaMapa = new ol.View({
 
 /* Creación del mapa */
 var map = new ol.Map({
-  layers: [capa_base_Stamen,capa_base_OSM,capa_base_VT],
-  //layers: [layer],
+  layers: [capaMiniatura],
   target: 'map',
   view: vistaMapa,
   controls: ol.control.defaults({
@@ -134,8 +89,87 @@ var numeroMapasBaseCargados = map.getLayers().N.length;
 console.log(numeroMapasBaseCargados);
 
 /* Control de mapa base */
-map.addControl (new ol.control.LayerSwitcherImage());
+function AbrirMenuMapaBase(){
+  $("#menuMapaBase").css({'display':'flex'});
+  $("#menuMapaBase").on('mouseleave',CerrarMenuMapaBase);
+  $("#mapaBaseVisible").css({'display':'none'});
+}
+function CerrarMenuMapaBase(){
+  $("#menuMapaBase").css({'display':'none'});
+  $("#mapaBaseVisible").css({'display':'flex'});
+}
 
+function CambioMapaBase(capa){
+	if (capa == 'mapbox') {
+		var capaBaseMapbox = new ol.layer.Tile({
+	      source: new ol.source.XYZ({
+	      	attributions: ['Basemap by <a href="https://www.mapbox.com/about/maps/">Â© Mapbox</a> | <a href="http://www.openstreetmap.org/copyright">Â© OpenStreetMap</a> | <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>'],
+	        url: 'https://api.mapbox.com/styles/v1/abm-cchs-csic/cjcvso1ct0rwr2srz1weyqdey/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYWJtLWNjaHMtY3NpYyIsImEiOiJjamN2bjg0ODEwa3VjMnlzNnczNzZiMGQ4In0.xzpPwkaNK0qN5Y9XRTp37Q'
+	      }),
+        displayInLayerSwitcher: false,
+        displayInLayerSwitcher_base: true
+	    });
+	    capaBaseMapbox.set('name','mapabase');
+	    map.getLayers().removeAt(0);
+	    map.getLayers().insertAt(0,capaBaseMapbox);
+      $("#mapaBaseVisible").attr({'class':'div_activar_cambio_mapa_base card m-0 p-0 mapa_base_mapbox'});
+  } else if (capa == 'VTusig') {
+      var capaBaseVTusig = new ol.layer.VectorTile({
+        title: 'Nuestro VT',
+        baseLayer: true,
+        visible: true,
+        displayInLayerSwitcher: false,
+        displayInLayerSwitcher_base: true,
+        declutter: true,
+        source: new ol.source.VectorTile({
+          attributions: '© Tania</a>',
+          format: new ol.format.MVT(),
+          url: 'http://161.111.72.12:8080/data/v3/{z}/{x}/{y}.pbf'
+        }),
+        style: estilo_mapa_base_mvt(ol.style.Style, ol.style.Fill, ol.style.Stroke, ol.style.Icon, ol.style.Text)
+      });
+      capaBaseVTusig.set('name','mapabase');
+      capaBaseVTusig.setOpacity(0.8);
+      map.getLayers().removeAt(0);
+      map.getLayers().insertAt(0,capaBaseVTusig);
+      $("#mapaBaseVisible").attr({'class':'div_activar_cambio_mapa_base card m-0 p-0 mapa_base_VTusig'});
+    } else if (capa == 'osm') {
+        var capaBaseOSM = new ol.layer.Tile({
+          displayInLayerSwitcher: false,
+          displayInLayerSwitcher_base: true,
+          source: new ol.source.OSM({
+            attributions: [
+              new ol.Attribution({
+                html: '<a href="http://unidadsig.cchs.csic.es/sig/">Unidad SIG </a>' + ol.source.OSM.ATTRIBUTION
+              })
+            ]
+          })
+        });
+        capaBaseOSM.set('name','mapabase');
+        capaBaseOSM.setOpacity(0.8);
+        map.getLayers().removeAt(0);
+        map.getLayers().insertAt(0,capaBaseOSM);
+        $("#mapaBaseVisible").attr({'class':'div_activar_cambio_mapa_base card m-0 p-0 mapa_base_osm'});
+      } else if (capa == 'stamen') {
+          var capaBaseStamen = new ol.layer.Tile({
+            title: 'Water color',
+            baseLayer: true,
+            displayInLayerSwitcher: false,
+            displayInLayerSwitcher_base: true,
+            visible: true,
+            source: new ol.source.Stamen({
+              layer: 'watercolor'
+            })
+          });
+          capaBaseStamen.set('name','mapabase');
+          capaBaseStamen.setOpacity(0.8);
+          map.getLayers().removeAt(0);
+          map.getLayers().insertAt(0,capaBaseStamen);
+          $("#mapaBaseVisible").attr({'class':'div_activar_cambio_mapa_base card m-0 p-0 mapa_base_stamen'});
+      }
+
+
+}
 
 
 
