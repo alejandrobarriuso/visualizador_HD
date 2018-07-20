@@ -1,13 +1,18 @@
 /* --- MAPA --- */
-/* Capa para el mapa en miniatura */
-var capaMiniatura = new ol.layer.Tile({
-  source: new ol.source.OSM({
-    attributions: [
-      new ol.Attribution({
-        html: '<a href="http://unidadsig.cchs.csic.es/sig/">Unidad SIG </a>' + ol.source.OSM.ATTRIBUTION
-      })
-    ]
-  })
+/* Capa para el inicio */
+var capaBaseVTusig = new ol.layer.VectorTile({
+  title: 'Nuestro VT',
+  baseLayer: true,
+  visible: true,
+  displayInLayerSwitcher: false,
+  displayInLayerSwitcher_base: true,
+  declutter: true,
+  source: new ol.source.VectorTile({
+    attributions: '© Tania</a>',
+    format: new ol.format.MVT(),
+    url: 'http://161.111.72.12:8080/data/v3/{z}/{x}/{y}.pbf'
+  }),
+  style: estilo_mapa_base_mvt(ol.style.Style, ol.style.Fill, ol.style.Stroke, ol.style.Icon, ol.style.Text)
 });
 
 /* -- CAPAS BASE -- */
@@ -71,7 +76,7 @@ var vistaMapa = new ol.View({
 
 /* Creación del mapa */
 var map = new ol.Map({
-  layers: [capaMiniatura],
+  layers: [capaBaseVTusig],
   target: 'map',
   view: vistaMapa,
   controls: ol.control.defaults({
