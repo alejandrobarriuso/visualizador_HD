@@ -368,7 +368,7 @@ function ConsultarCapasWMS(urlEntrada) {
 		}
 		console.log(arrayCapasServicioWMS);
     var listaCapasACargar = $("<ul>").addClass("list-group m-0 p-0").attr("id","lista_capas_a_cargar").css({'position':'relative','z-index':'20000','width':'100%'}).appendTo("#espBusquedaCatalogo");
-
+    
 
     for (var i=0; i<arrayCapasServicioWMS.length; i++){
 

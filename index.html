@@ -43,12 +43,15 @@
           <span id="escalaLineal"></span>
           <span id="posicionMouse"></span>
       </div>
+       <div id="barraLocalizar" class="input-group m-0 p-0 search_field" >
+           <input name="localizar" class="form-control" id="localizar" placeholder="Centrar mapa en..." onFocus="this.value=''">
+           <div class="input-group-prepend">
+             <div class="input-group-text" onclick="javascript:Localiza(CentraMapa)"><i class="fas fa-map-signs"></i></div>
+           </div>
 
-       <div class="search_field" >
-           <input name="localizar" id="localizar" placeholder="centrar mapa en..." onFocus="this.value=''">
-           <button type="submit" id="ir1" name="button1" onclick="javascript:Localiza(CentraMapa)"><img src="img/img1.jpg" style="width:10px;"></button>
-           <div id="div1"></div>
+           <div id="tablaLugares"></div>
        </div>
+
 
     <!--  <div class="div_cambio_mapa_base" title="Cambia mapa de fondo">
         <div id="basemapbox" class="mapa_base base_osm" style="display:none;" onclick="javascript:CambioMapaBase('mapbox');"></div>

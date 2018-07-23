@@ -207,6 +207,7 @@ main {
   background-color: #f2f2f2 !important;
   color: #606060 !important;
   outline: none !important;
+  border: solid 0.1em #cccccc;
 }
 
 /* Estilo de todos los botones de control */
@@ -215,6 +216,7 @@ main {
   background-color: #f2f2f2 !important;
   color: #606060 !important;
   outline: none !important;
+
   height: 26px;
   width: 26px;
 }
@@ -387,35 +389,56 @@ main {
 }
 
 /* Atribuciones */
-.ol-attribution,
-.ol-attribution.ol-uncollapsible{
-  bottom: 2.5em;
-  background: #d8d8d8;
-  height: 1.5em;
+.ol-attribution{
+  position: absolute;
+  bottom: 2.2em;
+  right: 0.5em;
+  padding: 0;
 }
 
-.ol-attribution,
-.ol-attribution.ol-uncollapsible a{
-  color: #353535;
+.ol-attribution button{
+  font-size: 0.8em;
 }
 
 /* Buscador */
 .search_field {
     position: absolute;
     height: auto;
-    width: 200px;
-    top: 7.5em;
+    width: 14em;
+    top: 6em;
     right: 0.5em;
     z-index: 300;
     border-color: #424242;
-    background: #FFFFFF;
-    color: #424242;
     z-index: 20200;
-
-    font-size: 12px;
-    display: inline-block;
+    text-shadow:none !important;
+    color: #606060 !important;
+    outline: none !important;
+}
+#localizar{
+  font-size: 0.8em !important;
 }
 
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+}
+#tablaLugares{
+  font-size: 0.8em !important;
+  width: 82%;
+}
+.fila_lugar_i{
+  background-color: #f2f2f2;
+  color: #606060;
+  padding:0.5em;
+  text-decoration: none;
+  display:flex;
+  height:auto;
+  width:100%;
+}
+.fila_lugar_i:hover{
+  background-color: #A80C76;
+  color: #f2f2f2;
+  text-decoration: none;
+}
 
 
 
