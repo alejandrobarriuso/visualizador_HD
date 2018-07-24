@@ -130,6 +130,7 @@ function GetRecords(service_or_dataset) {
             } else {
               tituloElementoI = "Sin título";
             }
+
             //Añadir el array de keywords de cada elemento:
             if (elementos[i].identificationInfo[0].SV_ServiceIdentification[0].descriptiveKeywords){
               var numKeywordsElementoI = elementos[i].identificationInfo[0].SV_ServiceIdentification[0].descriptiveKeywords[0].MD_Keywords[0].keyword.length //Número de keywords del elemento i
@@ -306,7 +307,7 @@ function GetRecords(service_or_dataset) {
     //Se crea la barra de búsqueda en todo el catálogo:
     $("#selCatalogo").select2({
       data: CrearArrayBusquedaCatalogo(result_json),
-      placeholder: 'Selecciona un registro',
+      placeholder: 'Seleccione un registro',
       allowClear: true,
       theme: "bootstrap",
       width: '100%',
@@ -322,7 +323,7 @@ function GetRecords(service_or_dataset) {
     //  $('.select2-dropdown').attr('id','fix');
     //  $('#fix').css('height:4em;color:red');
       console.log("open");
-      $("[id*=lista_capas_a_cargar]").remove();
+      $("[id*=lista_capas_a_cargar_busqueda_catalogo]").remove();
 
     });
 
@@ -332,9 +333,6 @@ function GetRecords(service_or_dataset) {
       servicioWMSACargar = $("#selCatalogo").select2('data')[0];
       ConsultarCapasWMS(servicioWMSACargar.url);
     });
-
-
-
   });
 };
 
@@ -367,8 +365,7 @@ function ConsultarCapasWMS(urlEntrada) {
 			arrayCapasServicioWMS.push(Capai);
 		}
 		console.log(arrayCapasServicioWMS);
-    var listaCapasACargar = $("<ul>").addClass("list-group m-0 p-0").attr("id","lista_capas_a_cargar").css({'position':'relative','z-index':'20000','width':'100%'}).appendTo("#espBusquedaCatalogo");
-    
+    var listaCapasACargar = $("<ul>").addClass("list-group m-0 p-0").attr("id","lista_capas_a_cargar_busqueda_catalogo").css({'position':'relative','z-index':'20000','width':'100%'}).appendTo("#espBusquedaCatalogo");
 
     for (var i=0; i<arrayCapasServicioWMS.length; i++){
 
@@ -378,24 +375,7 @@ function ConsultarCapasWMS(urlEntrada) {
       capaServicioWMSi.setAttribute("class","list-group-item lista_capas_catalogo m-0 p-2");
       capaServicioWMSi.setAttribute("style","list-style:none;");
 
-
-      document.getElementById("lista_capas_a_cargar").appendChild(capaServicioWMSi);
-
-
+      document.getElementById("lista_capas_a_cargar_busqueda_catalogo").appendChild(capaServicioWMSi);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	})
 }

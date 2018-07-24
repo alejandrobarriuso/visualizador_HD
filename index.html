@@ -43,7 +43,7 @@
           <span id="escalaLineal"></span>
           <span id="posicionMouse"></span>
       </div>
-       <div id="barraLocalizar" class="input-group m-0 p-0 search_field" >
+       <div id="barraLocalizar" class="input-group m-0 p-0 buscador_lugares" >
            <input name="localizar" class="form-control" id="localizar" placeholder="Centrar mapa en..." onFocus="this.value=''">
            <div class="input-group-prepend">
              <div class="input-group-text" onclick="javascript:Localiza(CentraMapa)"><i class="fas fa-map-signs"></i></div>
@@ -98,24 +98,24 @@
           <ul class="nav nav-tabs w-100 m-1" id="tabMenuBusqueda" role="tablist">
             <li class="nav-item">
               <a class="nav-link active" id="tabCatalogo" data-toggle="tab" role="tab" href="#espCatalogo" aria-selected="true">
-                <h5 id="txtTabCatalogo" class="p-0 m-0">Catálogo</h5>
+                <h5 id="txtTabCatalogo" class="p-0 m-0"></h5>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="tabFichero" data-toggle="tab" role="tab" href="#espFichero" aria-selected="false">
-                <h5 id="txtTabCatalogo" class="p-0 m-0">Fichero</h5>
+                <h5 id="txtTabFichero" class="p-0 m-0"></h5>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="tabURL" data-toggle="tab" role="tab" href="#espURL" aria-selected="false">
-                <h5 id="txtTabCatalogo" class="p-0 m-0">URL del servicio</h5>
+                <h5 id="txtTabURLServicio" class="p-0 m-0"></h5>
               </a>
             </li>
           </ul>
           <div class="tab-content w-100 m-1" id="espCarga">
             <div class="tab-pane fade show active" id="espCatalogo" role="tabpanel" aria-labelledby="tabCatalogo">
               <div class="form-group">
-                <select class="form-control" name="b-centro" id="selCatalogo" style="width:100em;">
+                <select class="form-control" id="selCatalogo" style="width:100em;">
                   <option value=""></option>
                 </select>
                 <div class="" id="espBusquedaCatalogo" style="width:98%;height:13em;overflow-y:auto;">
@@ -124,7 +124,21 @@
               </div>
             </div>
             <div class="tab-pane fade" id="espFichero" role="tabpanel" aria-labelledby="tabFichero">...</div>
-            <div class="tab-pane fade" id="espURL" role="tabpanel" aria-labelledby="tabURL">...</div>
+            <div class="tab-pane fade" id="espURL" role="tabpanel" aria-labelledby="tabURL">
+              <div class="input-group m-0 p-0" style="width:96%;">
+                  <input name="cargar ruta" class="form-control" id="cargarURL" placeholder="Dirección url del servicio" onFocus="this.value='';javascript:vaciarListaCapas()">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text" onclick="javascript:cargarURLServicio(cargarURL.value)"><i class="fas fa-plus"></i></div>
+                  </div>
+              </div>
+              <div class="" id="espBusquedaURLExterna" style="width:98%;height:13em;overflow-y:auto;">
+                <p class="m-2 p-0" id="txtEjemploServicio" style="font-size:0.8em;"></p>
+              </div>
+
+
+
+
+            </div>
           </div>
         </div>
       </div>
@@ -207,8 +221,9 @@
 
     <script type="text/javascript" src="js/wms/anadirWMS.js"></script>
 
-    <script type="text/javascript" src="js/menuLateral/menuBusquedaCapas.js"></script>
-    <script type="text/javascript" src="js/menuLateral/menuCargaCapas.js"></script>
+    <script type="text/javascript" src="js/menuLateral/busquedaEnCatalogo.js"></script>
+    <script type="text/javascript" src="js/menuLateral/cargaURLExterna.js"></script>
+    <script type="text/javascript" src="js/menuLateral/menuTematicas.js"></script>
     <script type="text/javascript" src="js/menuLateral/menuGestionCapas.js"></script>
     <script type="text/javascript" src="js/menuLateral/variarPosiciones.js"></script>
     <script type="text/javascript" src="js/menuLateral/cargarCapa.js"></script>

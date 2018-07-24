@@ -401,7 +401,7 @@ main {
 }
 
 /* Buscador */
-.search_field {
+.buscador_lugares {
     position: absolute;
     height: auto;
     width: 14em;
@@ -560,7 +560,7 @@ h5{
 }
 
 .select2-results{
-  height: 14em;
+  height: 12em;
   overflow-y: auto;
   font-size: 1em;
 }
