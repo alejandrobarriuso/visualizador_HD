@@ -3,13 +3,13 @@ var arrayNodos = [
   {
     "id": "idearq",
     "nombre": "IDEARQ",
-    "color_fondo": "#FFB299",
+    "color_fondo": "#DF3A2C",
     "color_letra_borde": "#DF3A2C",
     "url": "http://www.idearqueologia.org/"
   }, {
     "id": "sig_mayores",
     "nombre": "SIG MAYORES",
-    "color_fondo": "#00ADAD",
+    "color_fondo": "#A83DA5",
     "color_letra_borde": "#DF3A2C",
     "url": "http://sigmayores.csic.es/visor/visor.html"
   }, {
@@ -33,7 +33,7 @@ var arrayNodos = [
   }, {
     "id": "prueba4",
     "nombre": "PRUEBA4",
-    "color_fondo": "#7D3280",
+    "color_fondo": "#5F3FA8",
     "color_letra_borde": "#DF3A2C",
     "url": ""
   }

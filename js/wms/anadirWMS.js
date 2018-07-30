@@ -85,6 +85,9 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 		});
 		//Añadir la capa al mapa:
 		map.addLayer(capaWMSEntrada);
+		//Hacer zoom a la capa cargada:
+		var anchoSidebar = document.getElementById('sidebar').offsetWidth + 6;
+		map.getView().fit(extentEntrada,{size:map.getSize(),padding:[10,10,10,anchoSidebar]});
 		console.log(capaWMSEntrada);
 
 		//Añadir la operación GETFEATUREINFO al mapa, en la capa recién cargada:
@@ -92,7 +95,7 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 			document.getElementById('textoGetFeatureInfo').innerHTML = '';
 			var viewResolution = vistaMapa.getResolution();
 			var url = fuenteWMSEntrada.getGetFeatureInfoUrl(
-				evt1.coordinate, viewResolution, 'EPSG:4326',
+				evt1.coordinate, viewResolution, 'EPSG:3857',
 				{'INFO_FORMAT': 'text/html'});
 				if (url) {
 					document.getElementById('textoGetFeatureInfo').innerHTML =

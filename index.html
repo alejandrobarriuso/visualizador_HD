@@ -23,8 +23,8 @@
         <a class="nav-link m-0 p-0 mx-2" href="#">
           <h1 id="txtVisualizador" class="p-1 m-0"></h1>
         </a>
-        <a id="abrir_menu_nodos" class="nav-link p-2 m-0" href="#" onclick="mostrar_menu_nodos();ocultar_menu_lat();"><i class="fas fa-caret-down"></i></a>
-        <a id="cerrar_menu_nodos" class="nav-link p-2 m-0" href="#" onclick="ocultar_menu_nodos()"><i class="fas fa-caret-up"></i></a>
+        <a id="abrir_menu_nodos" class="nav-link p-0 m-0" href="#" onclick="mostrar_menu_nodos();ocultar_menu_lat();"><i class="fas fa-caret-down"></i></a>
+        <a id="cerrar_menu_nodos" class="nav-link p-0 m-0" href="#" onclick="ocultar_menu_nodos()"><i class="fas fa-caret-up"></i></a>
         <a class="navbar-brand ml-auto m-0 p-0" href="#">
           <form class="form-inline">
     				<div class="btn-group mr-2 mt-4">
@@ -39,10 +39,13 @@
     <main>
       <div id="map" class="map"></div>
 
+      <div id="textoGetFeatureInfo"></div>
+
       <div class="posicion_escala justify-content-left">
           <span id="escalaLineal"></span>
           <span id="posicionMouse"></span>
       </div>
+
        <div id="barraLocalizar" class="input-group m-0 p-0 buscador_lugares" >
            <input name="localizar" class="form-control" id="localizar" placeholder="Centrar mapa en..." onFocus="this.value=''">
            <div class="input-group-prepend">
@@ -52,11 +55,6 @@
            <div id="tablaLugares"></div>
        </div>
 
-
-    <!--  <div class="div_cambio_mapa_base" title="Cambia mapa de fondo">
-        <div id="basemapbox" class="mapa_base base_osm" style="display:none;" onclick="javascript:CambioMapaBase('mapbox');"></div>
-        <div id="baseVTusig" class="mapa_base base_vtusig" onclick="javascript:CambioMapaBase('VTusig');"></div>
-      </div> -->
       <div id="mapaBaseVisible" class="div_activar_cambio_mapa_base card m-0 p-0 mapa_base_mapbox" onmouseover="javascript:AbrirMenuMapaBase();"></div>
       <div id="menuMapaBase" class="card-deck m-0 p-0 div_cambio_mapa_base" style="display:none;" title="Cambia mapa base">
         <div id="baseMapbox" class="card m-0 p-0 mapa_base_i mapa_base_mapbox" onclick="javascript:CambioMapaBase('mapbox');"></div>
@@ -64,12 +62,6 @@
         <div id="baseOSM" class="card m-0 p-0 mapa_base_i mapa_base_osm" onclick="javascript:CambioMapaBase('osm');"></div>
         <div id="baseStamen" class="card m-0 p-0 mapa_base_i mapa_base_stamen" onclick="javascript:CambioMapaBase('stamen');"></div>
      </div>
-
-
-
-
-
-       <div id="textoGetFeatureInfo"></div>
 
       <div id="menuNodos" class="container-fluid p-0 m-0">
         <div class="row_menu_nodos row justify-content-center">

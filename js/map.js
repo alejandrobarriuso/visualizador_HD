@@ -48,6 +48,7 @@ var overviewMapControl = new ol.control.OverviewMap({
 
 // Atribución:
 var attribution = new ol.control.Attribution({
+  target: document.getElementById('info_mapa_base')
 });
 
 /* Creación de la vista */
