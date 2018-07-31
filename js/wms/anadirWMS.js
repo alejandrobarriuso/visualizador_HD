@@ -91,16 +91,38 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 		console.log(capaWMSEntrada);
 
 		//Añadir la operación GETFEATUREINFO al mapa, en la capa recién cargada:
-		map.on('singleclick', function(evt1) {
+		map.on('singleclick', function(evt) {
 			document.getElementById('textoGetFeatureInfo').innerHTML = '';
 			var viewResolution = vistaMapa.getResolution();
+			//Calcular la posición en la que hay que dibujar el div:
+			var coordenadasClickWebMercator = evt.coordinate;
+			var centroEnPixeles = map.getPixelFromCoordinate(coordenadasClickWebMercator);
+			var x = centroEnPixeles[0] + 10;
+			var y = centroEnPixeles[1] + 10;
+
+
 			var url = fuenteWMSEntrada.getGetFeatureInfoUrl(
-				evt1.coordinate, viewResolution, 'EPSG:3857',
+				evt.coordinate, viewResolution, 'EPSG:3857',
 				{'INFO_FORMAT': 'text/html'});
+				//application/json
 				if (url) {
+					console.log(url);
+					console.log(url.text);
 					document.getElementById('textoGetFeatureInfo').innerHTML =
-					'<iframe seamless src="' + url + '"></iframe>';
+					'<iframe id="iframenueva" seamless src="' + url + '"></iframe>';
+					$('#textoGetFeatureInfo').css({'top':y,'left':x});
+					console.log(document.getElementById('textoGetFeatureInfo').innerHTML);
+					console.log($("#iframenueva").contents().find(".text-info").html);
+
 				}
+				if (document.getElementById('textoGetFeatureInfo').innerHTML == ""){
+				//	$('#textoGetFeatureInfo').css({'display':'none'});
+				console.log("holiii");
+				}
+
+
+
+
 		});
 	}
 }

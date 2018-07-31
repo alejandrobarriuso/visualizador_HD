@@ -195,9 +195,7 @@ main {
 
 #textoGetFeatureInfo{
   background: #f2f2f2;
-  position: fixed;
-  top:10em;
-  right:10em;
+  position: absolute;
   width: auto;
   height: auto;
   z-index: 100;
@@ -378,16 +376,16 @@ main {
 }
 
 .mapa_base_mapbox{
-  background-image: url('../img/mapbox.jpg');
+  background-image: url('../img/mapbox.JPG');
 }
 .mapa_base_VTusig{
-  background-image: url('../img/VTusig.jpg');
+  background-image: url('../img/VTusig.JPG');
 }
 .mapa_base_osm{
-  background-image: url('../img/osm.jpg');
+  background-image: url('../img/osm.JPG');
 }
 .mapa_base_stamen{
-  background-image: url('../img/stamen.jpg');
+  background-image: url('../img/stamen.JPG');
 }
 
 /* Atribuciones */
