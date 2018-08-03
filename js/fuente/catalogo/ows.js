@@ -38,7 +38,7 @@ Ows4js.Util.httpPost = function(url, lang, request, credentials) {
             }
         };
         httpRequest.open('POST', url, true);
-        httpRequest.setRequestHeader('imagorbis',lang);	
+        //httpRequest.setRequestHeader('imagorbis',lang);	
 		
         if (credentials != undefined && credentials.user != undefined && credentials.pass != undefined){
             httpRequest.setRequestHeader("Authorization", "Basic " + btoa(credentials.user + ":" + credentials.pass));

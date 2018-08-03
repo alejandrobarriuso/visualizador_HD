@@ -20,7 +20,7 @@ var placeholderCargarURL = '';
 function PonerIdioma(lang){
 	idioma = lang;
 	if(idioma == 'en'){
-		visualizador = '<big>V</big>ISUALIZER <big>T</big>ITLE';
+		visualizador = '<big>I</big>MAGO <big>O</big>RBIS';
 		botonAnadir = "Add";
 		botonGestion = "Manage";
 		escalaNum = "Scale";
@@ -34,7 +34,7 @@ function PonerIdioma(lang){
 	//	placeholderSelCatalogo = 'Select a record';
 
 	} else {
-		visualizador = '<big>T</big>ÍTULO DEL <big>V</big>ISUALIZADOR';
+		visualizador = '<big>I</big>MAGO <big>O</big>RBIS';
 		botonAnadir = "Añadir";
 		botonGestion = "Gestionar";
 		escalaNum = "Escala";

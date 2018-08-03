@@ -104,7 +104,6 @@ function CambioMapaBase(capa){
 	    capaBaseMapbox.set('name','mapabase');
 	    map.getLayers().removeAt(0);
 	    map.getLayers().insertAt(0,capaBaseMapbox);
-      $("#mapaBaseVisible").attr({'class':'div_activar_cambio_mapa_base card m-0 p-0 mapa_base_mapbox'});
   } else if (capa == 'VTusig') {
       var capaBaseVTusig = new ol.layer.VectorTile({
         title: 'Nuestro VT',
@@ -124,7 +123,6 @@ function CambioMapaBase(capa){
       capaBaseVTusig.setOpacity(0.8);
       map.getLayers().removeAt(0);
       map.getLayers().insertAt(0,capaBaseVTusig);
-      $("#mapaBaseVisible").attr({'class':'div_activar_cambio_mapa_base card m-0 p-0 mapa_base_VTusig'});
     } else if (capa == 'osm') {
         var capaBaseOSM = new ol.layer.Tile({
           displayInLayerSwitcher: false,
@@ -141,7 +139,6 @@ function CambioMapaBase(capa){
         capaBaseOSM.setOpacity(0.8);
         map.getLayers().removeAt(0);
         map.getLayers().insertAt(0,capaBaseOSM);
-        $("#mapaBaseVisible").attr({'class':'div_activar_cambio_mapa_base card m-0 p-0 mapa_base_osm'});
       } else if (capa == 'stamen') {
           var capaBaseStamen = new ol.layer.Tile({
             title: 'Water color',
@@ -157,7 +154,6 @@ function CambioMapaBase(capa){
           capaBaseStamen.setOpacity(0.8);
           map.getLayers().removeAt(0);
           map.getLayers().insertAt(0,capaBaseStamen);
-          $("#mapaBaseVisible").attr({'class':'div_activar_cambio_mapa_base card m-0 p-0 mapa_base_stamen'});
       }
 }
 

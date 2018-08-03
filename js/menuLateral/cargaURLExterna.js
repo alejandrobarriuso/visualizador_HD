@@ -10,14 +10,21 @@ SALIDA:
 	arrayCapasServicioWMS: array de objetos con la información de las capas.
 */
 function cargarURLServicio(urlEntrada) {
+
 	//Hacer petición getCapabilities para obtener el extent de la capa a cargar "capaEntrada":
+	// IMPORTANTE: se requiere el proxy corsproxy funcionando, en el puerto 1337; para saltar la restricción CORS.
 	var parser = new ol.format.WMSCapabilities();
-  //Si se ha introducido la dirección más larga de lo necesario (hasta la ?); entonces se recorta:
+	//Si se ha introducido la dirección más larga de lo necesario (hasta la ?); entonces se recorta:
   if (urlEntrada.indexOf('?') != -1){
-    urlDefinitiva = urlEntrada.substring(0,urlEntrada.indexOf('?')) + '?';
-  	fetch(urlDefinitiva + 'SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities').then(function(response) {
-  		return response.text();
-    }).then(function(text) {
+		urlDefinitiva = urlEntrada.substring(0,urlEntrada.indexOf('?')) + '?';
+		console.log(urlEntrada);
+		// La url de entrada se debe recortar a partir del caracter 7º, para quitar "http://":
+		var urlEntradaParaCapabilities = urlEntrada.slice(7);
+		console.log(urlEntradaParaCapabilities);
+		var url_capabilities = 'http://localhost:1337/' + urlEntradaParaCapabilities + 'SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities';
+		$.ajax({
+				url: url_capabilities
+		}).done(function(text) {
   		// CASO 1. ÉXITO EN LA RESPUESTA AL GETCAPABILITIES: crea la capa con extent:
       var result = parser.read(text);
   		console.log(result);
