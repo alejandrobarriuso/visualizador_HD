@@ -24,7 +24,7 @@ function PonerIdioma(lang){
 		botonAnadir = "Add";
 		botonGestion = "Manage";
 		escalaNum = "Scale";
-		ejemploServicio = "Valid example links: http://www.idearqueologia.org/idearq/wms? or http://www.idearqueologia.org/idearq/wms?service=wms&request=getcapabilities"
+		ejemploServicio = "Valid example link: http://www.idearqueologia.org/idearq/wms?";
 		tabCatalogo = 'Catalogue';
 		tabFichero = 'File';
 		tabURLServicio = 'URL of the service';
@@ -38,7 +38,7 @@ function PonerIdioma(lang){
 		botonAnadir = "Añadir";
 		botonGestion = "Gestionar";
 		escalaNum = "Escala";
-		ejemploServicio = "Enlaces de ejemplo válidos: http://www.idearqueologia.org/idearq/wms? o http://www.idearqueologia.org/idearq/wms?service=wms&request=getcapabilities"
+		ejemploServicio = "Enlace de ejemplo válido: http://www.idearqueologia.org/idearq/wms?";
 		tabCatalogo = 'Catálogo';
 		tabFichero = 'Fichero';
 		tabURLServicio = 'URL del servicio';

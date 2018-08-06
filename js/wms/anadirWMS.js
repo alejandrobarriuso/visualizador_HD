@@ -23,6 +23,7 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 	var urlEntradaParaCapabilities = urlEntrada.slice(7);
 	console.log(urlEntradaParaCapabilities);
 	var url_capabilities = 'http://localhost:1337/' + urlEntradaParaCapabilities + 'SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities';
+	console.log(url_capabilities);
 	$.ajax({
       url: url_capabilities
   }).done(function(text) {
@@ -79,7 +80,7 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 			url: urlEntrada,
 			params: {LAYERS: capaEntrada, FORMAT: 'image/png'},
 		})
-
+		console.log(fuenteWMSEntrada);
 		//Crear la capa:
 		var capaWMSEntrada = new ol.layer.Tile({
 			title: capaEntrada,

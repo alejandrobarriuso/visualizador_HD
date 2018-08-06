@@ -64,8 +64,8 @@ var arrayObjetosTematicas = [
     "color_letra_borde": "#7D3280",
     "capas": [
       {
-        "nombre": "SIGMAYORES Recursos sociales",
-        "nombre_en": "SIGMAYORES Social Resources",
+        "nombre": "SIGMAYORES Centros de Servicios Sociales",
+        "nombre_en": "SIGMAYORES Social Service Centres",
         "tipo": "wms",
         "ruta": "http://www.sigmayores.csic.es/ArcGIS/services/Rec-Sociales/MapServer/WMSServer?",
         "id": "US.socialService"
@@ -75,6 +75,36 @@ var arrayObjetosTematicas = [
         "tipo": "wms",
         "ruta": "http://www.sigmayores.csic.es/ArcGIS/services/Rec-Sociales/MapServer/WMSServer?",
         "id": "US.housing"
+      },{
+        "nombre": "SIGMAYORES Centros INSS",
+        "nombre_en": "SIGMAYORES Specialized Administration Offices",
+        "tipo": "wms",
+        "ruta": "http://www.sigmayores.csic.es/ArcGIS/services/Rec-Sociales/MapServer/WMSServer?",
+        "id": "US.specializedAdministrationOffice"
+      },{
+        "nombre": "SIGMAYORES Centros de día",
+        "nombre_en": "SIGMAYORES Specialized Service Of Social Protection",
+        "tipo": "wms",
+        "ruta": "http://www.sigmayores.csic.es/ArcGIS/services/Rec-Sociales/MapServer/WMSServer?",
+        "id": "US.specializedServiceOfSocialProtection"
+      },{
+        "nombre": "SIGMAYORES Consultorios",
+        "nombre_en": "SIGMAYORES General Medical Services",
+        "tipo": "wms",
+        "ruta": "http://www.sigmayores.csic.es/ArcGIS/services/Rec-Sanitarios/MapServer/WMSServer?",
+        "id": "US.generalMedicalService"
+      },{
+        "nombre": "SIGMAYORES Centros de salud",
+        "nombre_en": "SIGMAYORES Specialized Medical Services",
+        "tipo": "wms",
+        "ruta": "http://www.sigmayores.csic.es/ArcGIS/services/Rec-Sanitarios/MapServer/WMSServer?",
+        "id": "US.specializedMedicalService"
+      },{
+        "nombre": "SIGMAYORES Hospitales",
+        "nombre_en": "SIGMAYORES Hospital Services",
+        "tipo": "wms",
+        "ruta": "http://www.sigmayores.csic.es/ArcGIS/services/Rec-Sanitarios/MapServer/WMSServer?",
+        "id": "US.hospitalService"
       }
     ]
   }, {

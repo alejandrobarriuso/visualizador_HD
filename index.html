@@ -59,7 +59,8 @@
            <div id="tablaLugares"></div>
        </div>
       <div class="ol-control boton_cambio_base">
-         <button id="mapaBaseVisible" class="m-0 p-1" onclick="javascript:AbrirMenuMapaBase();"><i class="fas fa-th-large"></i></button>
+         <button id="btnAbrirMapaBase" class="m-0 p-1" onclick="javascript:AbrirMenuMapaBase();" title="Cambiar mapa base"><i class="fas fa-th-large"></i></button>
+         <button id="btnCerrarMapaBase" class="m-0 p-1 cerrar" onclick="javascript:CerrarMenuMapaBase();" style="display:none;"><i class="fas fa-th-large"></i></button>
       </div>
       <div id="menuMapaBase" class="card-deck m-0 p-0 div_cambio_mapa_base" style="display:none;" title="Cambia mapa base">
         <div id="baseMapbox" class="card m-0 p-0 mapa_base_i mapa_base_mapbox" onclick="javascript:CambioMapaBase('mapbox');"></div>
@@ -148,22 +149,29 @@
     <footer class="w-100">
       <div class="container-fluid">
         <div class="row barra_pie justify-content-between">
-          <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+          <div class="col-auto">
+            <div class="row barra_iconos_pie justify-content-start">
+              <div class="col-auto m-0 p-0">
+                <a href="http://unidadsig.cchs.csic.es/sig/" target="_blank" class="mx-2 p-0"><img src="img/usig_gris.png" alt="uSIG" style="height:2.5em;"></img></a>
+                <a href="http://cchs.csic.es/" target="_blank"><img src="img/cchs_gris.png" alt="CCHS" style="height:2.5em;"></img></a>
+              </div>
+            </div>
           </div>
-          <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+          <div class="col-auto align-self-center">
+            <div class="row barra_iconos_pie justify-content-start">
+              <div class="col-auto m-0 p-0">
+                <a href="http://www.csic.es/" target="_blank" class="m-0 p-0 link_pie_CSIC"><p class="m-0 p-0">© 2018 Consejo Superior de Investigaciones Científicas</p></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-auto">
             <div class="row barra_iconos_pie justify-content-end">
               <div class="col-auto m-0 p-0">
                 <button class="btn btn-outline-light boton_transparente ml-auto m-0 mx-1 p-0" onclick="">
                   <i class="fas fa-share-alt-square"></i>
                 </button>
-                <!--<button class="btn btn-outline-light boton_transparente ml-auto m-0 mx-1 p-0" onclick="window.open('https://twitter.com/usig_cchs_csic?lang=es')" target="_blank">
-                  <i class="fab fa-twitter-square"></i>
-                </button>-->
                 <button class="btn btn-outline-light boton_transparente ml-auto m-0 mx-1 p-0" onclick="window.open('https://github.com/alejandrobarriuso/visualizador_HD')" target="_blank">
                   <i class="fab fa-github-square"></i>
-                </button>
-                <button class="btn btn-outline-light boton_transparente ml-auto m-0 mx-1 mr-3 p-0" onclick="">
-                  <i class="far fa-closed-captioning"></i>
                 </button>
               </div>
             </div>

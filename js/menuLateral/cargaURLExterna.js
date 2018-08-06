@@ -44,8 +44,15 @@ function cargarURLServicio(urlEntrada) {
 
         var capaServicioWMSi = document.createElement("a");
         capaServicioWMSi.innerHTML = '<li>' + arrayCapasServicioWMS[i].nombre + '</li>';
-        capaServicioWMSi.setAttribute("href","javascript:CargarCapa('" + arrayCapasServicioWMS[i].id + "','wms','" + arrayCapasServicioWMS[i].servicio + "','menuBusqueda');");
-        capaServicioWMSi.setAttribute("class","list-group-item lista_capas_catalogo m-0 p-2");
+				//Primero se intenta cargar la capa por el campo id (Name); y si no lo tiene, por el campo nombre (Title):
+				if (arrayCapasServicioWMS[i].id){
+        	capaServicioWMSi.setAttribute("href","javascript:CargarCapa('" + arrayCapasServicioWMS[i].id + "','wms','" + arrayCapasServicioWMS[i].servicio + "','menuBusqueda');");
+				} else if (arrayCapasServicioWMS[i].nombre){
+					capaServicioWMSi.setAttribute("href","javascript:CargarCapa('" + arrayCapasServicioWMS[i].nombre + "','wms','" + arrayCapasServicioWMS[i].servicio + "','menuBusqueda');");
+				} else {
+					alert("No es posible cargar esta capa");
+				}
+				capaServicioWMSi.setAttribute("class","list-group-item lista_capas_catalogo m-0 p-2");
         capaServicioWMSi.setAttribute("style","list-style:none;");
 
         document.getElementById("lista_capas_a_cargar_URL_externa").appendChild(capaServicioWMSi);

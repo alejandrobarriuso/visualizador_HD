@@ -28,7 +28,7 @@ var scaleLineControl = new ol.control.ScaleLine({
 
 // Longitud y latitud de la posición del puntero:
 var mousePositionControl = new ol.control.MousePosition({
-  coordinateFormat: function(coord){ return ol.coordinate.format(coord, '{x}, {y}', 4)+' (lon, lat) WGS84';},
+  coordinateFormat: function(coord){ return ol.coordinate.format(coord, '{x}, {y}', 4)+' (lon, lat) - EPSG:4326';},
   projection: 'EPSG:4326',
   // comment the following two lines to have the mouse position
   // be placed within the map.
@@ -40,15 +40,19 @@ var mousePositionControl = new ol.control.MousePosition({
 // Mapa overview:
 var overviewMapControl = new ol.control.OverviewMap({
   // Si no se añade capa, coge por defecto la que sea base en cada momento.
+  layers: [capaBaseVTusig],
   className: 'ol-overviewmap ol-custom-overviewmap',
   collapseLabel: '\u00BB',
   label: '\u00AB',
-  collapsed: true
+  collapsed: true,
+  tipLabel: 'Mapa de situación'
 });
 
 // Atribución:
 var attribution = new ol.control.Attribution({
-  target: document.getElementById('info_mapa_base')
+  target: document.getElementById('info_mapa_base'),
+  label: '?',
+  tipLabel: 'Ayuda y créditos'
 });
 
 /* Creación de la vista */
@@ -83,12 +87,15 @@ console.log(numeroMapasBaseCargados);
 /* Control de mapa base */
 function AbrirMenuMapaBase(){
   $("#menuMapaBase").css({'display':'flex'});
-  $("#menuMapaBase").on('mouseleave',CerrarMenuMapaBase);
-  $("#mapaBaseVisible").css({'display':'none'});
+  $("#menuMapaBase").on('click',CerrarMenuMapaBase);
+  $("#btnCerrarMapaBase").css({'display':'flex'});
+  $("#btnAbrirMapaBase").css({'display':'none'});
 }
 function CerrarMenuMapaBase(){
   $("#menuMapaBase").css({'display':'none'});
-  $("#mapaBaseVisible").css({'display':'flex'});
+  $("#btnCerrarMapaBase").css({'display':'none'});
+  $("#btnAbrirMapaBase").css({'display':'flex'});
+
 }
 
 function CambioMapaBase(capa){
@@ -199,7 +206,7 @@ function CentraMapa(resultado){
 function centrarMapaEni(lng,lat){
   map.getView().setCenter(ol.proj.fromLonLat([Number(lng),Number(lat)]));
   console.log(ol.proj.fromLonLat([Number(lng),Number(lat)]));
-  map.getView().setZoom(10);
+  map.getView().setZoom(14);
   document.getElementById("tablaLugares").innerHTML = "";
   document.getElementById("localizar").value = "";
 }
