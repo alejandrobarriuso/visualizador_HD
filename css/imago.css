@@ -363,18 +363,18 @@ main {
   z-index:20200;
   right: 2.7em;
   bottom: 5em;
-  width: 15em;
+  width: 10.8em;
 }
 
 .mapa_base_i{
   position: relative;
-  width: 100% !important;
+  width: 2.5em;
   height: 2.5em;
   background-size: cover;
   border: solid 0.07em #A80C76;;
   border-radius: 0.3em;
   cursor: pointer;
-  margin-left: 0.1em !important;
+  margin: 0.1em !important;
 }
 
 .mapa_base:hover{
@@ -392,6 +392,18 @@ main {
 }
 .mapa_base_stamen{
   background-image: url('../img/stamen.JPG');
+}
+.mapa_base_esri_wi{
+  background-image: url('../img/esri_world_imagery.JPG');
+}
+.mapa_base_esri_ob{
+  background-image: url('../img/esri_ocean_basemap.JPG');
+}
+.mapa_base_esri_NGwm{
+  background-image: url('../img/esri_natgeo_world_map.JPG');
+}
+.mapa_base_esri_wsr{
+  background-image: url('../img/esri_world_shaded_relief.JPG');
 }
 
 /* Atribuciones */

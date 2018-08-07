@@ -60,13 +60,17 @@
        </div>
       <div class="ol-control boton_cambio_base">
          <button id="btnAbrirMapaBase" class="m-0 p-1" onclick="javascript:AbrirMenuMapaBase();" title="Cambiar mapa base"><i class="fas fa-th-large"></i></button>
-         <button id="btnCerrarMapaBase" class="m-0 p-1 cerrar" onclick="javascript:CerrarMenuMapaBase();" style="display:none;"><i class="fas fa-th-large"></i></button>
+         <button id="btnCerrarMapaBase" class="m-0 p-1 cerrar" onclick="javascript:CerrarMenuMapaBase();" style="display:none;"  title="Cerrar cambio mapa base"><i class="fas fa-th-large"></i></button>
       </div>
-      <div id="menuMapaBase" class="card-deck m-0 p-0 div_cambio_mapa_base" style="display:none;" title="Cambia mapa base">
-        <div id="baseMapbox" class="card m-0 p-0 mapa_base_i mapa_base_mapbox" onclick="javascript:CambioMapaBase('mapbox');"></div>
-        <div id="baseVTusig" class="card m-0 p-0 mapa_base_i mapa_base_VTusig" onclick="javascript:CambioMapaBase('VTusig');"></div>
-        <div id="baseOSM" class="card m-0 p-0 mapa_base_i mapa_base_osm" onclick="javascript:CambioMapaBase('osm');"></div>
-        <div id="baseStamen" class="card m-0 p-0 mapa_base_i mapa_base_stamen" onclick="javascript:CambioMapaBase('stamen');"></div>
+      <div id="menuMapaBase" class="row m-0 p-0 div_cambio_mapa_base" style="display:none;">
+        <div id="baseMapbox" class=" m-0 p-0 mapa_base_i mapa_base_mapbox" onclick="javascript:CambioMapaBase('mapbox');" title="Dark matter Mapbox"></div>
+        <div id="baseVTusig" class=" m-0 p-0 mapa_base_i mapa_base_VTusig" onclick="javascript:CambioMapaBase('VTusig');" title="Teselas vectoriales uSIG"></div>
+        <div id="baseOSM" class=" m-0 p-0 mapa_base_i mapa_base_osm" onclick="javascript:CambioMapaBase('osm');" title="Open Street Maps"></div>
+        <div id="baseStamen" class=" m-0 p-0 mapa_base_i mapa_base_stamen" onclick="javascript:CambioMapaBase('stamen');" title="Stamen"></div>
+        <div id="baseEsriWI" class=" m-0 p-0 mapa_base_i mapa_base_esri_wi" onclick="javascript:CambioMapaBase('esri_world_imagery');" title="Esri World Imagery"></div>
+        <div id="baseEsriOB" class=" m-0 p-0 mapa_base_i mapa_base_esri_ob" onclick="javascript:CambioMapaBase('esri_ocean_basemap');" title="Esri Ocean Basemap"></div>
+        <div id="baseEsriNGWM" class=" m-0 p-0 mapa_base_i mapa_base_esri_NGwm" onclick="javascript:CambioMapaBase('esri_natgeo_world_map');" title="Esri NatGeo World Map"></div>
+        <div id="baseEsriWSR" class=" m-0 p-0 mapa_base_i mapa_base_esri_wsr" onclick="javascript:CambioMapaBase('esri_world_shaded_relief');" title="Esri World Shaded Relief"></div>
      </div>
 
       <div id="menuNodos" class="container-fluid p-0 m-0">
@@ -137,10 +141,6 @@
               <div class="" id="espBusquedaURLExterna" style="width:98%;height:13em;overflow-y:auto;">
                 <p class="m-2 p-0" id="txtEjemploServicio" style="font-size:0.8em;"></p>
               </div>
-
-
-
-
             </div>
           </div>
         </div>
@@ -222,6 +222,8 @@
     <script type="text/javascript" src="js/fuente/catalogo/csw.js"></script>
     <script type="text/javascript" src="js/fuente/catalogo/filter.js"></script>
 	  <script type="text/javascript" src="js/fuente/catalogo/xmltojson.js"></script>
+
+    <script type="text/javascript" src="js/fuente/xyz.js"></script>
 
     <!-- JS FUNCIONAMIENTO MAPA -->
     <script type="text/javascript" src="js/arrayTematicas.js"></script>

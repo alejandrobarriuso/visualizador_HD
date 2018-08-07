@@ -161,7 +161,67 @@ function CambioMapaBase(capa){
           capaBaseStamen.setOpacity(0.8);
           map.getLayers().removeAt(0);
           map.getLayers().insertAt(0,capaBaseStamen);
-      }
+        } else if (capa == 'esri_world_imagery') {
+            var capaBaseEsriWI = new ol.layer.Tile({
+              displayInLayerSwitcher: false,
+              displayInLayerSwitcher_base: true,
+              source: new ol.source.XYZ({
+                attributions: 'Tiles © <a href="https://services.arcgisonline.com/ArcGIS/' +
+                    'rest/services/World_Imagery/MapServer">ArcGIS</a>',
+                url: 'https://server.arcgisonline.com/ArcGIS/rest/services/' +
+                    'World_Imagery/MapServer/tile/{z}/{y}/{x}'
+              })
+            });
+            capaBaseEsriWI.set('name','mapabase');
+            capaBaseEsriWI.setOpacity(0.8);
+            map.getLayers().removeAt(0);
+            map.getLayers().insertAt(0,capaBaseEsriWI);
+          } else if (capa == 'esri_ocean_basemap') {
+              var capaBaseEsriOB = new ol.layer.Tile({
+                displayInLayerSwitcher: false,
+                displayInLayerSwitcher_base: true,
+                source: new ol.source.XYZ({
+                  attributions: 'Tiles © <a href="https://services.arcgisonline.com/ArcGIS/' +
+                      'rest/services/Ocean_Basemap/MapServer">ArcGIS</a>',
+                  url: 'https://server.arcgisonline.com/ArcGIS/rest/services/' +
+                      'Ocean_Basemap/MapServer/tile/{z}/{y}/{x}'
+                })
+              });
+              capaBaseEsriOB.set('name','mapabase');
+              capaBaseEsriOB.setOpacity(0.8);
+              map.getLayers().removeAt(0);
+              map.getLayers().insertAt(0,capaBaseEsriOB);
+            } else if (capa == 'esri_natgeo_world_map') {
+                var capaBaseEsriNGWP = new ol.layer.Tile({
+                  displayInLayerSwitcher: false,
+                  displayInLayerSwitcher_base: true,
+                  source: new ol.source.XYZ({
+                    attributions: 'Tiles © <a href="https://services.arcgisonline.com/ArcGIS/' +
+                        'rest/services/NatGeo_World_Map/MapServer">ArcGIS</a>',
+                    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/' +
+                        'NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}'
+                  })
+                });
+                capaBaseEsriNGWP.set('name','mapabase');
+                capaBaseEsriNGWP.setOpacity(0.8);
+                map.getLayers().removeAt(0);
+                map.getLayers().insertAt(0,capaBaseEsriNGWP);
+              } else if (capa == 'esri_world_shaded_relief') {
+                  var capaBaseEsriWSR = new ol.layer.Tile({
+                    displayInLayerSwitcher: false,
+                    displayInLayerSwitcher_base: true,
+                    source: new ol.source.XYZ({
+                      attributions: 'Tiles © <a href="https://services.arcgisonline.com/ArcGIS/' +
+                          'rest/services/World_Shaded_Relief/MapServer">ArcGIS</a>',
+                      url: 'https://server.arcgisonline.com/ArcGIS/rest/services/' +
+                          'World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}'
+                    })
+                  });
+                  capaBaseEsriWSR.set('name','mapabase');
+                  capaBaseEsriWSR.setOpacity(0.8);
+                  map.getLayers().removeAt(0);
+                  map.getLayers().insertAt(0,capaBaseEsriWSR);
+            }
 }
 
 /* Buscador de lugares - GeoNames */
