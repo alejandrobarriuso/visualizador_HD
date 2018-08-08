@@ -91,6 +91,7 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 			abstract: abstractEntrada
 		});
 		//Añadir la capa al mapa:
+		console.log(capaWMSEntrada);
 		map.addLayer(capaWMSEntrada);
 		//Hacer zoom a la capa cargada:
 		var anchoSidebar = document.getElementById('sidebar').offsetWidth + 6;

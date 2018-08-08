@@ -125,11 +125,9 @@
                 </div>
               </div>
             </div>
-            <div class="tab-pane fade" id="espFichero" role="tabpanel" aria-labelledby="tabFichero">...
-              <label class="custom-file">
-                <input type="file" id="file" class="custom-file-input">
-                <span class="custom-file-control"></span>
-              </label>
+            <div class="tab-pane fade" id="espFichero" role="tabpanel" aria-labelledby="tabFichero">
+              <input type="file" id="files" name="files[]" multiple />
+              <output id="list"></output>
             </div>
             <div class="tab-pane fade" id="espURL" role="tabpanel" aria-labelledby="tabURL">
               <div class="input-group m-0 p-0" style="width:96%;">
@@ -187,6 +185,7 @@
     <script type="text/javascript" src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
+
     <!-- JS FUNCIONAMIENTO PETICIONES AL CATÁLOGO -->
     <script type="text/javascript" src="js/fuente/catalogo/jsonix/jsonix.js"></script>
     <script type="text/javascript" src="js/fuente/catalogo/ogc-schemas/lib/OWS_1_0_0.js"></script>
@@ -223,7 +222,7 @@
     <script type="text/javascript" src="js/fuente/catalogo/filter.js"></script>
 	  <script type="text/javascript" src="js/fuente/catalogo/xmltojson.js"></script>
 
-    <script type="text/javascript" src="js/fuente/xyz.js"></script>
+  
 
     <!-- JS FUNCIONAMIENTO MAPA -->
     <script type="text/javascript" src="js/arrayTematicas.js"></script>
@@ -232,9 +231,11 @@
     <script type="text/javascript" src="js/ponerIdioma.js"></script>
 
     <script type="text/javascript" src="js/wms/anadirWMS.js"></script>
+    <script type="text/javascript" src="js/geojson/anadirGeojson.js"></script>
 
     <script type="text/javascript" src="js/menuLateral/busquedaEnCatalogo.js"></script>
     <script type="text/javascript" src="js/menuLateral/cargaURLExterna.js"></script>
+    <script type="text/javascript" src="js/menuLateral/cargaArchivoExterno.js"></script>
     <script type="text/javascript" src="js/menuLateral/menuTematicas.js"></script>
     <script type="text/javascript" src="js/menuLateral/menuGestionCapas.js"></script>
     <script type="text/javascript" src="js/menuLateral/variarPosiciones.js"></script>

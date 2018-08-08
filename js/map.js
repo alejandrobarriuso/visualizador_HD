@@ -224,6 +224,7 @@ function CambioMapaBase(capa){
             }
 }
 
+
 /* Buscador de lugares - GeoNames */
 //Función para utilizar Geonames:
 function Localiza(callbackData) {
