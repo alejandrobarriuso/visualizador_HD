@@ -488,6 +488,37 @@ input:-webkit-autofill {
   text-decoration: none;
 }
 
+/* MENU TEMÁTICAS */
+#espMenuTematicas{
+  overflow-y: auto;
+}
+
+#espMenuGestionCapas{
+  width:98%;
+  overflow-y:auto;"
+}
+#barraMenuBusqueda{
+  text-align:center;
+}
+
+#botonTematicas{
+  width:96%;
+  text-align:center;
+  display:none;
+  background-color:#a8a8a8;
+  color:#f2f2f2;
+  cursor: pointer;
+}
+
+#botonGestion{
+  width:96%;
+  text-align:center;
+  display:none;
+  background-color:#a8a8a8;
+  color:#f2f2f2;
+  cursor: pointer;
+}
+
 .ol-layerswitcher{
   width:100%;
 }
@@ -602,6 +633,20 @@ h5{
   color: #f2f2f2;
 }
 
+#zonaArrastrar{
+  width:96%;
+  height:9.6em;
+  border: 0.1em dashed #606060;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}
+
+.custom-file-label::after{
+  content: "Examinar";
+}
+
 
 
 
@@ -674,9 +719,4 @@ footer .boton_transparente:focus {
   font-size: 1em;
   color: #303030;
   text-decoration: none;
-}
-.thumb {
-  height: 75px;
-  border: 1px solid #000;
-  margin: 10px 5px 0 0;
 }

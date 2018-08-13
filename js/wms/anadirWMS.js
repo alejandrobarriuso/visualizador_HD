@@ -94,8 +94,8 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 		console.log(capaWMSEntrada);
 		map.addLayer(capaWMSEntrada);
 		//Hacer zoom a la capa cargada:
-		var anchoSidebar = document.getElementById('sidebar').offsetWidth + 6;
-		map.getView().fit(extentEntrada,{size:map.getSize(),padding:[10,10,10,anchoSidebar]});
+		var anchoSidebar = document.getElementById('sidebar').offsetWidth + 15;
+		map.getView().fit(extentEntrada,{size:map.getSize(),padding:[15,15,15,anchoSidebar]});
 		console.log(capaWMSEntrada);
 
 		//Añadir la operación GETFEATUREINFO al mapa, en la capa recién cargada:
@@ -127,7 +127,6 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 				}
 				if (document.getElementById('textoGetFeatureInfo').innerHTML == ""){
 				//	$('#textoGetFeatureInfo').css({'display':'none'});
-				console.log("holiii");
 				}
 
 

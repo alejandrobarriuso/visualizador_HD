@@ -115,5 +115,48 @@ var arrayObjetosTematicas = [
     "color_letra_borde": "#006DB4",
     "capas": [
     ]
+  }, {
+    "id": "Arq",
+    "nombre": "Arqueología",
+    "nombre_en": "Archeology",
+    "color_fondo": "#FFB299",
+    "color_letra_borde": "#DF3A2C",
+    "capas": [
+    
+    ]
+  }, {
+    "id": "His",
+    "nombre": "Historia",
+    "nombre_en": "History",
+    "color_fondo": "#FFFF99",
+    "color_letra_borde": "#F3AB00",
+    "capas": [
+
+    ]
+  }, {
+    "id": "Dem",
+    "nombre": "Demografía",
+    "nombre_en": "Demography",
+    "color_fondo": "#AAEEC8",
+    "color_letra_borde": "#008A47",
+    "capas": [
+    ]
+  }, {
+    "id": "Pol",
+    "nombre": "Políticas públicas",
+    "nombre_en": "Public politics",
+    "color_fondo": "#E9A5E9",
+    "color_letra_borde": "#7D3280",
+    "capas": [
+
+    ]
+  }, {
+    "id": "Eco",
+    "nombre": "Economía y Geografía Aplicadas",
+    "nombre_en": "Applied Economy and Geography",
+    "color_fondo": "#B9DAF7",
+    "color_letra_borde": "#006DB4",
+    "capas": [
+    ]
   }
 ];

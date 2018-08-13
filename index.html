@@ -14,10 +14,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
   </head>
-  <body onload="GetRecords('dataset');PonerIdioma('');CargarTematicas('inicial','es');CargarNodos(8);">
+  <body onload="GetRecords('dataset');PonerIdioma('');CargarTematicas('es');CargarNodos(8);">
     <header class="w-100">
       <!-- Barra superior -->
-      <nav class="navbar p-0 m-0 navbar-expand-0">
+      <nav id="navbar_titulo" class="navbar p-0 m-0 navbar-expand-0">
         <a id="abrir_menu_lat" class="nav-link p-2 m-0" href="#" onclick="mostrar_menu_lat();ocultar_menu_nodos();"><i class="fas fa-caret-right" style="vertical-align:middle;"></i><img class="img-fluid p-2 m-2" style="height:2em;width:auto;margin:0 !important;" src="img/layers4.png"></img></a>
         <a id="cerrar_menu_lat" class="nav-link p-2 m-0" href="#" onclick="ocultar_menu_lat()"><i class="fas fa-caret-left" style="vertical-align:middle;"></i><img class="img-fluid p-2 m-2" style="height:2em;width:auto;margin:0 !important;" src="img/layers4.png"></img></a>
         <a class="nav-link m-0 p-0 mx-2" href="#">
@@ -84,18 +84,31 @@
 
 
       <div id="sidebar" class="sidebar container-fluid m-0 p-0">
-        <div id="espMenuGestionCapas" class="row m-0 p-0" style="width:100%;position:absolute;top:1%;max-height:54%;overflow:auto;">
+        <div id="espMenuGestionCapas" class="row m-0 p-0">
             <!-- Se carga contenido con la función GestionCapas() -->
         </div>
-        <div id="espMenuTematicas" class="row m-0 p-0" style="position:absolute;top:1%">
+        <div id="espMenuTematicas" class="row m-0 p-0">
             <!-- Se carga contenido con la función CargarTematicas() -->
         </div>
-        <div id="barraMenuBusqueda" class="input-group m-1 p-0" style="position:absolute;bottom:6.5em;text-align:center;">
+        <div id="botonTematicas" class="row justify-content-between m-1 p-2" onclick="VariarPosiciones('temAX_busCV_gesCV')">
+            <p><i class="fas fa-th"></i>
+            Seleccionar por temática
+          </p>
+          <i class="fas fa-angle-up"></i>
+        </div>
+        <div id="botonGestion" class="row justify-content-between m-1 p-2" onclick="VariarPosiciones('temCV_busCV_gesAX')">
+            <p><i class="fas fa-bars"></i>
+            Gestionar capas cargadas
+          </p>
+          <i class="fas fa-angle-up"></i>
+        </div>
+        <div id="barraMenuBusqueda" class="row input-group m-1 mt-2 p-0">
           <input type="text" class="form-control" id="abrirBusqueda" placeholder="Añadir datos" onclick="VariarPosiciones('busqueda_abierta')">
           <div class="input-group-prepend">
             <div class="input-group-text mr-3"><i class="fas fa-search"></i></div>
           </div>
         </div>
+
         <div id="espMenuBusqueda" class="row m-0 mt-3 p-0" style="width:100%;position:absolute;text-align:center;display:none">
           <ul class="nav nav-tabs w-100 m-1" id="tabMenuBusqueda" role="tablist">
             <li class="nav-item">
@@ -121,13 +134,15 @@
                   <option value=""></option>
                 </select>
                 <div class="" id="espBusquedaCatalogo" style="width:98%;height:13em;overflow-y:auto;">
-
                 </div>
               </div>
             </div>
             <div class="tab-pane fade" id="espFichero" role="tabpanel" aria-labelledby="tabFichero">
-              <input type="file" id="files" name="files[]" multiple />
-              <output id="list"></output>
+              <div class="input-group m-0 p-0" style="width:96%;">
+                <input type="file" class="custom-file-input" id="selectorArchivos" name="files[]" multiple/>
+                <label class="custom-file-label" style="text-align:start">Seleccionar archivo...</label>
+              </div>
+              <div id="zonaArrastrar" class="m-0 mt-3">Arrastre los archivos aquí...</div>
             </div>
             <div class="tab-pane fade" id="espURL" role="tabpanel" aria-labelledby="tabURL">
               <div class="input-group m-0 p-0" style="width:96%;">
@@ -222,7 +237,7 @@
     <script type="text/javascript" src="js/fuente/catalogo/filter.js"></script>
 	  <script type="text/javascript" src="js/fuente/catalogo/xmltojson.js"></script>
 
-  
+
 
     <!-- JS FUNCIONAMIENTO MAPA -->
     <script type="text/javascript" src="js/arrayTematicas.js"></script>
@@ -247,7 +262,14 @@
     <script>
       function mostrar_menu_lat() {
           //OJO! Sólo se debe poner: 21.2em o 10.6 em. Si no, el ajuste de los cuadros de temáticas no será correcto.
-          document.getElementById("sidebar").style.width = "21.2em";
+          document.getElementById("sidebar").style.width = "22.2em";
+          altoSidebar = $("body").height() - $("header").height() - $("footer").height();
+          console.log('alto sidebar: ' + altoSidebar);
+          document.getElementById("sidebar").style.height = altoSidebar + 'px';
+          altoEspMenuTematicas = altoSidebar - $("#barraMenuBusqueda").outerHeight(true);
+          console.log('alto esp menutematicas: ' + altoEspMenuTematicas);
+          console.log('alto Menu busqueda: ' + $("#barraMenuBusqueda").outerHeight(false));
+          document.getElementById("espMenuTematicas").style.height = altoEspMenuTematicas + 'px';
           document.getElementById("abrir_menu_lat").style.display = "none";
           document.getElementById("cerrar_menu_lat").style.display = "inline";
       }

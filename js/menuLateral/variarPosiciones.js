@@ -25,51 +25,56 @@ function VariarPosiciones(posicion){
   }
 
   var alturaSidebar = $("#sidebar").height();
-  console.log("altura sidebar: " + alturaSidebar);
+  console.log(alturaSidebar);
   console.log(posicion);
 
-
-  if (posicion == "no_capas_cargadas"){
-    if (ultimaPosicion == "busqueda_abierta"){
-      //Reubicación de los elementos:
-      $("#espMenuTematicas").css({'position':'absolute','top':'1%'});
-      $("#espMenuBusqueda").css({'display':'inline','position':'absolute','top':'60%'});
-      $('#tabMenuBusqueda a').click(function (e) {
-         e.preventDefault();
-         $(this).tab('show');
-      });
-      $("#barraMenuBusqueda").css({'display':'none'});
-      $("#espMenuGestionCapas").css({'height':'40%'});
-      //Calculo del número de cuadrados a disponer, en función de la altura de los diferentes elementos:
-      var numeroFilasCuadros = Math.floor(($("#espMenuBusqueda").position().top)/168);
-      CargarTematicas(numeroFilasCuadros*2,idioma);
-    } else {
-      //Reubicación de los elementos:
-      $("#espMenuTematicas").css({'position':'absolute','top':'1%'});
-      $("#espMenuBusqueda").css({'display':'none'});
-    //  $("[id*=lista_capas_a_cargar]").remove();
-      $("#barraMenuBusqueda").css({'display':'flex','position':'absolute','bottom':'6.5em'});
-      $("#espMenuGestionCapas").css({'max-height':'40%'});
-      //Calculo del número de cuadrados a disponer, en función de la altura de los diferentes elementos:
-      var numeroFilasCuadros = Math.floor(($("#barraMenuBusqueda").position().top-$("#barraMenuBusqueda").height()-20)/168);
-      CargarTematicas(numeroFilasCuadros*2,idioma);
-      console.log(numeroFilasCuadros);
-      console.log("lo conseguí por cuarta vez");
-    }
-  } else if (posicion == "capas_cargadas_tematicas"){
-    //Reubicación de los elementos:
-    $("#espMenuTematicas").css({'position':'absolute','top':'48%'});
+  if (posicion == "temAX_busCV_gesCX"){
+    //Espacios:
+    $("#espMenuGestionCapas").css({'display':'none'});
     $("#espMenuBusqueda").css({'display':'none'});
-  //  $("[id*=lista_capas_a_cargar]").remove();
-    $("#barraMenuBusqueda").css({'display':'flex','position':'absolute','bottom':'6.5em'});
-    $("#espMenuGestionCapas").css({'height':'46%'});
-    //Calculo del número de cuadrados a disponer, en función de la altura de los diferentes elementos:
-    var numeroFilasCuadros = Math.floor(($("#barraMenuBusqueda").position().top-$("#espMenuGestionCapas").height()-$("#barraMenuBusqueda").height()-20)/168);
-    CargarTematicas(numeroFilasCuadros*2,idioma);
-    /*
-    console.log(document.getElementById("barraMenuBusqueda").style.bottom);
-    console.log(($("#espMenuTematicas").height()+$("#barraMenuBusqueda").height())/$("#sidebar").height());
-*/
+    $("#espMenuTematicas").css({'display':'flex'});
+
+    //Botones:
+    $("#botonTematicas").css({'display':'none'});
+    $("#barraMenuBusqueda").css({'display':'flex'});
+    $("#botonGestion").css({'display':'none'});
+
+    //Tamaño del espacio(s) abierto(s) en función del botón(es) presente(s):
+    altoEspMenuTematicas = alturaSidebar - $("#barraMenuBusqueda").outerHeight(true);
+    document.getElementById("espMenuTematicas").style.height = altoEspMenuTematicas + 'px';
+    CargarTematicas(idioma);
+
+  } else if (posicion == "temAX_busCV_gesCV"){
+    //Espacios:
+    $("#espMenuTematicas").css({'display':'flex'});
+    $("#espMenuBusqueda").css({'display':'none'});
+    $("#espMenuGestionCapas").css({'display':'none'});
+
+    //Botones:
+    $("#botonTematicas").css({'display':'none'});
+    $("#barraMenuBusqueda").css({'display':'flex'});
+    $("#botonGestion").css({'display':'flex'});
+
+    //Tamaño del espacio(s) abierto(s) en función del botón(es) presente(s):
+    altoEspMenuTematicas = alturaSidebar - $("#barraMenuBusqueda").outerHeight(true) - $("#botonGestion").outerHeight(true);
+    document.getElementById("espMenuTematicas").style.height = altoEspMenuTematicas + 'px';
+    CargarTematicas(idioma);
+
+  } else if (posicion == "temCV_busCV_gesAX"){
+    //Espacios:
+    $("#espMenuTematicas").css({'display':'none'});
+    $("#espMenuGestionCapas").css({'display':'flex'});
+    $("#espMenuBusqueda").css({'display':'none'});
+
+    //Botones:
+    $("#botonTematicas").css({'display':'flex'});
+    $("#barraMenuBusqueda").css({'display':'flex'});
+    $("#botonGestion").css({'display':'none'});
+
+    //Tamaño del espacio(s) abierto(s) en función del botón(es) presente(s):
+    altoEspMenuGestionCapas = alturaSidebar - $("#barraMenuBusqueda").outerHeight(true) - $("#botonTematicas").outerHeight(true);
+    document.getElementById("espMenuGestionCapas").style.height = altoEspMenuGestionCapas + 'px';
+
 
   } else if (posicion == "capas_cargadas_catalogo"){
       console.log("sí hay capas cargadas, desde el catálogo");
@@ -82,11 +87,9 @@ function VariarPosiciones(posicion){
       });
       $("#barraMenuBusqueda").css({'display':'none'});
       $("#espMenuGestionCapas").css({'height':'40%'});
-      //Calculo del número de cuadrados a disponer, en función de la altura de los diferentes elementos:
-      var numeroFilasCuadros = Math.floor(($("#espMenuBusqueda").position().top-$("#espMenuGestionCapas").height())/168);
-      CargarTematicas(numeroFilasCuadros*2,idioma);
-      console.log(numeroFilasCuadros);
-      console.log("lo conseguí por segunda vez");
+
+      CargarTematicas(idioma);
+
   } else if (posicion == "busqueda_abierta"){
       if (capasCargadas == false){
         //Reubicación de los elementos:
@@ -98,11 +101,7 @@ function VariarPosiciones(posicion){
         });
         $("#barraMenuBusqueda").css({'display':'none'});
         $("#espMenuGestionCapas").css({'height':'40%'});
-        //Calculo del número de cuadrados a disponer, en función de la altura de los diferentes elementos:
-        var numeroFilasCuadros = Math.floor(($("#espMenuBusqueda").position().top)/168);
-        CargarTematicas(numeroFilasCuadros*2,idioma);
-        console.log(numeroFilasCuadros);
-        console.log("lo conseguí");
+        CargarTematicas(idioma);
       } else if (capasCargadas == true){
         console.log("sí hay capas cargadas");
         //Reubicación de los elementos:
@@ -114,11 +113,8 @@ function VariarPosiciones(posicion){
         });
         $("#barraMenuBusqueda").css({'display':'none'});
         $("#espMenuGestionCapas").css({'height':'40%'});
-        //Calculo del número de cuadrados a disponer, en función de la altura de los diferentes elementos:
-        var numeroFilasCuadros = Math.floor(($("#espMenuBusqueda").position().top-$("#espMenuGestionCapas").height())/168);
-        CargarTematicas(numeroFilasCuadros*2,idioma);
-        console.log(numeroFilasCuadros);
-        console.log("lo conseguí por tercera vez");
+        CargarTematicas(idioma);
+
       }
   }
   //Variable para guardar la última posición que ha existido:

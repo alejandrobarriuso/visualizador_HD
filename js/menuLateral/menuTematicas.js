@@ -1,27 +1,20 @@
 //FUNCIÓN CargarTematicas(numMaxTematicas,idioma)
 /*
 ENTRADAS:
-  numMaxTematicas: número máximo de temáticas a mostrar.
   idioma: variable que habrá cogido su valor al clickar sobre los botones de selección de idioma (archivo ponerIdioma.js). Por defecto: 'es'.
 FUNCIONALIDAD:
   Crea un cuadrado por cada temática y un submenú asociado, que sólo se mostrará cuando se ejecute la función AparecerSubmenuTematicaNumi(idTematica,colorFondo,colorLetraBorde),
   a la que se llama desde los propios elementos creados aquí.
 */
 
-var ultimoNumMaxTematicas = 0; //Variable que guarda el número de temáticas cargadas la última vez.
-function CargarTematicas(numMaxTematicas,idioma){
-  //Si es la primera vez que se carga la página: calcula el número de filas de cuadros en función del espacio disponible:
-  if (numMaxTematicas == "inicial"){
-    numMaxTematicas = 2*(Math.floor($("#barraMenuBusqueda").position().top/168));
-  }
-  ultimoNumMaxTematicas = numMaxTematicas;
+function CargarTematicas(idioma){
   //Primero elimina todas las temáticas o submenús que pudieran existir (antes de crear las nuevas):
   //Muy importante para evitar duplicados cada vez que se recrea el menú:
   $("[id*=tematica]").remove();
   $("[id*=submenutematica]").remove();
 
   //Crear un cuadrado por cada temática, y un submenú asociado:
-  for (var i=0; i<Math.min(numMaxTematicas,arrayObjetosTematicas.length); i++){
+  for (var i=0; i<arrayObjetosTematicas.length; i++){
     var tematicaNumi = document.createElement("a");
     if (idioma == 'en'){
       tematicaNumi.innerHTML = '<div class="row m-0 p-1" style="height:100%;"><h4 class="col-12 m-0 p-0 align-self-center">' + arrayObjetosTematicas[i].nombre_en.toUpperCase() + '</h4></div>';

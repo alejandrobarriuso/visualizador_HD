@@ -31,7 +31,7 @@ function CargarCapa(idCapa,tipo,ruta,origen){
 
   if (origen == "menuCarga"){
     CerrarSubmenus();
-    VariarPosiciones('capas_cargadas_tematicas');
+    VariarPosiciones('temCV_busCV_gesAX');
   } else if (origen == "menuBusqueda"){
     VariarPosiciones('capas_cargadas_catalogo');
   }
@@ -50,6 +50,6 @@ function CerrarSubmenus(){
 
   //Eliminar el control de click fuera del submenú para cerrarlo; porque ya se ha cerrado:
   $("html").unbind('click');
-  CargarTematicas(ultimoNumMaxTematicas,idioma);
+  CargarTematicas(idioma);
 
 }

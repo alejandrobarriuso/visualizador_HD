@@ -1,42 +1,81 @@
-function handleFileSelect(evt) {
+//CARGA DE ARCHIVOS EXTERNOS:
+/* Se puede realizar desde el input de selección "Examinar"; o arrastrando el archivo al div "zonaArrastrar" */
+var tamanoMaximoArchivo = 99999999;
 
-    var files = evt.target.files; // FileList object
-    // Loop through the FileList and render image files as thumbnails.
-    for (var i = 0, f; f = files[i]; i++) {
-
+//1º FUNCIÓN PARA CARGAR ARCHIVOS DESDE EL INPUT "Examinar"
+function CargarArchivoExternoExaminar(evt) {
+  var files = evt.target.files; // FileList object
+  //Recorrer todos los archivos cargados a la vez:
+  for (var i = 0, f; f = files[i]; i++) {
+    //A) Comprobar el tamaño del fichero y sólo permitir la carga si es menor de lo indicado en la variable "tamanoMaximoArchivo":
+    if (f.size < tamanoMaximoArchivo){
+      //B) Comprobar el tipo de formato del archivo:
       if (f.name.indexOf('.geojson')!= -1){
-        console.log("Sí es un geojson.");
-
+        //Creación del lector de archivos:
         var reader = new FileReader();
-
-        // Read in the image file as a data URL.
         reader.readAsBinaryString(f);
-
-    // Closure to capture the file information.
-      reader.onload = (function(theFile) {
-        return function(e) {
-
-          console.log(e.target.result);
-          var data = JSON.parse(e.target.result);
-          var nombreArchivo = theFile.name;
-          console.log(data);
-          console.log(nombreArchivo);
-          AnadirGeojson(data,nombreArchivo);
-          // Render thumbnail.
-          var span = document.createElement('span');
-          span.innerHTML = [escape(theFile.name)].join('');
-          document.getElementById('list').insertBefore(span, null);
-        };
-      })(f);
-
-
-
-
-
+        //Ejecución del lector de archivos:
+        reader.onload = (function(theFile) {
+          return function(e) {
+            var data = JSON.parse(e.target.result);
+            var nombreArchivo = theFile.name;
+            //Ejecutar la función para cargar el Geojson (NO PASO POR LA FUNCIÓN cargarcapa.js; cuando cargo un WMS, por ejemplo, sí):
+            AnadirGeojson(data,nombreArchivo);
+            VariarPosiciones('capas_cargadas_catalogo');
+          };
+        })(f);
       } else {
         console.log("No es un geojson.");
       }
+    } else {
+      alert("Archivo demasiado pesado");
     }
   }
+}
 
-  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+//Añadir el "listener" al cuadro de selección de archivo a cargar:
+document.getElementById('selectorArchivos').addEventListener('change', CargarArchivoExternoExaminar, false);
+
+//2º FUNCIÓN PARA CARGAR ARCHIVOS AL ARRASTRARLOS AL DIV "zonaArrastrar"
+function CargarArchivoExternoArrastrar(evt) {
+  evt.stopPropagation();
+  evt.preventDefault();
+  var files = evt.dataTransfer.files;
+  //Recorrer todos los archivos cargados a la vez:
+  for (var i = 0, f; f = files[i]; i++) {
+    //A) Comprobar el tamaño del fichero y sólo permitir la carga si es menor de lo indicado en la variable "tamanoMaximoArchivo":
+    if (f.size < tamanoMaximoArchivo){
+      //B) Comprobar el tipo de formato del archivo:
+      if (f.name.indexOf('.geojson')!= -1){
+        //Creación del lector de archivos:
+        var reader = new FileReader();
+        reader.readAsBinaryString(f);
+        //Ejecución del lector de archivos:
+        reader.onload = (function(theFile) {
+          return function(e) {
+            var data = JSON.parse(e.target.result);
+            var nombreArchivo = theFile.name;
+            //Ejecutar la función para cargar el Geojson (NO PASO POR LA FUNCIÓN cargarcapa.js; cuando cargo un WMS, por ejemplo, sí):
+            AnadirGeojson(data,nombreArchivo);
+            VariarPosiciones('capas_cargadas_catalogo');
+          };
+        })(f);
+      } else {
+        console.log("No es un geojson.");
+      }
+    } else {
+      alert("Archivo demasiado pesado");
+    }
+  }
+}
+
+//Función necesaria para que no se habra una ventana nueva con la lectura del archivo cargado:
+function GestionCargaArchivoExternoArrastrar(evt) {
+  evt.stopPropagation();
+  evt.preventDefault();
+  evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+}
+
+//Añadir los "listeners" al div para arrastrar archivos:
+document.getElementById('zonaArrastrar').addEventListener('dragover', GestionCargaArchivoExternoArrastrar, false);
+document.getElementById('zonaArrastrar').addEventListener('drop', CargarArchivoExternoArrastrar, false);

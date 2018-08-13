@@ -259,6 +259,7 @@
   */
  ol.control.LayerSwitcher.prototype.switchLayerVisibility = function(l, layers)
  {
+   console.log(l);
    console.log(!l.get('baseLayer'));
  	if (!l.get('baseLayer')) l.setVisible(!l.getVisible());
  	else
