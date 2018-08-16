@@ -1,7 +1,19 @@
+//FUNCIÓN TamanoSidebar(){
+/*
+  Asigna el valor del alto de la barra lateral izquierda "sidebar" para que se ajuste a la pantalla:
+    - Por encima: al header.
+    - Por debajo: al footer.
+  Se debe ejecutar con el onload de la página html.
+*/
+function TamanoSidebar(){
+  alturaSidebar = $("body").height() - $("header").height() - $("footer").height();
+  document.getElementById("sidebar").style.height = alturaSidebar + 'px';
+}
+
 var capasCargadas = false;
 var ultimaPosicion = "";
 
-//FUNCIÓN variarPosiciones(posicion)
+//FUNCIÓN VariarPosiciones(posicion)
 /*
 ENTRADAS:
   posicion: campo de texto con el que se llama a la función en cada caso, en los diferentes pasos de carga de capas existentes. Puede tomar como valor:
@@ -25,10 +37,28 @@ function VariarPosiciones(posicion){
   }
 
   var alturaSidebar = $("#sidebar").height();
-  console.log(alturaSidebar);
-  console.log(posicion);
 
-  if (posicion == "temAX_busCV_gesCX"){
+
+  if (posicion == ""){
+    //Espacios:
+    $("#espMenuGestionCapas").css({'display':'none'});
+    $("#espMenuBusqueda").css({'display':'none'});
+    $("#espMenuTematicas").css({'display':'flex'});
+
+    //Botones:
+    $("#botonTematicas").css({'display':'none'});
+    $("#barraMenuBusqueda").css({'display':'flex'});
+    $("#botonGestion").css({'display':'none'});
+
+    //Tamaño del espacio(s) abierto(s) en función del botón(es) presente(s):
+    altoEspMenuTematicas = alturaSidebar - $("#barraMenuBusqueda").outerHeight(true) + 30;
+    document.getElementById("espMenuTematicas").style.height = altoEspMenuTematicas + 'px';
+    CargarTematicas(idioma);
+    console.log(alturaSidebar);
+    console.log($("#barraMenuBusqueda").outerHeight(true));
+    console.log(altoEspMenuTematicas);
+
+  } else if (posicion == "temAX_busCV_gesCX"){
     //Espacios:
     $("#espMenuGestionCapas").css({'display':'none'});
     $("#espMenuBusqueda").css({'display':'none'});
@@ -43,6 +73,9 @@ function VariarPosiciones(posicion){
     altoEspMenuTematicas = alturaSidebar - $("#barraMenuBusqueda").outerHeight(true);
     document.getElementById("espMenuTematicas").style.height = altoEspMenuTematicas + 'px';
     CargarTematicas(idioma);
+    console.log(alturaSidebar);
+    console.log($("#barraMenuBusqueda").outerHeight(true));
+    console.log(altoEspMenuTematicas);
 
   } else if (posicion == "temAX_busCV_gesCV"){
     //Espacios:
@@ -76,48 +109,76 @@ function VariarPosiciones(posicion){
     document.getElementById("espMenuGestionCapas").style.height = altoEspMenuGestionCapas + 'px';
 
 
-  } else if (posicion == "capas_cargadas_catalogo"){
-      console.log("sí hay capas cargadas, desde el catálogo");
-      //Reubicación de los elementos:
-      $("#espMenuTematicas").css({'position':'absolute','top':'42%'});
-      $("#espMenuBusqueda").css({'display':'inline','position':'absolute','top':'60%'});
+  } else if (posicion == "temAX_busAX_gesCX_O_temCV_busAX_gesAX"){
+    if (capasCargadas == false){
+      //CASO temAX_busAX_gesCX
+      //Espacios:
+      $("#espMenuGestionCapas").css({'display':'none'});
+      $("#espMenuBusqueda").css({'display':'flex'});
+      $("#espMenuTematicas").css({'display':'flex'});
+
+      //Botones:
+      $("#botonTematicas").css({'display':'none'});
+      $("#barraMenuBusqueda").css({'display':'none'});
+      $("#botonGestion").css({'display':'none'});
+
+      //Tamaño del espacio(s) abierto(s) en función del botón(es) presente(s):
+      altoEspMenuTematicas = alturaSidebar - $("#espMenuBusqueda").outerHeight(true);
+      document.getElementById("espMenuTematicas").style.height = altoEspMenuTematicas + 'px';
+      CargarTematicas(idioma);
+
+      console.log("estoy en el caso temAX_busAX_gesCX");
+      //Reiniciar el funcionamiento de los tabs en el Menú de Búsqueda:
       $('#tabMenuBusqueda a').click(function (e) {
          e.preventDefault();
          $(this).tab('show');
       });
+
+    } else if (capasCargadas == true){
+      //CASO temCV_busAX_gesAX
+      //Espacios:
+      $("#espMenuGestionCapas").css({'display':'flex'});
+      $("#espMenuBusqueda").css({'display':'flex'});
+      $("#espMenuTematicas").css({'display':'none'});
+
+      //Botones:
+      $("#botonTematicas").css({'display':'flex'});
       $("#barraMenuBusqueda").css({'display':'none'});
-      $("#espMenuGestionCapas").css({'height':'40%'});
+      $("#botonGestion").css({'display':'none'});
 
-      CargarTematicas(idioma);
+      //Tamaño del espacio(s) abierto(s) en función del botón(es) presente(s):
+      altoEspMenuGestionCapas = alturaSidebar  - $("#espMenuBusqueda").outerHeight(true) - $("#botonTematicas").outerHeight(true);
+      document.getElementById("espMenuGestionCapas").style.height = altoEspMenuGestionCapas + 'px';
 
-  } else if (posicion == "busqueda_abierta"){
-      if (capasCargadas == false){
-        //Reubicación de los elementos:
-        $("#espMenuTematicas").css({'position':'absolute','top':'1%'});
-        $("#espMenuBusqueda").css({'display':'inline','position':'absolute','top':'60%'});
-        $('#tabMenuBusqueda a').click(function (e) {
-        	 e.preventDefault();
-        	 $(this).tab('show');
-        });
-        $("#barraMenuBusqueda").css({'display':'none'});
-        $("#espMenuGestionCapas").css({'height':'40%'});
-        CargarTematicas(idioma);
-      } else if (capasCargadas == true){
-        console.log("sí hay capas cargadas");
-        //Reubicación de los elementos:
-        $("#espMenuTematicas").css({'position':'absolute','top':'42%'});
-        $("#espMenuBusqueda").css({'display':'inline','position':'absolute','top':'60%'});
-        $('#tabMenuBusqueda a').click(function (e) {
-        	 e.preventDefault();
-        	 $(this).tab('show');
-        });
-        $("#barraMenuBusqueda").css({'display':'none'});
-        $("#espMenuGestionCapas").css({'height':'40%'});
-        CargarTematicas(idioma);
+      console.log("estoy en el caso temCV_busAX_gesAX");
+      //Reiniciar el funcionamiento de los tabs en el Menú de Búsqueda:
+      $('#tabMenuBusqueda a').click(function (e) {
+         e.preventDefault();
+         $(this).tab('show');
+      });
+    }
+  } else if (posicion == "temCV_busAX_gesAX"){
+    //Espacios:
+    $("#espMenuGestionCapas").css({'display':'flex'});
+    $("#espMenuBusqueda").css({'display':'flex'});
+    $("#espMenuTematicas").css({'display':'none'});
 
-      }
+    //Botones:
+    $("#botonTematicas").css({'display':'flex'});
+    $("#barraMenuBusqueda").css({'display':'none'});
+    $("#botonGestion").css({'display':'none'});
+
+    //Tamaño del espacio(s) abierto(s) en función del botón(es) presente(s):
+    altoEspMenuGestionCapas = alturaSidebar  - $("#espMenuBusqueda").outerHeight(true) - $("#botonTematicas").outerHeight(true);
+    document.getElementById("espMenuGestionCapas").style.height = altoEspMenuGestionCapas + 'px';
+
+    //Reiniciar el funcionamiento de los tabs en el Menú de Búsqueda:
+    $('#tabMenuBusqueda a').click(function (e) {
+       e.preventDefault();
+       $(this).tab('show');
+    });
+
   }
   //Variable para guardar la última posición que ha existido:
   ultimaPosicion = posicion;
-
 }

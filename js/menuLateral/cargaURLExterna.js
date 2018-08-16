@@ -17,17 +17,15 @@ function cargarURLServicio(urlEntrada) {
 	//Si se ha introducido la dirección más larga de lo necesario (hasta la ?); entonces se recorta:
   if (urlEntrada.indexOf('?') != -1){
 		urlDefinitiva = urlEntrada.substring(0,urlEntrada.indexOf('?')) + '?';
-		console.log(urlEntrada);
+
 		// La url de entrada se debe recortar a partir del caracter 7º, para quitar "http://":
 		var urlEntradaParaCapabilities = urlEntrada.slice(7);
-		console.log(urlEntradaParaCapabilities);
 		var url_capabilities = 'http://localhost:1337/' + urlEntradaParaCapabilities + 'SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities';
 		$.ajax({
 				url: url_capabilities
 		}).done(function(text) {
   		// CASO 1. ÉXITO EN LA RESPUESTA AL GETCAPABILITIES: crea la capa con extent:
       var result = parser.read(text);
-  		console.log(result);
   		arrayCapasServicioWMS = [];
   		for (var i=0; i<result.Capability.Layer.Layer.length; i++) {
   			var Capai = {};

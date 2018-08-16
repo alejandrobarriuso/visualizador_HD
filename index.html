@@ -14,7 +14,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
   </head>
-  <body onload="GetRecords('dataset');PonerIdioma('');CargarTematicas('es');CargarNodos(8);">
+  <body onload="GetRecords('dataset');PonerIdioma('');CargarNodos(8);TamanoSidebar();">
     <header class="w-100">
       <!-- Barra superior -->
       <nav id="navbar_titulo" class="navbar p-0 m-0 navbar-expand-0">
@@ -28,8 +28,8 @@
         <a class="navbar-brand ml-auto m-0 p-0" href="#">
           <form class="form-inline">
     				<div class="btn-group mr-2 mt-4">
-    					<button id="boton_es" type="button" class="btn btn_idioma m-0 p-0" onclick="PonerIdioma('es');CargarTematicas(ultimoNumMaxTematicas,'es')"><p class="m-0 p-0 px-1">ES</p></button>
-    					<button id="boton_en" type="button" class="btn btn_idioma m-0 p-0" onclick="PonerIdioma('en');CargarTematicas(ultimoNumMaxTematicas,'en')"><p class="m-0 p-0 px-1">EN</p></button>
+    					<button id="boton_es" type="button" class="btn btn_idioma m-0 p-0" onclick="PonerIdioma('es');CargarTematicas('es')"><p class="m-0 p-0 px-1">ES</p></button>
+    					<button id="boton_en" type="button" class="btn btn_idioma m-0 p-0" onclick="PonerIdioma('en');CargarTematicas('en')"><p class="m-0 p-0 px-1">EN</p></button>
     				</div>
             <img src="img/imago2.png" alt="logo" style="height:3em;width:auto" class="img-fluid">
           </form>
@@ -103,14 +103,14 @@
           <i class="fas fa-angle-up"></i>
         </div>
         <div id="barraMenuBusqueda" class="row input-group m-1 mt-2 p-0">
-          <input type="text" class="form-control" id="abrirBusqueda" placeholder="Añadir datos" onclick="VariarPosiciones('busqueda_abierta')">
+          <input type="text" class="form-control" id="abrirBusqueda" placeholder="Añadir datos" onclick="VariarPosiciones('temAX_busAX_gesCX_O_temCV_busAX_gesAX')">
           <div class="input-group-prepend">
             <div class="input-group-text mr-3"><i class="fas fa-search"></i></div>
           </div>
         </div>
 
-        <div id="espMenuBusqueda" class="row m-0 mt-3 p-0" style="width:100%;position:absolute;text-align:center;display:none">
-          <ul class="nav nav-tabs w-100 m-1" id="tabMenuBusqueda" role="tablist">
+        <div id="espMenuBusqueda" class="row m-0 mt-1 p-0">
+          <ul class="nav nav-tabs w-100 m-1 justify-content-center" id="tabMenuBusqueda" role="tablist">
             <li class="nav-item">
               <a class="nav-link active" id="tabCatalogo" data-toggle="tab" role="tab" href="#espCatalogo" aria-selected="true">
                 <h5 id="txtTabCatalogo" class="p-0 m-0"></h5>
@@ -130,29 +130,29 @@
           <div class="tab-content w-100 m-1" id="espCarga">
             <div class="tab-pane fade show active" id="espCatalogo" role="tabpanel" aria-labelledby="tabCatalogo">
               <div class="form-group">
-                <select class="form-control" id="selCatalogo" style="width:100em;">
+                <select class="form-control w-100" id="selCatalogo">
                   <option value=""></option>
                 </select>
-                <div class="" id="espBusquedaCatalogo" style="width:98%;height:13em;overflow-y:auto;">
+                <div id="espBusquedaCatalogo">
                 </div>
               </div>
             </div>
             <div class="tab-pane fade" id="espFichero" role="tabpanel" aria-labelledby="tabFichero">
-              <div class="input-group m-0 p-0" style="width:96%;">
+              <div class="input-group m-0 p-0">
                 <input type="file" class="custom-file-input" id="selectorArchivos" name="files[]" multiple/>
-                <label class="custom-file-label" style="text-align:start">Seleccionar archivo...</label>
+                <label id="txtSeleccionarArchivo" class="custom-file-label" style="text-align:start">Seleccionar archivo...</label>
               </div>
               <div id="zonaArrastrar" class="m-0 mt-3">Arrastre los archivos aquí...</div>
             </div>
             <div class="tab-pane fade" id="espURL" role="tabpanel" aria-labelledby="tabURL">
-              <div class="input-group m-0 p-0" style="width:96%;">
+              <div class="input-group m-0 p-0">
                   <input name="cargar ruta" class="form-control" id="cargarURL" placeholder="Dirección url del servicio" onFocus="this.value='';javascript:vaciarListaCapas()">
                   <div class="input-group-prepend">
                     <div class="input-group-text" onclick="javascript:cargarURLServicio(cargarURL.value)"><i class="fas fa-plus"></i></div>
                   </div>
               </div>
-              <div class="" id="espBusquedaURLExterna" style="width:98%;height:13em;overflow-y:auto;">
-                <p class="m-2 p-0" id="txtEjemploServicio" style="font-size:0.8em;"></p>
+              <div id="espBusquedaURLExterna">
+                <p class="m-2 p-0" id="txtEjemploServicio"></p>
               </div>
             </div>
           </div>
@@ -262,14 +262,8 @@
     <script>
       function mostrar_menu_lat() {
           //OJO! Sólo se debe poner: 21.2em o 10.6 em. Si no, el ajuste de los cuadros de temáticas no será correcto.
+          VariarPosiciones(ultimaPosicion);
           document.getElementById("sidebar").style.width = "22.2em";
-          altoSidebar = $("body").height() - $("header").height() - $("footer").height();
-          console.log('alto sidebar: ' + altoSidebar);
-          document.getElementById("sidebar").style.height = altoSidebar + 'px';
-          altoEspMenuTematicas = altoSidebar - $("#barraMenuBusqueda").outerHeight(true);
-          console.log('alto esp menutematicas: ' + altoEspMenuTematicas);
-          console.log('alto Menu busqueda: ' + $("#barraMenuBusqueda").outerHeight(false));
-          document.getElementById("espMenuTematicas").style.height = altoEspMenuTematicas + 'px';
           document.getElementById("abrir_menu_lat").style.display = "none";
           document.getElementById("cerrar_menu_lat").style.display = "inline";
       }

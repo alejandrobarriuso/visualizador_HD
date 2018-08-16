@@ -82,7 +82,6 @@ var map = new ol.Map({
 /* Número de mapas base cargados*/
   // Importante para controlar el número de capas cargadas después:
 var numeroMapasBaseCargados = map.getLayers().N.length;
-console.log(numeroMapasBaseCargados);
 
 /* Control de mapa base */
 function AbrirMenuMapaBase(){
@@ -266,7 +265,6 @@ function CentraMapa(resultado){
 //Función para centrar el mapa en las coordenadas de la línea en la que se haya hecho click:
 function centrarMapaEni(lng,lat){
   map.getView().setCenter(ol.proj.fromLonLat([Number(lng),Number(lat)]));
-  console.log(ol.proj.fromLonLat([Number(lng),Number(lat)]));
   map.getView().setZoom(14);
   document.getElementById("tablaLugares").innerHTML = "";
   document.getElementById("localizar").value = "";

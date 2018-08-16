@@ -5,8 +5,6 @@ var numeroCapaGeojsonCargada = 0;
 var arrayColoresBorde = ['#740040','#005B1A','#A60002','#004184','#BC4400'];
 var arrayColoresRelleno = ['#94346E','#0F8554','#CC503E','#1D6996','#ED7500'];
 function AnadirGeojson(geojsonEntrada,nombreCapaEntrada) {
-  console.log(numeroCapaGeojsonCargada);
-        console.log(geojsonEntrada);
   //Se crea la fuente:
         var fuenteVector = new ol.source.Vector({
           features: (new ol.format.GeoJSON({
@@ -18,7 +16,6 @@ function AnadirGeojson(geojsonEntrada,nombreCapaEntrada) {
   //Se crean los estilos para cada tipo de geometría:
   colorBordeI = arrayColoresBorde[numeroCapaGeojsonCargada];
   colorRellenoI = arrayColoresRelleno[numeroCapaGeojsonCargada];
-  console.log(colorBordeI);
   var image = new ol.style.Circle({
       radius: 5,
       fill: new ol.style.Fill({
@@ -107,7 +104,6 @@ function AnadirGeojson(geojsonEntrada,nombreCapaEntrada) {
         style: styleFunction
     });
 
-  console.log(capaVectorialEntrada);
    map.addLayer(capaVectorialEntrada);
    //Hacer zoom al extent de la nueva capa vectorial cargada:
    var anchoSidebar = document.getElementById('sidebar').offsetWidth + 15;
@@ -118,5 +114,4 @@ function AnadirGeojson(geojsonEntrada,nombreCapaEntrada) {
    } else {
      numeroCapaGeojsonCargada = 0;
    }
-   console.log(numeroCapaGeojsonCargada);
 }

@@ -498,7 +498,7 @@ input:-webkit-autofill {
   overflow-y:auto;"
 }
 #barraMenuBusqueda{
-  text-align:center;
+  display:none;
 }
 
 #botonTematicas{
@@ -518,6 +518,23 @@ input:-webkit-autofill {
   color:#f2f2f2;
   cursor: pointer;
 }
+
+#espMenuBusqueda{
+  width:100%;
+  position:absolute;
+  text-align:center;
+  display:none;
+  border-top: 0.1em solid #a8a8a8;
+}
+
+#espBusquedaCatalogo{
+  width:98%;
+  height:13em;
+  overflow-y:auto;
+}
+
+
+
 
 .ol-layerswitcher{
   width:100%;
@@ -612,7 +629,7 @@ h5{
 }
 
 .select2-results{
-  height: 12em;
+  height: 14em;
   overflow-y: auto;
   font-size: 1em;
 }
@@ -634,8 +651,7 @@ h5{
 }
 
 #zonaArrastrar{
-  width:96%;
-  height:9.6em;
+  height:11em;
   border: 0.1em dashed #606060;
   display: flex;
   justify-content: center;
@@ -647,7 +663,11 @@ h5{
   content: "Examinar";
 }
 
-
+#espBusquedaURLExterna{
+  height:13em;
+  overflow-y:auto;
+  font-size:0.8em;
+}
 
 
 

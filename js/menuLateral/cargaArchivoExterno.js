@@ -21,14 +21,14 @@ function CargarArchivoExternoExaminar(evt) {
             var nombreArchivo = theFile.name;
             //Ejecutar la función para cargar el Geojson (NO PASO POR LA FUNCIÓN cargarcapa.js; cuando cargo un WMS, por ejemplo, sí):
             AnadirGeojson(data,nombreArchivo);
-            VariarPosiciones('capas_cargadas_catalogo');
+            VariarPosiciones('temCV_busAX_gesAX');
           };
         })(f);
       } else {
-        console.log("No es un geojson.");
+        alert("No es un archivo Geojson.");
       }
     } else {
-      alert("Archivo demasiado pesado");
+      alert("Archivo demasiado pesado.");
     }
   }
 }
@@ -61,7 +61,7 @@ function CargarArchivoExternoArrastrar(evt) {
           };
         })(f);
       } else {
-        console.log("No es un geojson.");
+        alert("No es un geojson.");
       }
     } else {
       alert("Archivo demasiado pesado");

@@ -79,14 +79,13 @@ FUNCIONALIDAD:
   - Modifica el estilo de todos los cuadros de temáticas.
 */
 function AparecerSubmenuTematicaNumi(idTematica,colorFondo,colorLetraBorde){
-  console.log(idTematica);
+
   var idSubmenuTematicaNumi = "submenu" + idTematica;
   //Hago aparecer el div del submenú:
   document.getElementById(idSubmenuTematicaNumi).style.display = "";
   //Calculo la posición del cuadrado correspondiente a la Temática clickada:
   var cuadradoTematicai = document.getElementById(idTematica);
   var posicionTematicai = cuadradoTematicai.getBoundingClientRect();
-  console.log(posicionTematicai);
   var topTematicai = posicionTematicai.top - 4;
   var leftTematicai = posicionTematicai.left + posicionTematicai.width  + 4;
 

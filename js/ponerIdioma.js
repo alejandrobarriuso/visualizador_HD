@@ -15,6 +15,7 @@ var tabURLServicio = '';
 var placeholderLocalizar = '';
 var placeholderAbrirBusqueda = '';
 var placeholderCargarURL = '';
+var seleccionarArchivo = '';
 //var placeholderSelCatalogo = '';
 
 function PonerIdioma(lang){
@@ -31,6 +32,7 @@ function PonerIdioma(lang){
 		placeholderLocalizar = 'Zoom in to...';
 		placeholderAbrirBusqueda = 'Add data';
 		placeholderCargarURL = 'Url of the service';
+		seleccionarArchivo = 'Select a file...';
 	//	placeholderSelCatalogo = 'Select a record';
 
 	} else {
@@ -45,6 +47,7 @@ function PonerIdioma(lang){
 		placeholderLocalizar = 'Centrar mapa en...';
 		placeholderAbrirBusqueda = 'Añadir datos';
 		placeholderCargarURL = 'Dirección url del servicio';
+		seleccionarArchivo = 'Seleccionar archivo...';
 	//	placeholderSelCatalogo = 'Seleccione un registro';
 	}
 
@@ -60,6 +63,8 @@ function PonerIdioma(lang){
 	$('#localizar').attr("placeholder",placeholderLocalizar);
 	$('#abrirBusqueda').attr("placeholder",placeholderAbrirBusqueda);
 	$('#cargarURL').attr("placeholder",placeholderCargarURL);
+	$('#txtSeleccionarArchivo').html(seleccionarArchivo);
+
 //	$('#selCatalogo').attr("data-placeholder",placeholderSelCatalogo);
 
 

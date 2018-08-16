@@ -17,7 +17,6 @@ function CargarCapa(idCapa,tipo,ruta,origen){
     var tituloCapaCargadaYai = arrayCapasCargadasYa[i].get('title');
     arrayTitulosCapasCargadasYa.push(tituloCapaCargadaYai);
   }
-  console.log(arrayTitulosCapasCargadasYa);
 
   //Comprobar que el nombre de la capa que se desea cargar no se encuentra en el array creado anteriormente. Es decir, que esta capa no está ya cargada:
   if (arrayTitulosCapasCargadasYa.indexOf(idCapa) === -1){
@@ -33,7 +32,7 @@ function CargarCapa(idCapa,tipo,ruta,origen){
     CerrarSubmenus();
     VariarPosiciones('temCV_busCV_gesAX');
   } else if (origen == "menuBusqueda"){
-    VariarPosiciones('capas_cargadas_catalogo');
+    VariarPosiciones('temCV_busAX_gesAX');
   }
 }
 

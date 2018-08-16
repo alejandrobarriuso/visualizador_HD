@@ -136,7 +136,6 @@
  	{	this.map_.getLayerGroup().un('change', this.drawPanel, this);
  		this.map_.un('moveend', this.viewChange, this);
  		this.map_.un('change:size', this.overflow, this);
- 		// console.log("remove");
  	}
  	this.map_ = map;
  	// Get change (new layer added or removed)
@@ -250,7 +249,6 @@
  ol.control.LayerSwitcher.prototype.drawPanel_ = function(e)
  {	if (--this.dcount || this.dragging_) return;
  	$("li", this.panel_).not(".ol-header").remove();
-  console.log("puedo estar en el fallo 1");
  	this.drawList (this.panel_, this.getMap().getLayers());
  };
  /** Change layer visibility according to the baselayer option
@@ -259,8 +257,6 @@
   */
  ol.control.LayerSwitcher.prototype.switchLayerVisibility = function(l, layers)
  {
-   console.log(l);
-   console.log(!l.get('baseLayer'));
  	if (!l.get('baseLayer')) l.setVisible(!l.getVisible());
  	else
  	{	if (!l.getVisible()) l.setVisible(true);
@@ -385,7 +381,6 @@
  				else li = $(document.elementFromPoint(e.originalEvent.touches[0].clientX, e.originalEvent.touches[0].clientY));
  				if (li.hasClass("ol-switcherbottomdiv"))
  				{	drag.self.overflow(-1);
- 					console.log('bottom')
  				}
  				else if (li.hasClass("ol-switchertopdiv"))
  				{	drag.self.overflow(1);
@@ -476,8 +471,6 @@
  	{	e.stopPropagation();
  		e.preventDefault();
  		var l = $(this).parent().parent().data("layer");
-    console.log("estoy en el fallo");
-    console.log(self);
  		self.switchLayerVisibility(l,collection);
  	};
  	function moveLayer (l, layers, inc)
@@ -531,7 +524,7 @@
     var numeroMapasTotalCargados = map.getLayers().N.length;
     //Si hay alguna cargada (a parte de los mapa base): menú inferior con x elementos:
     if (numeroMapasTotalCargados == numeroMapasBaseCargados){
-      VariarPosiciones("no_capas_cargadas");
+      VariarPosiciones("temAX_busCV_gesCX");
     }
  	};
  	// Add the layer list
@@ -569,7 +562,6 @@
  						|| (e.originalEvent.touches && e.originalEvent.touches.length && e.originalEvent.touches[0].pageX)
  						|| (e.originalEvent.changedTouches && e.originalEvent.changedTouches.length && e.originalEvent.changedTouches[0].pageX);
  					var dx = Math.max ( 0, Math.min( 1, (x - $(this).offset().left) / $(this).width() ));
- 					console.log(dx);
  					$(this).closest("ul").closest("li").data('layer').setOpacity(dx);
  				})
  				.appendTo(controlOpacidad);
@@ -644,7 +636,7 @@
  		if (layer.getLayers)
  		{	li.addClass('ol-layer-group');
  			if (layer.get("openInLayerSwitcher")===true)
- 			{	console.log("puedo estar en el fallo 2");
+ 			{
         this.drawList ($("<ul>").appendTo(li), layer.getLayers());
  			}
  		}

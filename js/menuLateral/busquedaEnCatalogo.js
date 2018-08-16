@@ -87,15 +87,12 @@ function GetRecords(service_or_dataset) {
 	csw.GetRecords(1,100,filter,output_schema).then(function(result){
 		//Convertir a JSON la respuesta en xml, utilizando la función xmlToJSON, albergada en el archivo xmltojson.js
 		var result_json = xmlToJSON.parseXML(result);
-		console.log(result_json);
-		console.log(type);
-
+		
 		//Obtener los campos que interesan para crear el listado:
       function CrearArrayBusquedaCatalogo(result){
 
       	//OBTENER LA INFORMACIÓN DEL CAMPO A BUSCAR:
       	var elementos = result.GetRecordsResponse[0].SearchResults[0].MD_Metadata; //Creo el array "elementos", que contiene los registros encontrados por la peticion.
-        console.log(elementos);
         var numElementos = result.GetRecordsResponse[0].SearchResults[0].MD_Metadata.length; //Creo la variable "num_elementos" obteniendo el numero de registros devueltos por la peticion.
 
       	var arrayResultadoCatalogo = []; //Creo el array que contendrá los resultados de la búsqueda
@@ -115,7 +112,6 @@ function GetRecords(service_or_dataset) {
           } else if (elementos[i].dataQualityInfo) {
             tipoElementoi = elementos[i].dataQualityInfo[0].DQ_DataQuality[0].scope[0].DQ_Scope[0].level[0].MD_ScopeCode[0]._attr.codeListValue._value;
           }
-          console.log(tipoElementoi);
 
           var tituloElementoI = "";
           var urlElementoIOriginal = "";
@@ -228,7 +224,7 @@ function GetRecords(service_or_dataset) {
         //Añado el objeto creado para el elemento i al array de resultados:
       	arrayResultadoCatalogo.push(elementoCatalogoI);
     	}
-    	console.log(arrayResultadoCatalogo);
+
       return arrayResultadoCatalogo;
     };
 
@@ -322,14 +318,11 @@ function GetRecords(service_or_dataset) {
     $('#selCatalogo').on('select2:open',function(){
     //  $('.select2-dropdown').attr('id','fix');
     //  $('#fix').css('height:4em;color:red');
-      console.log("open");
       $("[id*=lista_capas_a_cargar_busqueda_catalogo]").remove();
 
     });
 
     $('#selCatalogo').on('select2:select',function(){
-      console.log("select");
-      console.log($("#selCatalogo").select2('data')[0]);
       servicioWMSACargar = $("#selCatalogo").select2('data')[0];
       ConsultarCapasWMS(servicioWMSACargar.url);
     });
@@ -351,17 +344,14 @@ function ConsultarCapasWMS(urlEntrada) {
   //Hacer petición getCapabilities para obtener el extent de la capa a cargar "capaEntrada":
   // IMPORTANTE: se requiere el proxy corsproxy funcionando, en el puerto 1337; para saltar la restricción CORS.
   var parser = new ol.format.WMSCapabilities();
-  console.log(urlEntrada);
   // La url de entrada se debe recortar a partir del caracter 7º, para quitar "http://":
   var urlEntradaParaCapabilities = urlEntrada.slice(7);
-  console.log(urlEntradaParaCapabilities);
   var url_capabilities = 'http://localhost:1337/' + urlEntradaParaCapabilities + 'SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities';
   $.ajax({
       url: url_capabilities
   }).done(function(text) {
 		// CASO 1. ÉXITO EN LA RESPUESTA AL GETCAPABILITIES: crea la capa con extent:
     var result = parser.read(text);
-		console.log(result);
 		arrayCapasServicioWMS = [];
 		for (var i=0; i<result.Capability.Layer.Layer.length; i++) {
 			var Capai = {};
@@ -370,7 +360,6 @@ function ConsultarCapasWMS(urlEntrada) {
 			Capai.servicio = urlEntrada;
 			arrayCapasServicioWMS.push(Capai);
 		}
-		console.log(arrayCapasServicioWMS);
     var listaCapasACargar = $("<ul>").addClass("list-group m-0 p-0").attr("id","lista_capas_a_cargar_busqueda_catalogo").css({'position':'relative','z-index':'20000','width':'100%'}).appendTo("#espBusquedaCatalogo");
 
     for (var i=0; i<arrayCapasServicioWMS.length; i++){
