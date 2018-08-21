@@ -88,14 +88,15 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 		});
 
 		//Añadir la capa al mapa:
+		console.log(capaWMSEntrada);
 		map.addLayer(capaWMSEntrada);
 		//Hacer zoom a la capa cargada:
 		var anchoSidebar = document.getElementById('sidebar').offsetWidth + 15;
 		map.getView().fit(extentEntrada,{size:map.getSize(),padding:[15,15,15,anchoSidebar]});
 
 		//Añadir la operación GETFEATUREINFO al mapa, en la capa recién cargada:
-		map.on('singleclick', function(evt) {
-			document.getElementById('textoGetFeatureInfo').innerHTML = '';
+		map.on('dblclick', function(evt) {
+			document.getElementById('textoGetFeatureInfo').innerHTML = "Aquí no hay datos para mostrar.";
 			var viewResolution = vistaMapa.getResolution();
 			//Calcular la posición en la que hay que dibujar el div:
 			var coordenadasClickWebMercator = evt.coordinate;
@@ -114,6 +115,7 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 					document.getElementById('textoGetFeatureInfo').innerHTML =
 					'<iframe id="iframenueva" seamless src="' + url + '"></iframe>';
 					$('#textoGetFeatureInfo').css({'top':y,'left':x});
+
 
 				//	console.log(document.getElementById('textoGetFeatureInfo').innerHTML);
 			//		console.log($("#iframenueva"));

@@ -9,25 +9,29 @@ FUNCIONALIDAD:
   Detecta el tipo de recurso del que se trata, y en función de eso ejecuta una función de carga u otra.
   Además, después de esto ejecuta la función CerrarSubmenus() para cerrar el que estaba abierto.
 */
-function CargarCapa(idCapa,tipo,ruta,origen){
+function CargarCapa(tipo,idCapa,ruta,origen,data,nombreArchivo){
   //Obtener el conjunto de capas ya cargadas, y crear un array con sus títulos:
   var arrayCapasCargadasYa = map.getLayers().getArray();
   var arrayTitulosCapasCargadasYa = [];
+
   for (var i=0; i<arrayCapasCargadasYa.length; i++){
     var tituloCapaCargadaYai = arrayCapasCargadasYa[i].get('title');
     arrayTitulosCapasCargadasYa.push(tituloCapaCargadaYai);
   }
+  console.log(arrayTitulosCapasCargadasYa);
 
-  //Comprobar que el nombre de la capa que se desea cargar no se encuentra en el array creado anteriormente. Es decir, que esta capa no está ya cargada:
-  if (arrayTitulosCapasCargadasYa.indexOf(idCapa) === -1){
-    //Caso en el que la capa es nueva: se añade con la función apropiada dependiendo del tipo de servicio que sea:
-    if (tipo == "wms") {
-      AnadirWMS(ruta,idCapa);
-    };
+  //Detectar que tipo de dato vamos a añadir y comprobar que no se ha cargado anteriormente:
+  if ((tipo == "wms") && (arrayTitulosCapasCargadasYa.indexOf(idCapa) === -1)) {
+    AnadirWMS(ruta,idCapa);
+    console.log(idCapa);
+  } else if ((tipo == "geojson") && (arrayTitulosCapasCargadasYa.indexOf(nombreArchivo) === -1)) {
+    AnadirGeojson(data,nombreArchivo);
+    console.log(nombreArchivo);
   } else {
     alert("Capa ya cargada");
   }
 
+  //Modificar la disposición de los elementos en la barra lateral:
   if (origen == "menuCarga"){
     CerrarSubmenus();
     VariarPosiciones('temCV_busCV_gesAX');

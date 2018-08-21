@@ -70,6 +70,7 @@ var map = new ol.Map({
   layers: [capaBaseVTusig],
   target: 'map',
   view: vistaMapa,
+  interactions : ol.interaction.defaults({doubleClickZoom :false}),
   controls: ol.control.defaults({
     attributionOptions: {
       collapsible: true
@@ -82,6 +83,22 @@ var map = new ol.Map({
 /* Número de mapas base cargados*/
   // Importante para controlar el número de capas cargadas después:
 var numeroMapasBaseCargados = map.getLayers().N.length;
+
+map.on("movestart", function(){
+  if ($('#iframenueva').width()){
+    document.getElementById('textoGetFeatureInfo').innerHTML = '';
+    $('#iframenueva').css({'height':0,'width':0});
+    console.log("estoy quitando el iframe");
+  }
+});
+
+map.on("singleclick", function(){
+  if ($('#iframenueva').width()){
+    document.getElementById('textoGetFeatureInfo').innerHTML = '';
+    $('#iframenueva').css({'height':0,'width':0});
+    console.log("estoy quitando el iframe");
+  }
+});
 
 /* Control de mapa base */
 function AbrirMenuMapaBase(){

@@ -19,9 +19,8 @@ function CargarArchivoExternoExaminar(evt) {
           return function(e) {
             var data = JSON.parse(e.target.result);
             var nombreArchivo = theFile.name;
-            //Ejecutar la función para cargar el Geojson (NO PASO POR LA FUNCIÓN cargarcapa.js; cuando cargo un WMS, por ejemplo, sí):
-            AnadirGeojson(data,nombreArchivo);
-            VariarPosiciones('temCV_busAX_gesAX');
+            //Ejecutar la función cargarCapa():
+            CargarCapa('geojson','','','menuBusqueda',data,nombreArchivo);
           };
         })(f);
       } else {
@@ -55,9 +54,8 @@ function CargarArchivoExternoArrastrar(evt) {
           return function(e) {
             var data = JSON.parse(e.target.result);
             var nombreArchivo = theFile.name;
-            //Ejecutar la función para cargar el Geojson (NO PASO POR LA FUNCIÓN cargarcapa.js; cuando cargo un WMS, por ejemplo, sí):
-            AnadirGeojson(data,nombreArchivo);
-            VariarPosiciones('capas_cargadas_catalogo');
+            //Ejecutar la función cargarCapa():
+            CargarCapa('geojson','','','menuBusqueda',data,nombreArchivo);
           };
         })(f);
       } else {

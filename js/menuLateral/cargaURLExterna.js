@@ -44,9 +44,9 @@ function cargarURLServicio(urlEntrada) {
         capaServicioWMSi.innerHTML = '<li>' + arrayCapasServicioWMS[i].nombre + '</li>';
 				//Primero se intenta cargar la capa por el campo id (Name); y si no lo tiene, por el campo nombre (Title):
 				if (arrayCapasServicioWMS[i].id){
-        	capaServicioWMSi.setAttribute("href","javascript:CargarCapa('" + arrayCapasServicioWMS[i].id + "','wms','" + arrayCapasServicioWMS[i].servicio + "','menuBusqueda');");
+        	capaServicioWMSi.setAttribute("href","javascript:CargarCapa('wms','" + arrayCapasServicioWMS[i].id + "','" + arrayCapasServicioWMS[i].servicio + "','menuBusqueda','','');");
 				} else if (arrayCapasServicioWMS[i].nombre){
-					capaServicioWMSi.setAttribute("href","javascript:CargarCapa('" + arrayCapasServicioWMS[i].nombre + "','wms','" + arrayCapasServicioWMS[i].servicio + "','menuBusqueda');");
+					capaServicioWMSi.setAttribute("href","javascript:CargarCapa('wms','" + arrayCapasServicioWMS[i].nombre + "','" + arrayCapasServicioWMS[i].servicio + "','menuBusqueda','','');");
 				} else {
 					alert("No es posible cargar esta capa");
 				}

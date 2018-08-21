@@ -103,7 +103,7 @@ function AnadirGeojson(geojsonEntrada,nombreCapaEntrada) {
         source: fuenteVector,
         style: styleFunction
     });
-
+    console.log(capaVectorialEntrada);
    map.addLayer(capaVectorialEntrada);
    //Hacer zoom al extent de la nueva capa vectorial cargada:
    var anchoSidebar = document.getElementById('sidebar').offsetWidth + 15;

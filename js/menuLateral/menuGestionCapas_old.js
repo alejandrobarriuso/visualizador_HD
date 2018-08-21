@@ -546,7 +546,6 @@
 
  		//Funciones para controlar la aparición de la tabla de controles:
  		$('#' + id_li).click(function(e){
-      console.log(id_li);
  			e.stopPropagation();
  			$("[id*=control_]").children('.tabla_controles').css({'display': 'none'});
  			$("[id*=div_info_capa]").css({'display': 'none'});
@@ -608,48 +607,31 @@
  		var d = $("<div>").addClass('li-content').appendTo(li);
  		if (!this.testLayerVisibility(layer)) d.addClass("ol-layer-hidden");
 
-    var rowContenidoLayer = $("<div>").addClass("row");
-    var colContenidoLayer = $("<div>").addClass("col-12 ml-2");
-
-
 		// Layer remove
  		if (this.hastrash && !layer.get("noSwitcherDelete"))
- 		{	$("<div>").addClass("row justify-content-end mr-1")
-          .html('<i class="fas fa-times"></i>')
+ 		{	$("<div>").addClass("layerTrash")
  					.on ('click', removeLayer)
  					.attr("title", this.tip.trash)
- 					.appendTo(colContenidoLayer);
+ 					.appendTo(li);
  		}
-
-    //Barra para botón y label:
-    var barraBotonLabel = $("<div>").addClass("row justify-content-start");
-    // Botón de acceso al menú:
-    $("<div>").addClass("ml-3 mr-2")
-      .html('<i class="fas fa-align-justify"></i>')
- 			.appendTo(barraBotonLabel);
 
  		// Label
  		$("<label>").text(layer.get("title") || layer.get("name"))
- 			.attr('title', 'Desplegar menú de opciones')
-
+ 			.attr('title', layer.get("title") || layer.get("name"))
+ 			.on ('click', setVisibility)
  			.attr('unselectable', 'on')
  			.css('user-select', 'none')
  			.on('selectstart', false)
- 			.appendTo(barraBotonLabel);
+ 			.appendTo(li);
 
-    barraBotonLabel.appendTo(colContenidoLayer);
-
-      // Progress
-   		if (this.show_progress)
-   		{	var p = $("<div>")
-   				.addClass("row justify-content-center layerswitcher-progress")
-   				.appendTo(colContenidoLayer);
-   			this.setprogress_(layer);
-   			layer.layerswitcher_progress = $("<div>").appendTo(p);
-   		}
-
-    colContenidoLayer.appendTo(rowContenidoLayer);
-    rowContenidoLayer.appendTo(li);
+		// Progress
+ 		if (this.show_progress && layer instanceof ol.layer.Tile)
+ 		{	var p = $("<div>")
+ 				.addClass("layerswitcher-progress")
+ 				.appendTo(li);
+ 			this.setprogress_(layer);
+ 			layer.layerswitcher_progress = $("<div>").appendTo(p);
+ 		}
 
  		// Layer group
  		if (layer.getLayers)
@@ -704,7 +686,7 @@
 var switcher = new ol.control.LayerSwitcher(
 	{	target:$("#espMenuGestionCapas").get(0),
 		// displayInLayerSwitcher: function (l) { return false; },
-		show_progress: true,
+		show_progress:true,
 		extent: true,
 		trash: true
 	});

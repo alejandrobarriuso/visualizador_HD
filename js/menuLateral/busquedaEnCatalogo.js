@@ -87,7 +87,7 @@ function GetRecords(service_or_dataset) {
 	csw.GetRecords(1,100,filter,output_schema).then(function(result){
 		//Convertir a JSON la respuesta en xml, utilizando la función xmlToJSON, albergada en el archivo xmltojson.js
 		var result_json = xmlToJSON.parseXML(result);
-		
+
 		//Obtener los campos que interesan para crear el listado:
       function CrearArrayBusquedaCatalogo(result){
 
@@ -366,7 +366,7 @@ function ConsultarCapasWMS(urlEntrada) {
 
       var capaServicioWMSi = document.createElement("a");
       capaServicioWMSi.innerHTML = '<li>' + arrayCapasServicioWMS[i].nombre + '</li>';
-      capaServicioWMSi.setAttribute("href","javascript:CargarCapa('" + arrayCapasServicioWMS[i].id + "','wms','" + arrayCapasServicioWMS[i].servicio + "','menuBusqueda');");
+      capaServicioWMSi.setAttribute("href","javascript:CargarCapa('wms','" + arrayCapasServicioWMS[i].id + "','" + arrayCapasServicioWMS[i].servicio + "','menuBusqueda','','');");
       capaServicioWMSi.setAttribute("class","list-group-item lista_capas_catalogo m-0 p-2");
       capaServicioWMSi.setAttribute("style","list-style:none;");
 

@@ -200,6 +200,14 @@ main {
   height: auto;
   z-index: 100;
 }
+
+#iframenueva{
+  border: 0 !important!;
+  box-shadow: 0;
+  width: 22em;
+  height: 15em;
+}
+
 /* -- Controles -- */
 .ol-control{
   text-shadow:none !important;
@@ -536,55 +544,7 @@ input:-webkit-autofill {
 
 
 
-.ol-layerswitcher{
-  width:100%;
-}
 
-.ol-layerswitcher .panel{
-  margin: 0;
-  padding: 0;
-}
-
-.ol-layer-tile{
-  background-color: #c4c4c4;
-  padding: 0.25em;
-  margin: 0.25em;
-  justify-content: space-between !important;
-}
-.ol-layer-tile:hover{
-  background-color: #a8a8a8;
-}
-
-
-.tabla_controles{
-  padding: 0 !important;
-  margin: 0;
-  border-radius: 0 !important;
-
-}
-.tabla_controles li{
-  padding: 0.5em !important;
-  margin: 0 !important;
-  border-radius: 0 !important;
-  border-color: #b7b7b7;
-  background-color: #f2f2f2;
-}
-.tabla_controles li.accion{
-  cursor: pointer;
-}
-
-.div_info_capa{
-  width: 24%;
-  min-width: 16em;
-  font-size: 0.8em;
-  text-align: justify;
-  padding: 0.5em !important;
-  margin: 0 !important;
-  border-radius: 0 !important;
-  border-color: #a8a8a8;
-  border-width: 0.2em;
-  background-color: #f2f2f2;
-}
 
 h4{
   text-align: center;

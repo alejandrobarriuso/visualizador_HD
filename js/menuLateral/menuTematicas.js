@@ -55,7 +55,7 @@ function CargarTematicas(idioma){
       capaNumjTematicaNumi.setAttribute("onmouseover","document.getElementById('" + idCapaNumj + "').style.backgroundColor='" + arrayObjetosTematicas[i].color_letra_borde + "';document.getElementById('" + idCapaNumj + "').style.color='" + arrayObjetosTematicas[i].color_fondo + "';document.getElementById('" + idCapaNumj + "').style.borderColor='" + arrayObjetosTematicas[i].color_fondo + "'");
       capaNumjTematicaNumi.setAttribute("onmouseout","document.getElementById('" + idCapaNumj + "').style.backgroundColor='" + arrayObjetosTematicas[i].color_fondo + "';document.getElementById('" + idCapaNumj + "').style.color='" + arrayObjetosTematicas[i].color_letra_borde + "';document.getElementById('" + idCapaNumj + "').style.borderColor='" + arrayObjetosTematicas[i].color_letra_borde + "'");
 
-      capaNumjTematicaNumi.setAttribute("href","javascript:CargarCapa('" + arrayObjetosTematicas[i].capas[j].id + "','" + arrayObjetosTematicas[i].capas[j].tipo + "','" + arrayObjetosTematicas[i].capas[j].ruta + "','menuCarga');");
+      capaNumjTematicaNumi.setAttribute("href","javascript:CargarCapa('" + arrayObjetosTematicas[i].capas[j].tipo + "','" + arrayObjetosTematicas[i].capas[j].id + "','" + arrayObjetosTematicas[i].capas[j].ruta + "','menuCarga','','');");
 
       //Añadir a cada objeto Temática el submenú que saldrá al clickar sobre él:
       document.getElementById("submenu" + idTematicaNumi).appendChild(capaNumjTematicaNumi);
