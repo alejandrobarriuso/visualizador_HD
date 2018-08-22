@@ -536,6 +536,7 @@
  		var li = $("<li>").addClass((layer.getVisible()?"visible ":" ")+(layer.get('baseLayer')?"baselayer":""))
  						.data("layer",layer).on("mousedown touchstart",{self:this},this.dragOrdering_)
  						.attr('id',id_li)
+            .attr('title', 'Desplegar menú de opciones')
  						.appendTo(ul);
 
 
@@ -608,17 +609,20 @@
  		var d = $("<div>").addClass('li-content').appendTo(li);
  		if (!this.testLayerVisibility(layer)) d.addClass("ol-layer-hidden");
 
-    var rowContenidoLayer = $("<div>").addClass("row");
-    var colContenidoLayer = $("<div>").addClass("col-12 ml-2");
+    var rowContenidoLayer = $("<div>").addClass("row w-100");
+    var colContenidoLayer = $("<div>").addClass("col-12 ml-3 p-0");
 
 
 		// Layer remove
  		if (this.hastrash && !layer.get("noSwitcherDelete"))
- 		{	$("<div>").addClass("row justify-content-end mr-1")
-          .html('<i class="fas fa-times"></i>')
- 					.on ('click', removeLayer)
- 					.attr("title", this.tip.trash)
- 					.appendTo(colContenidoLayer);
+ 		{
+      divTrash = $("<div>").addClass("row justify-content-end mr-1")
+ 			  .appendTo(colContenidoLayer);
+
+      $("<i>").addClass("fas fa-times")
+        .attr("title", this.tip.trash)
+        .on ('click', removeLayer)
+        .appendTo(divTrash);
  		}
 
     //Barra para botón y label:
@@ -629,9 +633,10 @@
  			.appendTo(barraBotonLabel);
 
  		// Label
- 		$("<label>").text(layer.get("title") || layer.get("name"))
- 			.attr('title', 'Desplegar menú de opciones')
-
+    console.log(layer.get("titulo_es"));
+    console.log(layer.get("title"));
+    console.log(layer.get("name"));
+ 		$("<label>").text(layer.get("titulo_es") || layer.get("title") || layer.get("name"))
  			.attr('unselectable', 'on')
  			.css('user-select', 'none')
  			.on('selectstart', false)

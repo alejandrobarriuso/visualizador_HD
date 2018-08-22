@@ -13,6 +13,7 @@ FUNCIONALIDAD:
 function AnadirWMS(urlEntrada,capaEntrada) {
 	var extent3857 = [];
 	var abstract = '';
+	var tituloEs = '';
 
 	//Hacer petición getCapabilities para obtener el extent de la capa a cargar "capaEntrada":
 	// IMPORTANTE: se requiere el proxy corsproxy funcionando, en el puerto 1337; para saltar la restricción CORS.
@@ -35,6 +36,7 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 			//console.log("capa encontrada en el primer nivel de capas");
 			extent3857 = ol.proj.transformExtent(result.Capability.Layer.Layer.find(l => l.Name === capaEntrada).EX_GeographicBoundingBox, 'EPSG:4326', 'EPSG:3857');
 			abstract = result.Capability.Layer.Layer.find(l => l.Name === capaEntrada).Abstract;
+			tituloEs = result.Capability.Layer.Layer.find(l => l.Name === capaEntrada).Title;
 		} else {
 			//Caso 12: Las capas no se encuentran en un primer nivel: habrá que buscar en el segundo nivel:
 		//	console.log(result.Capability.Layer.Layer.length);
@@ -44,6 +46,7 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 			//		console.log("capa encontrada en el segundo nivel; dentro de la capa principal en posición " + i);
 					extent3857 = ol.proj.transformExtent(result.Capability.Layer.Layer[i].Layer.find(l => l.Name === capaEntrada).EX_GeographicBoundingBox, 'EPSG:4326', 'EPSG:3857');
 					abstract = result.Capability.Layer.Layer[i].Layer.find(l => l.Name === capaEntrada).Abstract;
+					tituloEs = result.Capability.Layer.Layer[i].Layer.find(l => l.Name === capaEntrada).Title;
 					break;
 				} else {
 					//Caso 122: Las capas tampoco se encuentran en un segundo nivel.
@@ -52,25 +55,27 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 						//Caso 1221: El servicio (sin entrar en ninguna capa ni subcapa) tiene definidos un extent y un abstract: se asigna este:
 						extent3857 = ol.proj.transformExtent(result.Capability.Layer.EX_GeographicBoundingBox, 'EPSG:4326', 'EPSG:3857');
 						abstract = result.Capability.Layer.Abstract;
+						tituloEs = result.Capability.Layer.Title;
 					} else {
 						//Caso 1222: El servicio (sin entrar en ninguna capa ni subcapa) no tiene definidos un extent y un abstract: se asigna el extent de todo el mapa, y un abstract vacío:
 						extent3857 = [-20026376.39, -20048966.10, 20026376.39, 20048966.10];
 						abstract = "Sin descripción";
+						tituloEs = "Sin título";
 					}
 				}
 			}
 		}
 
 		//Se crea la fuente y la capa:
-		CrearFuenteYCapa(extent3857,abstract);
+		CrearFuenteYCapa(extent3857,abstract,tituloEs);
 
 	}).catch(function(error) {
 		// CASO DE ERROR EN LA RESPUESTA AL GETCAPABILITIES: crear la capa sin extent:
-    CrearFuenteYCapa([-20026376.39, -20048966.10, 20026376.39, 20048966.10],"Sin descripción");
+    CrearFuenteYCapa([-20026376.39, -20048966.10, 20026376.39, 20048966.10],"Sin descripción","Sin título");
 		alert("Capa sin extent definido");
 	});
 
-	function CrearFuenteYCapa(extentEntrada,abstractEntrada){
+	function CrearFuenteYCapa(extentEntrada,abstractEntrada,tituloEsEntrada){
 		//Crear la fuente wms del servicio y de la capa introducidos:
 		var fuenteWMSEntrada = new ol.source.TileWMS({
 			url: urlEntrada,
@@ -80,6 +85,7 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 		//Crear la capa:
 		var capaWMSEntrada = new ol.layer.Tile({
 			title: capaEntrada,
+			titulo_es: tituloEsEntrada,
 			source: fuenteWMSEntrada,
 			displayInLayerSwitcher: true,
 			displayInLayerSwitcher_base: false,

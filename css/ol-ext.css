@@ -382,7 +382,7 @@
   margin: 0;
   padding: 0;
 }
-
+/*Estilo capas TILE*/
 .ol-layer-tile{
   background-color: #c4c4c4;
   padding: 0.25em;
@@ -390,9 +390,11 @@
   justify-content: space-between !important;
 }
 .ol-layer-tile:hover{
-  background-color: #a8a8a8;
+  background-color: #A80C76;
+	color: #f2f2f2;
 }
 
+/*Estilo capas VECTOR*/
 .ol-layer-vector{
 	background-color: #c4c4c4;
   padding: 0.25em;
@@ -400,14 +402,21 @@
   justify-content: space-between !important;
 }
 .ol-layer-vector:hover{
-  background-color: #a8a8a8;
+	background-color: #A80C76;
+	color: #f2f2f2;
 }
 
 .tabla_controles{
   padding: 0 !important;
   margin: 0;
   border-radius: 0 !important;
-
+	color: #606060 !important;
+}
+.tabla_controles:hover{
+  padding: 0 !important;
+  margin: 0;
+  border-radius: 0 !important;
+	color: #606060 !important;
 }
 .tabla_controles li{
   padding: 0.5em !important;
