@@ -17,7 +17,7 @@ function AnadirGeojson(geojsonEntrada,nombreCapaEntrada) {
   colorBordeI = arrayColoresBorde[numeroCapaGeojsonCargada];
   colorRellenoI = arrayColoresRelleno[numeroCapaGeojsonCargada];
   var image = new ol.style.Circle({
-      radius: 5,
+      radius: 10,
       fill: new ol.style.Fill({
         color: colorRellenoI
       }),
@@ -54,8 +54,7 @@ function AnadirGeojson(geojsonEntrada,nombreCapaEntrada) {
             'Polygon': new ol.style.Style({
               stroke: new ol.style.Stroke({
                 color: colorBordeI,
-                lineDash: [4],
-                width: 3
+                width: 1
               }),
               fill: new ol.style.Fill({
                 color: colorRellenoI
@@ -64,7 +63,7 @@ function AnadirGeojson(geojsonEntrada,nombreCapaEntrada) {
             'GeometryCollection': new ol.style.Style({
               stroke: new ol.style.Stroke({
                 color: colorBordeI,
-                width: 2
+                width: 1
               }),
               fill: new ol.style.Fill({
                 color: colorRellenoI
@@ -80,7 +79,7 @@ function AnadirGeojson(geojsonEntrada,nombreCapaEntrada) {
             'Circle': new ol.style.Style({
               stroke: new ol.style.Stroke({
                 color: colorBordeI,
-                width: 2
+                width: 1
               }),
               fill: new ol.style.Fill({
                 color: colorRellenoI

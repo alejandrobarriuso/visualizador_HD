@@ -1,12 +1,14 @@
 //CARGA DE ARCHIVOS EXTERNOS:
 /* Se puede realizar desde el input de selección "Examinar"; o arrastrando el archivo al div "zonaArrastrar" */
-var tamanoMaximoArchivo = 99999999;
+var tamanoMaximoArchivo = 9999999;
 
 //1º FUNCIÓN PARA CARGAR ARCHIVOS DESDE EL INPUT "Examinar"
 function CargarArchivoExternoExaminar(evt) {
   var files = evt.target.files; // FileList object
+    console.log(files);
   //Recorrer todos los archivos cargados a la vez:
   for (var i = 0, f; f = files[i]; i++) {
+
     //A) Comprobar el tamaño del fichero y sólo permitir la carga si es menor de lo indicado en la variable "tamanoMaximoArchivo":
     if (f.size < tamanoMaximoArchivo){
       //B) Comprobar el tipo de formato del archivo:
@@ -20,11 +22,25 @@ function CargarArchivoExternoExaminar(evt) {
             var data = JSON.parse(e.target.result);
             var nombreArchivo = theFile.name;
             //Ejecutar la función cargarCapa():
+            console.log(data);
             CargarCapa('geojson','','','menuBusqueda',data,nombreArchivo);
           };
         })(f);
+      } else if ((f.name.indexOf('.zip')!= -1) && (f.type == "application/zip")) {
+        var nombreArchivo = f.name;
+        console.log(f);
+        //Se ejecuta la función para convertir desde .zip (con los 7 archivos del shp comprimidos) hasta geojson:
+        loadshp({
+          url: f,
+          encoding: 'UTF-8',
+          EPSG: 4326
+        }, function(data) {
+          console.log(data);
+        //Ejecutar la función cargarCapa(), siendo el tipo de archivo geojson:
+          CargarCapa('geojson','','','menuBusqueda',data,nombreArchivo);
+      });
       } else {
-        alert("No es un archivo Geojson.");
+        alert("No es un formato de archivo válido (geojson, shapefile).");
       }
     } else {
       alert("Archivo demasiado pesado.");

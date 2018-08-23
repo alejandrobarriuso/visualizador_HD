@@ -12,6 +12,7 @@ FUNCIONALIDAD:
 function CargarCapa(tipo,idCapa,ruta,origen,data,nombreArchivo){
   //Obtener el conjunto de capas ya cargadas, y crear un array con sus títulos:
   var arrayCapasCargadasYa = map.getLayers().getArray();
+  console.log(arrayCapasCargadasYa);
   var arrayTitulosCapasCargadasYa = [];
 
   for (var i=0; i<arrayCapasCargadasYa.length; i++){
@@ -20,16 +21,20 @@ function CargarCapa(tipo,idCapa,ruta,origen,data,nombreArchivo){
   }
   console.log(arrayTitulosCapasCargadasYa);
 
+
   //Detectar que tipo de dato vamos a añadir y comprobar que no se ha cargado anteriormente:
   if ((tipo == "wms") && (arrayTitulosCapasCargadasYa.indexOf(idCapa) === -1)) {
     AnadirWMS(ruta,idCapa);
-    console.log(idCapa);
+  } else if ((tipo == "wms") && (arrayTitulosCapasCargadasYa.indexOf(idCapa) != -1)) {
+    alert("Capa de servicio wms ya cargada");
   } else if ((tipo == "geojson") && (arrayTitulosCapasCargadasYa.indexOf(nombreArchivo) === -1)) {
     AnadirGeojson(data,nombreArchivo);
+  } /* else if ((tipo == "geojson") && (arrayTitulosCapasCargadasYa.indexOf(nombreArchivo) != -1)) {
     console.log(nombreArchivo);
-  } else {
-    alert("Capa ya cargada");
-  }
+    console.log(arrayTitulosCapasCargadasYa);
+    console.log(arrayTitulosCapasCargadasYa.indexOf(nombreArchivo));
+    alert("Capa de datos externa ya cargada");
+  }*/
 
   //Modificar la disposición de los elementos en la barra lateral:
   if (origen == "menuCarga"){
@@ -38,6 +43,7 @@ function CargarCapa(tipo,idCapa,ruta,origen,data,nombreArchivo){
   } else if (origen == "menuBusqueda"){
     VariarPosiciones('temCV_busAX_gesAX');
   }
+
 }
 
 //FUNCIÓN CerrarSubmenus()
