@@ -536,7 +536,6 @@
  		var li = $("<li>").addClass((layer.getVisible()?"visible ":" ")+(layer.get('baseLayer')?"baselayer":""))
  						.data("layer",layer).on("mousedown touchstart",{self:this},this.dragOrdering_)
  						.attr('id',id_li)
-            .attr('title', 'Desplegar menú de opciones')
  						.appendTo(ul);
 
 
@@ -609,7 +608,7 @@
  		var d = $("<div>").addClass('li-content').appendTo(li);
  		if (!this.testLayerVisibility(layer)) d.addClass("ol-layer-hidden");
 
-    var rowContenidoLayer = $("<div>").addClass("row w-100");
+    var rowContenidoLayer = $("<div>").addClass("row w-100").attr('title', 'Desplegar menú de opciones');
     var colContenidoLayer = $("<div>").addClass("col-12 ml-3 p-0");
 
 

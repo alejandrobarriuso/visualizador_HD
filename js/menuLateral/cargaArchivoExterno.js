@@ -1,6 +1,6 @@
 //CARGA DE ARCHIVOS EXTERNOS:
 /* Se puede realizar desde el input de selección "Examinar"; o arrastrando el archivo al div "zonaArrastrar" */
-var tamanoMaximoArchivo = 9999999;
+var tamanoMaximoArchivo = 99999999;
 
 //1º FUNCIÓN PARA CARGAR ARCHIVOS DESDE EL INPUT "Examinar"
 function CargarArchivoExternoExaminar(evt) {
@@ -12,6 +12,7 @@ function CargarArchivoExternoExaminar(evt) {
     //A) Comprobar el tamaño del fichero y sólo permitir la carga si es menor de lo indicado en la variable "tamanoMaximoArchivo":
     if (f.size < tamanoMaximoArchivo){
       //B) Comprobar el tipo de formato del archivo:
+      //B1) Archivo geojson
       if (f.name.indexOf('.geojson')!= -1){
         //Creación del lector de archivos:
         var reader = new FileReader();
@@ -20,15 +21,19 @@ function CargarArchivoExternoExaminar(evt) {
         reader.onload = (function(theFile) {
           return function(e) {
             var data = JSON.parse(e.target.result);
-            var nombreArchivo = theFile.name;
+            //Crear el nombre que se utilizará para la capa (quitando la extensión):
+            var nombreArchivoConExtension = theFile.name;
+            var nombreArchivo = nombreArchivoConExtension.slice(0, nombreArchivoConExtension.indexOf('.'));
             //Ejecutar la función cargarCapa():
             console.log(data);
             CargarCapa('geojson','','','menuBusqueda',data,nombreArchivo);
           };
         })(f);
+        //B2) Archivo zip (6 o 7 archivos para shapefile comprimidos)
       } else if ((f.name.indexOf('.zip')!= -1) && (f.type == "application/zip")) {
-        var nombreArchivo = f.name;
-        console.log(f);
+        //Crear el nombre que se utilizará para la capa (quitando la extensión):
+        var nombreArchivoConExtension = f.name;
+        var nombreArchivo = nombreArchivoConExtension.slice(0, nombreArchivoConExtension.indexOf('.'));
         //Se ejecuta la función para convertir desde .zip (con los 7 archivos del shp comprimidos) hasta geojson:
         loadshp({
           url: f,
@@ -61,6 +66,7 @@ function CargarArchivoExternoArrastrar(evt) {
     //A) Comprobar el tamaño del fichero y sólo permitir la carga si es menor de lo indicado en la variable "tamanoMaximoArchivo":
     if (f.size < tamanoMaximoArchivo){
       //B) Comprobar el tipo de formato del archivo:
+      //B1) Archivo geojson
       if (f.name.indexOf('.geojson')!= -1){
         //Creación del lector de archivos:
         var reader = new FileReader();
@@ -69,16 +75,33 @@ function CargarArchivoExternoArrastrar(evt) {
         reader.onload = (function(theFile) {
           return function(e) {
             var data = JSON.parse(e.target.result);
-            var nombreArchivo = theFile.name;
+            //Crear el nombre que se utilizará para la capa (quitando la extensión):
+            var nombreArchivoConExtension = theFile.name;
+            var nombreArchivo = nombreArchivoConExtension.slice(0, nombreArchivoConExtension.indexOf('.'));
             //Ejecutar la función cargarCapa():
             CargarCapa('geojson','','','menuBusqueda',data,nombreArchivo);
           };
         })(f);
+        //B2) Archivo zip (6 o 7 archivos para shapefile comprimidos)
+      } else if ((f.name.indexOf('.zip')!= -1) && (f.type == "application/zip")) {
+        //Crear el nombre que se utilizará para la capa (quitando la extensión):
+        var nombreArchivoConExtension = f.name;
+        var nombreArchivo = nombreArchivoConExtension.slice(0, nombreArchivoConExtension.indexOf('.'));
+        //Se ejecuta la función para convertir desde .zip (con los 7 archivos del shp comprimidos) hasta geojson:
+        loadshp({
+          url: f,
+          encoding: 'UTF-8',
+          EPSG: 4326
+        }, function(data) {
+          console.log(data);
+        //Ejecutar la función cargarCapa(), siendo el tipo de archivo geojson:
+          CargarCapa('geojson','','','menuBusqueda',data,nombreArchivo);
+        });
       } else {
-        alert("No es un geojson.");
+        alert("No es un formato de archivo válido (geojson, shapefile).");
       }
     } else {
-      alert("Archivo demasiado pesado");
+      alert("Archivo demasiado pesado.");
     }
   }
 }

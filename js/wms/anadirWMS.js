@@ -82,9 +82,17 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 			params: {LAYERS: capaEntrada, FORMAT: 'image/png'},
 		})
 
+		//Comprueba si existe un punto (".") en el nombre de la capa a cargar, y si es así, lo elimina:
+		// Nota: sólo elimina uno. Si hubiera más de uno, la capa no dispondría de toda su funcionalidad en el visor.
+		if (capaEntrada.indexOf('.') != -1){
+			var nombreCapaAntesdePunto = capaEntrada.slice(0, capaEntrada.indexOf('.'));
+			var nombreCapaDespuesdePunto = capaEntrada.slice(capaEntrada.indexOf('.')+1);
+			var nombreCapaFinal = nombreCapaAntesdePunto + nombreCapaDespuesdePunto;
+		}
+
 		//Crear la capa:
 		var capaWMSEntrada = new ol.layer.Tile({
-			title: capaEntrada,
+			title: nombreCapaFinal,
 			titulo_es: tituloEsEntrada,
 			source: fuenteWMSEntrada,
 			displayInLayerSwitcher: true,
@@ -94,7 +102,6 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 		});
 
 		//Añadir la capa al mapa:
-		console.log(capaWMSEntrada);
 		map.addLayer(capaWMSEntrada);
 		//Hacer zoom a la capa cargada:
 		var anchoSidebar = document.getElementById('sidebar').offsetWidth + 15;
