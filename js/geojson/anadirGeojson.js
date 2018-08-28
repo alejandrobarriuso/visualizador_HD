@@ -88,6 +88,7 @@ function AnadirGeojson(geojsonEntrada,nombreCapaEntrada) {
           };
 
           var styleFunction = function(feature) {
+            console.log(styles[feature.getGeometry().getType()]);
             return styles[feature.getGeometry().getType()];
           };
 
@@ -95,8 +96,8 @@ function AnadirGeojson(geojsonEntrada,nombreCapaEntrada) {
 
     var capaVectorialEntrada = new ol.layer.Vector({
         title: nombreCapaEntrada,
+        titulo_es: nombreCapaEntrada,
         displayInLayerSwitcher: true,
-  			displayInLayerSwitcher_base: false,
   			extent: fuenteVector.getExtent(),
   			abstract: "Capa cargada por el usuario desde un archivo local.",
         source: fuenteVector,
@@ -104,6 +105,7 @@ function AnadirGeojson(geojsonEntrada,nombreCapaEntrada) {
     });
     console.log(capaVectorialEntrada);
    map.addLayer(capaVectorialEntrada);
+   AñadirALeyenda(capaVectorialEntrada,'geojson');
    //Hacer zoom al extent de la nueva capa vectorial cargada:
    var anchoSidebar = document.getElementById('sidebar').offsetWidth + 15;
    map.getView().fit(fuenteVector.getExtent(),{size:map.getSize(),padding:[15,15,15,anchoSidebar]});

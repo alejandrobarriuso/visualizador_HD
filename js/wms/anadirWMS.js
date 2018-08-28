@@ -14,19 +14,21 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 	var extent3857 = [];
 	var abstract = '';
 	var tituloEs = '';
+	var peticionLeyenda = '';
 
 	//Hacer petición getCapabilities para obtener el extent de la capa a cargar "capaEntrada":
 	// IMPORTANTE: se requiere el proxy corsproxy funcionando, en el puerto 1337; para saltar la restricción CORS.
 	var parser = new ol.format.WMSCapabilities();
 	// La url de entrada se debe recortar a partir del caracter 7º, para quitar "http://":
 	var urlEntradaParaCapabilities = urlEntrada.slice(7);
-	var url_capabilities = 'http://localhost:1337/' + urlEntradaParaCapabilities + 'SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities';
+	var url_capabilities = 'http://localhost:1337/' + urlEntradaParaCapabilities + 'SERVICE=WMS&REQUEST=GetCapabilities';
 
 	$.ajax({
       url: url_capabilities
   }).done(function(text) {
 		// CASO 1. ÉXITO EN LA RESPUESTA AL GETCAPABILITIES: crea la capa con extent:
     var result = parser.read(text);
+		console.log(result);
 
 		//ALGORITMO PARA BUSCAR LA INFORMACIÓN PARA EXTENT Y ABSTRACT dentro del resultado del GetCapabilities (cuando este sí se ha obtenido):
 			//Teniendo en cuenta que puede haber muchos casos de n capas dentro de diferentes niveles: 1, 2, 3...
@@ -37,6 +39,8 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 			extent3857 = ol.proj.transformExtent(result.Capability.Layer.Layer.find(l => l.Name === capaEntrada).EX_GeographicBoundingBox, 'EPSG:4326', 'EPSG:3857');
 			abstract = result.Capability.Layer.Layer.find(l => l.Name === capaEntrada).Abstract;
 			tituloEs = result.Capability.Layer.Layer.find(l => l.Name === capaEntrada).Title;
+			peticionLeyenda = result.Capability.Layer.Layer.find(l => l.Name === capaEntrada).Style[0].LegendURL[0].OnlineResource;
+			console.log(peticionLeyenda);
 		} else {
 			//Caso 12: Las capas no se encuentran en un primer nivel: habrá que buscar en el segundo nivel:
 		//	console.log(result.Capability.Layer.Layer.length);
@@ -47,6 +51,7 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 					extent3857 = ol.proj.transformExtent(result.Capability.Layer.Layer[i].Layer.find(l => l.Name === capaEntrada).EX_GeographicBoundingBox, 'EPSG:4326', 'EPSG:3857');
 					abstract = result.Capability.Layer.Layer[i].Layer.find(l => l.Name === capaEntrada).Abstract;
 					tituloEs = result.Capability.Layer.Layer[i].Layer.find(l => l.Name === capaEntrada).Title;
+					peticionLeyenda = result.Capability.Layer.Layer[i].Layer.find(l => l.Name === capaEntrada).Style[0].LegendURL[0].OnlineResource;
 					break;
 				} else {
 					//Caso 122: Las capas tampoco se encuentran en un segundo nivel.
@@ -56,34 +61,45 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 						extent3857 = ol.proj.transformExtent(result.Capability.Layer.EX_GeographicBoundingBox, 'EPSG:4326', 'EPSG:3857');
 						abstract = result.Capability.Layer.Abstract;
 						tituloEs = result.Capability.Layer.Title;
+						peticionLeyenda = "Sin leyenda";
 					} else {
 						//Caso 1222: El servicio (sin entrar en ninguna capa ni subcapa) no tiene definidos un extent y un abstract: se asigna el extent de todo el mapa, y un abstract vacío:
 						extent3857 = [-20026376.39, -20048966.10, 20026376.39, 20048966.10];
 						abstract = "Sin descripción";
 						tituloEs = "Sin título";
+						peticionLeyenda = "Sin leyenda";
 					}
 				}
 			}
 		}
 
+		//Corrección de la petición url para obtener la imagen de la leyenda:
+		//Para aquellos casos en los que no está bien escrito el nombre de la capa.
+		if (peticionLeyenda.indexOf('layer=') != -1){
+			var peticionLeyendaRecortada = peticionLeyenda.slice(0, peticionLeyenda.indexOf('layer='));
+			var peticionLeyenda = peticionLeyenda.slice(0, peticionLeyenda.indexOf('layer=')) + 'layer=' + capaEntrada;
+		}
+		console.log(peticionLeyenda);
+
 		//Se crea la fuente y la capa:
-		CrearFuenteYCapa(extent3857,abstract,tituloEs);
+		CrearFuenteYCapa(extent3857,abstract,tituloEs,peticionLeyenda);
 
 	}).catch(function(error) {
 		// CASO DE ERROR EN LA RESPUESTA AL GETCAPABILITIES: crear la capa sin extent:
-    CrearFuenteYCapa([-20026376.39, -20048966.10, 20026376.39, 20048966.10],"Sin descripción","Sin título");
+    CrearFuenteYCapa([-20026376.39, -20048966.10, 20026376.39, 20048966.10],"Sin descripción","Sin título","Sin leyenda");
 		alert("Capa sin extent definido");
 	});
 
-	function CrearFuenteYCapa(extentEntrada,abstractEntrada,tituloEsEntrada){
+	function CrearFuenteYCapa(extentEntrada,abstractEntrada,tituloEsEntrada,peticionLeyendaEntrada){
 		//Crear la fuente wms del servicio y de la capa introducidos:
 		var fuenteWMSEntrada = new ol.source.TileWMS({
 			url: urlEntrada,
-			params: {LAYERS: capaEntrada, FORMAT: 'image/png'},
+			params: {LAYERS: capaEntrada, FORMAT: 'image/png'}
 		})
 
 		//Comprueba si existe un punto (".") en el nombre de la capa a cargar, y si es así, lo elimina:
 		// Nota: sólo elimina uno. Si hubiera más de uno, la capa no dispondría de toda su funcionalidad en el visor.
+		nombreCapaFinal = capaEntrada;
 		if (capaEntrada.indexOf('.') != -1){
 			var nombreCapaAntesdePunto = capaEntrada.slice(0, capaEntrada.indexOf('.'));
 			var nombreCapaDespuesdePunto = capaEntrada.slice(capaEntrada.indexOf('.')+1);
@@ -96,13 +112,14 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 			titulo_es: tituloEsEntrada,
 			source: fuenteWMSEntrada,
 			displayInLayerSwitcher: true,
-			displayInLayerSwitcher_base: false,
 			extent: extentEntrada,
-			abstract: abstractEntrada
+			abstract: abstractEntrada,
+			leyenda: peticionLeyendaEntrada
 		});
 
 		//Añadir la capa al mapa:
 		map.addLayer(capaWMSEntrada);
+		AñadirALeyenda(capaWMSEntrada,'wms');
 		//Hacer zoom a la capa cargada:
 		var anchoSidebar = document.getElementById('sidebar').offsetWidth + 15;
 		map.getView().fit(extentEntrada,{size:map.getSize(),padding:[15,15,15,anchoSidebar]});

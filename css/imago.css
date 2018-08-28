@@ -503,7 +503,7 @@ input:-webkit-autofill {
 
 #espMenuGestionCapas{
   width:98%;
-  overflow-y:auto;"
+  overflow-y:auto;
 }
 #barraMenuBusqueda{
   display:none;
@@ -633,6 +633,38 @@ h5{
 
 
 
+
+/* LEYENDA */
+#leyendaCapas{
+  position: absolute;
+  z-index:20200;
+  height: auto;
+  width: 16em;
+  right: 0.5em;
+  bottom: 13em;
+  padding: 0.06em;
+  border-radius: 0.2em;
+  display:none;
+  max-height: 16em;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#leyendaCapas thead{
+  background-color: #A80C76;
+  color: #f2f2f2;
+}
+
+#leyendaCapas tbody{
+  height: auto;
+}
+
+#leyendaCapas tr{
+  font-size: 0.8em;
+  height: auto;
+  background: #fff;
+  border-top: 0.1em solid #c1c1c1;
+}
 
 
 

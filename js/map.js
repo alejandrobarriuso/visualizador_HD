@@ -5,7 +5,6 @@ var capaBaseVTusig = new ol.layer.VectorTile({
   baseLayer: true,
   visible: true,
   displayInLayerSwitcher: false,
-  displayInLayerSwitcher_base: true,
   declutter: true,
   source: new ol.source.VectorTile({
     attributions: '© Tania</a>',
@@ -122,7 +121,6 @@ function CambioMapaBase(capa){
 	        url: 'https://api.mapbox.com/styles/v1/abm-cchs-csic/cjcvso1ct0rwr2srz1weyqdey/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYWJtLWNjaHMtY3NpYyIsImEiOiJjamN2bjg0ODEwa3VjMnlzNnczNzZiMGQ4In0.xzpPwkaNK0qN5Y9XRTp37Q'
 	      }),
         displayInLayerSwitcher: false,
-        displayInLayerSwitcher_base: true
 	    });
 	    capaBaseMapbox.set('name','mapabase');
 	    map.getLayers().removeAt(0);
@@ -133,7 +131,6 @@ function CambioMapaBase(capa){
         baseLayer: true,
         visible: true,
         displayInLayerSwitcher: false,
-        displayInLayerSwitcher_base: true,
         declutter: true,
         source: new ol.source.VectorTile({
           attributions: '© Tania</a>',
@@ -149,7 +146,6 @@ function CambioMapaBase(capa){
     } else if (capa == 'osm') {
         var capaBaseOSM = new ol.layer.Tile({
           displayInLayerSwitcher: false,
-          displayInLayerSwitcher_base: true,
           source: new ol.source.OSM({
             attributions: [
               new ol.Attribution({
@@ -167,7 +163,6 @@ function CambioMapaBase(capa){
             title: 'Water color',
             baseLayer: true,
             displayInLayerSwitcher: false,
-            displayInLayerSwitcher_base: true,
             visible: true,
             source: new ol.source.Stamen({
               layer: 'watercolor'
@@ -180,7 +175,6 @@ function CambioMapaBase(capa){
         } else if (capa == 'esri_world_imagery') {
             var capaBaseEsriWI = new ol.layer.Tile({
               displayInLayerSwitcher: false,
-              displayInLayerSwitcher_base: true,
               source: new ol.source.XYZ({
                 attributions: 'Tiles © <a href="https://services.arcgisonline.com/ArcGIS/' +
                     'rest/services/World_Imagery/MapServer">ArcGIS</a>',
@@ -195,7 +189,6 @@ function CambioMapaBase(capa){
           } else if (capa == 'esri_ocean_basemap') {
               var capaBaseEsriOB = new ol.layer.Tile({
                 displayInLayerSwitcher: false,
-                displayInLayerSwitcher_base: true,
                 source: new ol.source.XYZ({
                   attributions: 'Tiles © <a href="https://services.arcgisonline.com/ArcGIS/' +
                       'rest/services/Ocean_Basemap/MapServer">ArcGIS</a>',
@@ -210,7 +203,6 @@ function CambioMapaBase(capa){
             } else if (capa == 'esri_natgeo_world_map') {
                 var capaBaseEsriNGWP = new ol.layer.Tile({
                   displayInLayerSwitcher: false,
-                  displayInLayerSwitcher_base: true,
                   source: new ol.source.XYZ({
                     attributions: 'Tiles © <a href="https://services.arcgisonline.com/ArcGIS/' +
                         'rest/services/NatGeo_World_Map/MapServer">ArcGIS</a>',
@@ -225,7 +217,6 @@ function CambioMapaBase(capa){
               } else if (capa == 'esri_world_shaded_relief') {
                   var capaBaseEsriWSR = new ol.layer.Tile({
                     displayInLayerSwitcher: false,
-                    displayInLayerSwitcher_base: true,
                     source: new ol.source.XYZ({
                       attributions: 'Tiles © <a href="https://services.arcgisonline.com/ArcGIS/' +
                           'rest/services/World_Shaded_Relief/MapServer">ArcGIS</a>',

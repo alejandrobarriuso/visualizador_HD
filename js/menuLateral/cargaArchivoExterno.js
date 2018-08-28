@@ -30,7 +30,8 @@ function CargarArchivoExternoExaminar(evt) {
           };
         })(f);
         //B2) Archivo zip (6 o 7 archivos para shapefile comprimidos)
-      } else if ((f.name.indexOf('.zip')!= -1) && (f.type == "application/zip")) {
+    //  } else if ((f.name.indexOf('.zip')!= -1) && (f.type == "application/zip")) {
+      } else if (f.name.indexOf('.zip')!= -1) {
         //Crear el nombre que se utilizará para la capa (quitando la extensión):
         var nombreArchivoConExtension = f.name;
         var nombreArchivo = nombreArchivoConExtension.slice(0, nombreArchivoConExtension.indexOf('.'));

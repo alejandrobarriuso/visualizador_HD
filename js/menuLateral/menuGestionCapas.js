@@ -2,11 +2,8 @@
 /* LayerSwitcher - Control de capas en la barra lateral */
 /* Se crea directamente, ya que aparece o desaparece automáticamente en el momento en el que se crean capas con el atributo:
     - displayInLayerSwitcher: true,
- Además, deberán tener el atributo: displayInLayerSwitcher_base: false, para no añadirse en el selector de mapas base del mapa.
 
- 	 Se mostrarán las capas con:
- 		 - displayInLayerSwitcher: true,
- 	   - displayInLayerSwitcher_base: false,
+ 	 Se mostrarán las capas con displayInLayerSwitcher: true,
 */
 
  //BASADO EN LA SIGUIENTE FUENTE (BASED ON THE FOLLOWING):
@@ -517,15 +514,22 @@
  		{	li.data("layer").getLayers().remove($(this).closest('li').data("layer"));
  			if (li.data("layer").getLayers().getLength()==0 && !li.data("layer").get('noSwitcherDelete'))
  			{	removeLayer.call($(".layerTrash", li), e);
+
  			}
  		}
  		else self.map_.removeLayer($(this).closest('li').data("layer"));
 
+    //CONTROL PARA QUITAR DE LA LEYENDA LA FILA CORRESPONDIENTE A LA CAPA QUE SE ESTÁ ELIMINANDO:
+    var nombreFilaLeyendaABorrar = "#leyenda_" + $(this).closest('li').data("layer").N.title;
+    $(nombreFilaLeyendaABorrar).remove();
+
+    //CONTROL PARA EL CASO DE QUE LA CAPA QUE SE ELIMINA ERA LA ÚLTIMA Y ÚNICA VISIBLE:
     //Calcular el número de capas cargadas:
     var numeroMapasTotalCargados = map.getLayers().N.length;
-    //Si hay alguna cargada (a parte de los mapa base): menú inferior con x elementos:
+    //Si hay alguna cargada (a parte de los mapa base): 1º se reconfigura la disposición de la barra lateral; 2º se oculta la leyenda vacía.
     if (numeroMapasTotalCargados == numeroMapasBaseCargados){
       VariarPosiciones("temAX_busCV_gesCX");
+      $("#leyendaCapas").css({'display':'none'});
     }
  	};
  	// Add the layer list
@@ -610,7 +614,6 @@
 
     var rowContenidoLayer = $("<div>").addClass("row w-100").attr('title', 'Desplegar menú de opciones');
     var colContenidoLayer = $("<div>").addClass("col-12 ml-3 p-0");
-
 
 		// Layer remove
  		if (this.hastrash && !layer.get("noSwitcherDelete"))
