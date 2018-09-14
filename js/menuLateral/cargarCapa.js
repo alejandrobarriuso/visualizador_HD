@@ -12,38 +12,40 @@ FUNCIONALIDAD:
 function CargarCapa(tipo,idCapa,ruta,origen,data,nombreArchivo){
   //Obtener el conjunto de capas ya cargadas, y crear un array con sus títulos:
   var arrayCapasCargadasYa = map.getLayers().getArray();
-  console.log(arrayCapasCargadasYa);
   var arrayTitulosCapasCargadasYa = [];
 
-  for (var i=0; i<arrayCapasCargadasYa.length; i++){
-    var tituloCapaCargadaYai = arrayCapasCargadasYa[i].get('title');
-    arrayTitulosCapasCargadasYa.push(tituloCapaCargadaYai);
+  //Comprobar que no se rebasa el número máximo de capas cargadas:
+  if (arrayCapasCargadasYa.length > numMaxCapasCargadas){
+    alert(alertNumCapasCargadasMax);
+  } else {
+    //En caso de que no se rebase; cargar la capa nueva:
+    for (var i=0; i<arrayCapasCargadasYa.length; i++){
+      var tituloCapaCargadaYai = arrayCapasCargadasYa[i].get('title');
+      arrayTitulosCapasCargadasYa.push(tituloCapaCargadaYai);
+    }
+
+    //Detectar que tipo de dato vamos a añadir y comprobar que no se ha cargado anteriormente:
+    if ((tipo == "wms") && (arrayTitulosCapasCargadasYa.indexOf(idCapa) === -1)) {
+      AnadirWMS(ruta,idCapa);
+    } else if ((tipo == "wms") && (arrayTitulosCapasCargadasYa.indexOf(idCapa) != -1)) {
+      alert(alertCapaWMSYaCargada);
+    } else if ((tipo == "geojson") && (arrayTitulosCapasCargadasYa.indexOf(nombreArchivo) === -1)) {
+      AnadirGeojson(data,nombreArchivo);
+    } /* else if ((tipo == "geojson") && (arrayTitulosCapasCargadasYa.indexOf(nombreArchivo) != -1)) {
+      console.log(nombreArchivo);
+      console.log(arrayTitulosCapasCargadasYa);
+      console.log(arrayTitulosCapasCargadasYa.indexOf(nombreArchivo));
+      alert("Capa de datos externa ya cargada");
+    }*/
+
+    //Modificar la disposición de los elementos en la barra lateral:
+    if (origen == "menuCarga"){
+      CerrarSubmenus();
+      VariarPosiciones('temCV_busCV_gesAX');
+    } else if (origen == "menuBusqueda"){
+      VariarPosiciones('temCV_busAX_gesAX');
+    }
   }
-  console.log(arrayTitulosCapasCargadasYa);
-
-
-  //Detectar que tipo de dato vamos a añadir y comprobar que no se ha cargado anteriormente:
-  if ((tipo == "wms") && (arrayTitulosCapasCargadasYa.indexOf(idCapa) === -1)) {
-    AnadirWMS(ruta,idCapa);
-  } else if ((tipo == "wms") && (arrayTitulosCapasCargadasYa.indexOf(idCapa) != -1)) {
-    alert("Capa de servicio wms ya cargada");
-  } else if ((tipo == "geojson") && (arrayTitulosCapasCargadasYa.indexOf(nombreArchivo) === -1)) {
-    AnadirGeojson(data,nombreArchivo);
-  } /* else if ((tipo == "geojson") && (arrayTitulosCapasCargadasYa.indexOf(nombreArchivo) != -1)) {
-    console.log(nombreArchivo);
-    console.log(arrayTitulosCapasCargadasYa);
-    console.log(arrayTitulosCapasCargadasYa.indexOf(nombreArchivo));
-    alert("Capa de datos externa ya cargada");
-  }*/
-
-  //Modificar la disposición de los elementos en la barra lateral:
-  if (origen == "menuCarga"){
-    CerrarSubmenus();
-    VariarPosiciones('temCV_busCV_gesAX');
-  } else if (origen == "menuBusqueda"){
-    VariarPosiciones('temCV_busAX_gesAX');
-  }
-
 }
 
 //FUNCIÓN CerrarSubmenus()

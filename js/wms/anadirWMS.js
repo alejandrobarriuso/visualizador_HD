@@ -21,8 +21,8 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 	var parser = new ol.format.WMSCapabilities();
 	// La url de entrada se debe recortar a partir del caracter 7º, para quitar "http://":
 	var urlEntradaParaCapabilities = urlEntrada.slice(7);
-	var url_capabilities = 'http://localhost:1337/' + urlEntradaParaCapabilities + 'SERVICE=WMS&REQUEST=GetCapabilities';
-
+//	var url_capabilities = 'http://localhost:1337/' + urlEntradaParaCapabilities + 'SERVICE=WMS&REQUEST=GetCapabilities';
+	var url_capabilities = urlEntrada + 'SERVICE=WMS&REQUEST=GetCapabilities';
 	$.ajax({
       url: url_capabilities
   }).done(function(text) {
@@ -125,7 +125,7 @@ function AnadirWMS(urlEntrada,capaEntrada) {
 		map.getView().fit(extentEntrada,{size:map.getSize(),padding:[15,15,15,anchoSidebar]});
 
 		//Añadir la operación GETFEATUREINFO al mapa, en la capa recién cargada:
-		map.on('dblclick', function(evt) {
+		map.on('singleclick', function(evt) {
 			document.getElementById('textoGetFeatureInfo').innerHTML = "Aquí no hay datos para mostrar.";
 			var viewResolution = vistaMapa.getResolution();
 			//Calcular la posición en la que hay que dibujar el div:

@@ -346,7 +346,8 @@ function ConsultarCapasWMS(urlEntrada) {
   var parser = new ol.format.WMSCapabilities();
   // La url de entrada se debe recortar a partir del caracter 7º, para quitar "http://":
   var urlEntradaParaCapabilities = urlEntrada.slice(7);
-  var url_capabilities = 'http://localhost:1337/' + urlEntradaParaCapabilities + 'SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities';
+//  var url_capabilities = 'http://localhost:1337/' + urlEntradaParaCapabilities + 'SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities';
+  var url_capabilities = urlEntrada + 'SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities';
   $.ajax({
       url: url_capabilities
   }).done(function(text) {

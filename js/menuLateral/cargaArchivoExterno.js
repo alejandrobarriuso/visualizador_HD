@@ -1,6 +1,6 @@
 //CARGA DE ARCHIVOS EXTERNOS:
 /* Se puede realizar desde el input de selección "Examinar"; o arrastrando el archivo al div "zonaArrastrar" */
-var tamanoMaximoArchivo = 99999999;
+
 
 //1º FUNCIÓN PARA CARGAR ARCHIVOS DESDE EL INPUT "Examinar"
 function CargarArchivoExternoExaminar(evt) {
@@ -46,10 +46,10 @@ function CargarArchivoExternoExaminar(evt) {
           CargarCapa('geojson','','','menuBusqueda',data,nombreArchivo);
       });
       } else {
-        alert("No es un formato de archivo válido (geojson, shapefile).");
+        alert(alertFormatoNoValido);
       }
     } else {
-      alert("Archivo demasiado pesado.");
+      alert(alertArchivoDemasiadoPesado);
     }
   }
 }
@@ -80,6 +80,8 @@ function CargarArchivoExternoArrastrar(evt) {
             var nombreArchivoConExtension = theFile.name;
             var nombreArchivo = nombreArchivoConExtension.slice(0, nombreArchivoConExtension.indexOf('.'));
             //Ejecutar la función cargarCapa():
+            console.log(e.target.result);
+            console.log(data);
             CargarCapa('geojson','','','menuBusqueda',data,nombreArchivo);
           };
         })(f);

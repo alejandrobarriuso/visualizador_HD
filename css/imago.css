@@ -325,7 +325,8 @@ main {
 
 .ol-custom-overviewmap .ol-overviewmap-map {
   border: 0;
-  width: 16em;
+  width: 12em;
+  height: 8em;
   padding: 0;
   margin: 0;
   z-index: 20400;
@@ -393,7 +394,7 @@ main {
   background-image: url('../img/mapbox.JPG');
 }
 .mapa_base_VTusig{
-  background-image: url('../img/VTusig.JPG');
+  background-image: url('../img/light_usig.JPG');
 }
 .mapa_base_osm{
   background-image: url('../img/osm.JPG');
@@ -416,7 +417,9 @@ main {
 
 /* Atribuciones */
 #info_mapa_base{
-
+  position: absolute;
+  bottom: 10em;
+  right: 0.5em;
 }
 .ol-attribution{
   position: absolute;
@@ -502,29 +505,15 @@ input:-webkit-autofill {
 }
 
 #espMenuGestionCapas{
-  width:98%;
   overflow-y:auto;
 }
-#barraMenuBusqueda{
-  display:none;
-}
 
-#botonTematicas{
-  width:96%;
-  text-align:center;
+.boton_menu_lateral{
   display:none;
   background-color:#a8a8a8;
   color:#f2f2f2;
   cursor: pointer;
-}
-
-#botonGestion{
-  width:96%;
-  text-align:center;
-  display:none;
-  background-color:#a8a8a8;
-  color:#f2f2f2;
-  cursor: pointer;
+  height: 3.5em;
 }
 
 #espMenuBusqueda{
@@ -541,6 +530,11 @@ input:-webkit-autofill {
   overflow-y:auto;
 }
 
+.tit_menu_lateral{
+  background-color:#606060;
+  color:#f2f2f2;
+
+}
 
 
 
@@ -556,9 +550,15 @@ h5{
   font-size: 0.94em;
 }
 
+h6{
+  text-align: center;
+  font-size: 1.1em;
+}
+
 #tabMenuBusqueda li a{
   background-color: #f2f2f2;
   color: #606060;
+  border-radius: 0 !important;
 }
 #tabMenuBusqueda .nav-link.active{
   background-color: #606060;
@@ -657,6 +657,7 @@ h5{
 
 #leyendaCapas tbody{
   height: auto;
+  background: #fff;
 }
 
 #leyendaCapas tr{

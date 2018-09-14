@@ -1,7 +1,9 @@
 /* --- MAPA --- */
-/* Capa base a cargar al inicio */
+/* Capa base a cargar al inicio (Teselas Vectoriales USIG)*/
 var capaBaseVTusig = new ol.layer.VectorTile({
   title: 'Nuestro VT',
+  tileGrid: ol.tilegrid.createXYZ({tileSize: 512, maxZoom: 24}),
+  tilePixelRatio: 8,
   baseLayer: true,
   visible: true,
   displayInLayerSwitcher: false,
@@ -11,8 +13,22 @@ var capaBaseVTusig = new ol.layer.VectorTile({
     format: new ol.format.MVT(),
     url: 'http://161.111.72.12:8080/data/v3/{z}/{x}/{y}.pbf'
   }),
-  style: estilo_mapa_base_mvt(ol.style.Style, ol.style.Fill, ol.style.Stroke, ol.style.Icon, ol.style.Text)
+  //style: estilo_mapa_base_mvt(ol.style.Style, ol.style.Fill, ol.style.Stroke, ol.style.Icon, ol.style.Text)
 });
+var style = 'js/estilosVT/light.json';
+console.log(style);
+  fetch(style).then(function(response) {
+    console.log(response);
+    response.json().then(function(glStyle) {
+      olms.applyStyle(capaBaseVTusig, glStyle, 'openmaptiles').then(function() {
+        capaBaseVTusig.set('name','mapabase');
+        capaBaseVTusig.setOpacity(0.8);
+        map.getLayers().removeAt(0);
+        map.getLayers().insertAt(0,capaBaseVTusig);
+        console.log("agregando VT");
+      });
+    });
+  });
 
 /* -- CREACIÓN DEL MAPA -- */
 /* Centro (Lon, Lat) y zoom inicial del mapa */
@@ -69,29 +85,23 @@ var map = new ol.Map({
   layers: [capaBaseVTusig],
   target: 'map',
   view: vistaMapa,
-  interactions : ol.interaction.defaults({doubleClickZoom :false}),
+  interactions : ol.interaction.defaults({doubleClickZoom :true}),
   controls: ol.control.defaults({
     attributionOptions: {
-      collapsible: true
+      collapsible: false
     }
   }).extend([
     scaleLineControl, mousePositionControl, overviewMapControl, attribution
   ]),
 });
 
+
 /* Número de mapas base cargados*/
   // Importante para controlar el número de capas cargadas después:
 var numeroMapasBaseCargados = map.getLayers().N.length;
 
+//Cerrar div con el resultado de getFeatureInfo al mover el mapa:
 map.on("movestart", function(){
-  if ($('#iframenueva').width()){
-    document.getElementById('textoGetFeatureInfo').innerHTML = '';
-    $('#iframenueva').css({'height':0,'width':0});
-    console.log("estoy quitando el iframe");
-  }
-});
-
-map.on("singleclick", function(){
   if ($('#iframenueva').width()){
     document.getElementById('textoGetFeatureInfo').innerHTML = '';
     $('#iframenueva').css({'height':0,'width':0});
@@ -128,6 +138,8 @@ function CambioMapaBase(capa){
   } else if (capa == 'VTusig') {
       var capaBaseVTusig = new ol.layer.VectorTile({
         title: 'Nuestro VT',
+        tileGrid: ol.tilegrid.createXYZ({tileSize: 512, maxZoom: 24}),
+        tilePixelRatio: 8,
         baseLayer: true,
         visible: true,
         displayInLayerSwitcher: false,
@@ -137,12 +149,22 @@ function CambioMapaBase(capa){
           format: new ol.format.MVT(),
           url: 'http://161.111.72.12:8080/data/v3/{z}/{x}/{y}.pbf'
         }),
-        style: estilo_mapa_base_mvt(ol.style.Style, ol.style.Fill, ol.style.Stroke, ol.style.Icon, ol.style.Text)
+        //style: estilo_mapa_base_mvt(ol.style.Style, ol.style.Fill, ol.style.Stroke, ol.style.Icon, ol.style.Text)
       });
-      capaBaseVTusig.set('name','mapabase');
-      capaBaseVTusig.setOpacity(0.8);
-      map.getLayers().removeAt(0);
-      map.getLayers().insertAt(0,capaBaseVTusig);
+      var style = 'js/estilosVT/light.json';
+      console.log(style);
+        fetch(style).then(function(response) {
+          console.log(response);
+          response.json().then(function(glStyle) {
+            olms.applyStyle(capaBaseVTusig, glStyle, 'openmaptiles').then(function() {
+              capaBaseVTusig.set('name','mapabase');
+              capaBaseVTusig.setOpacity(0.8);
+              map.getLayers().removeAt(0);
+              map.getLayers().insertAt(0,capaBaseVTusig);
+              console.log("agregando VT");
+            });
+          });
+        });
     } else if (capa == 'osm') {
         var capaBaseOSM = new ol.layer.Tile({
           displayInLayerSwitcher: false,

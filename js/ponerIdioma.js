@@ -13,9 +13,19 @@ var tabCatalogo = '';
 var tabFichero = '';
 var tabURLServicio = '';
 var placeholderLocalizar = '';
-var placeholderAbrirBusqueda = '';
 var placeholderCargarURL = '';
 var seleccionarArchivo = '';
+var seleccionarTematica = '';
+var gestionarCapasCargadas = '';
+var menuBusqueda = '';
+var tituloBusqueda = '';
+var tituloLeyenda = '';
+
+//Alertas:
+var alertFormatoNoValido = '';
+var alertArchivoDemasiadoPesado = '';
+var alertNumCapasCargadasMax = '';
+var alertCapaWMSYaCargada = '';
 //var placeholderSelCatalogo = '';
 
 function PonerIdioma(lang){
@@ -26,13 +36,22 @@ function PonerIdioma(lang){
 		botonGestion = "Manage";
 		escalaNum = "Scale";
 		ejemploServicio = "Valid example link: http://www.idearqueologia.org/idearq/wms?";
-		tabCatalogo = 'Catalogue';
+		tabCatalogo = 'Search in catalogue';
 		tabFichero = 'File';
-		tabURLServicio = 'URL of the service';
+		tabURLServicio = 'WMS';
 		placeholderLocalizar = 'Zoom in to...';
-		placeholderAbrirBusqueda = 'Add data';
 		placeholderCargarURL = 'Url of the service';
 		seleccionarArchivo = 'Select a file...';
+		seleccionarTematica = 'Select by topic';
+		gestionarCapasCargadas = 'Manage loaded layers';
+		menuBusqueda = 'Add other maps';
+		tituloBusqueda = 'Add other maps';
+		tituloLeyenda = 'Legend';
+
+		alertFormatoNoValido = 'It is not a valid file format (admitted file formats: geojson, shapefile in zip).';
+		alertArchivoDemasiadoPesado = 'File is too large (maximum size: ' + Math.round(tamanoMaximoArchivo/1000) + ' kb).';
+		alertNumCapasCargadasMax = 'Maximum number of layers loaded reached. Remove any to be able to upload new ones.';
+		alertCapaWMSYaCargada = 'WMS layer already loaded.';
 	//	placeholderSelCatalogo = 'Select a record';
 
 	} else {
@@ -41,13 +60,22 @@ function PonerIdioma(lang){
 		botonGestion = "Gestionar";
 		escalaNum = "Escala";
 		ejemploServicio = "Enlace de ejemplo válido: http://www.idearqueologia.org/idearq/wms?";
-		tabCatalogo = 'Catálogo';
-		tabFichero = 'Fichero';
-		tabURLServicio = 'URL del servicio';
+		tabCatalogo = 'Búsqueda en catálogo';
+		tabFichero = 'Archivo';
+		tabURLServicio = 'WMS';
 		placeholderLocalizar = 'Centrar mapa en...';
-		placeholderAbrirBusqueda = 'Añadir datos';
 		placeholderCargarURL = 'Dirección url del servicio';
 		seleccionarArchivo = 'Seleccionar archivo...';
+		seleccionarTematica = 'Seleccionar por temática';
+		gestionarCapasCargadas = 'Gestionar capas cargadas';
+		menuBusqueda = 'Añadir otros mapas';
+		tituloBusqueda = 'Añadir otros mapas';
+		tituloLeyenda = 'Leyenda';
+
+		alertFormatoNoValido = 'No es un formato de archivo válido (formatos admitidos: geojson, shapefile en zip).';
+		alertArchivoDemasiadoPesado = 'Archivo demasiado grande (tamaño máximo permitido: ' + Math.round(tamanoMaximoArchivo/1000) + ' kb).';
+		alertNumCapasCargadasMax = 'Número máximo de capas cargadas alcanzado. Elimine alguna para poder cargar nuevas.';
+		alertCapaWMSYaCargada = 'Capa WMS ya cargada.';
 	//	placeholderSelCatalogo = 'Seleccione un registro';
 	}
 
@@ -61,9 +89,15 @@ function PonerIdioma(lang){
 	$('#txtTabFichero').html(tabFichero);
 	$('#txtTabURLServicio').html(tabURLServicio);
 	$('#localizar').attr("placeholder",placeholderLocalizar);
-	$('#abrirBusqueda').attr("placeholder",placeholderAbrirBusqueda);
 	$('#cargarURL').attr("placeholder",placeholderCargarURL);
 	$('#txtSeleccionarArchivo').html(seleccionarArchivo);
+	$('#txtSeleccionarTematica').html(seleccionarTematica);
+	$('#txtGestionarCapasCargadas').html(gestionarCapasCargadas);
+	$('#txtMenuBusqueda').html(menuBusqueda);
+	$('#txtTituloBusqueda').html(tituloBusqueda);
+	$('#txtTituloLeyenda').html(tituloLeyenda);
+
+
 
 //	$('#selCatalogo').attr("data-placeholder",placeholderSelCatalogo);
 

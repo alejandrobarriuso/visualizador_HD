@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Imago Orbis</title>
     <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
+    <!--<link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.2.0/css/ol.css">-->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/ol-ext.css">
     <link rel="stylesheet" href="css/imago.css">
@@ -13,7 +14,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
   </head>
-  <body onload="GetRecords('dataset');PonerIdioma('');CargarNodos(8);TamanoSidebar();">
+  <body onload="GetRecords('dataset');PonerIdioma('');CargarNodos(numMaxMenuNodos);TamanoSidebar();">
     <header class="w-100">
       <!-- Barra superior -->
       <nav id="navbar_titulo" class="navbar p-0 m-0 navbar-expand-0">
@@ -39,7 +40,7 @@
       <div id="map" class="map"></div>
 
 
-      <div id="textoGetFeatureInfo"></div>
+      <div id="textoGetFeatureInfo" style="z-index:20500"></div>
       <div id="popup" class="ol-popup">
         <a href="#" id="popup-closer" class="ol-popup-closer"></a>
         <div id="popup-content"></div>
@@ -64,7 +65,7 @@
       </div>
       <div id="menuMapaBase" class="row m-0 p-0 div_cambio_mapa_base" style="display:none;">
         <div id="baseMapbox" class=" m-0 p-0 mapa_base_i mapa_base_mapbox" onclick="javascript:CambioMapaBase('mapbox');" title="Dark matter Mapbox"></div>
-        <div id="baseVTusig" class=" m-0 p-0 mapa_base_i mapa_base_VTusig" onclick="javascript:CambioMapaBase('VTusig');" title="Teselas vectoriales uSIG"></div>
+        <div id="baseVTusig" class=" m-0 p-0 mapa_base_i mapa_base_VTusig" onclick="javascript:CambioMapaBase('VTusig');" title="light Vector Tiles uSIG"></div>
         <div id="baseOSM" class=" m-0 p-0 mapa_base_i mapa_base_osm" onclick="javascript:CambioMapaBase('osm');" title="Open Street Maps"></div>
         <div id="baseStamen" class=" m-0 p-0 mapa_base_i mapa_base_stamen" onclick="javascript:CambioMapaBase('stamen');" title="Stamen"></div>
         <div id="baseEsriWI" class=" m-0 p-0 mapa_base_i mapa_base_esri_wi" onclick="javascript:CambioMapaBase('esri_world_imagery');" title="Esri World Imagery"></div>
@@ -95,28 +96,28 @@
         <div id="espMenuTematicas" class="row m-0 p-0">
             <!-- Se carga contenido con la función CargarTematicas() -->
         </div>
-        <div id="botonTematicas" class="row justify-content-between m-1 p-2" onclick="VariarPosiciones('temAX_busCV_gesCV')">
+        <div id="botonTematicas" class="row boton_menu_lateral justify-content-between m-1 p-2" onclick="VariarPosiciones('temAX_busCV_gesCV')">
             <p><i class="fas fa-th"></i>
-            <h5 id="txtSeleccionarTematica" class="p-0 m-0"></h5>
-            Seleccionar por temática
+            <h6 id="txtSeleccionarTematica" class="p-0 m-0"></h6>
           </p>
           <i class="fas fa-angle-up"></i>
         </div>
-        <div id="botonGestion" class="row justify-content-between m-1 p-2" onclick="VariarPosiciones('temCV_busCV_gesAX')">
+        <div id="botonGestion" class="row boton_menu_lateral justify-content-between m-1 p-2" onclick="VariarPosiciones('temCV_busCV_gesAX')">
             <p><i class="fas fa-bars"></i>
-            Gestionar capas cargadas
+            <h6 id="txtGestionarCapasCargadas" class="p-0 m-0"></h6>
           </p>
           <i class="fas fa-angle-up"></i>
         </div>
-        <div id="barraMenuBusqueda" class="row input-group m-1 mt-2 p-0">
-          <input type="text" class="form-control" id="abrirBusqueda" placeholder="Añadir datos" onclick="VariarPosiciones('temAX_busAX_gesCX_O_temCV_busAX_gesAX')">
-          <div class="input-group-prepend">
-            <div class="input-group-text mr-3"><i class="fas fa-search"></i></div>
-          </div>
+        <div id="botonMenuBusqueda" class="row boton_menu_lateral justify-content-between m-1 p-2" onclick="VariarPosiciones('temAX_busAX_gesCX_O_temCV_busAX_gesAX')">
+            <p><i class="fas fa-search"></i>
+            <h6 id="txtMenuBusqueda" class="p-0 m-0"></h6>
+          </p>
+          <i class="fas fa-angle-up"></i>
         </div>
 
         <div id="espMenuBusqueda" class="row m-0 mt-1 p-0">
-          <ul class="nav nav-tabs w-100 m-1 justify-content-center" id="tabMenuBusqueda" role="tablist">
+          <div class="w-100 tit_menu_lateral justify-content-center mx-1 mt-1" id="txtTituloBusqueda"></div>
+          <ul class="nav nav-tabs w-100 m-0 justify-content-center" id="tabMenuBusqueda" role="tablist">
             <li class="nav-item">
               <a class="nav-link active" id="tabCatalogo" data-toggle="tab" role="tab" href="#espCatalogo" aria-selected="true">
                 <h5 id="txtTabCatalogo" class="p-0 m-0"></h5>
@@ -164,6 +165,9 @@
           </div>
         </div>
       </div>
+      <div id="info_mapa_base" class="">
+
+      </div>
     </main>
     <footer class="w-100">
       <div class="container-fluid">
@@ -187,6 +191,9 @@
             <div class="row barra_iconos_pie justify-content-end">
               <div class="col-auto m-0 p-0">
                 <button class="btn btn-outline-light boton_transparente ml-auto m-0 mx-1 p-0" onclick="">
+                  <i class="fas fa-closed-captioning"></i>
+                </button>
+                <button class="btn btn-outline-light boton_transparente ml-auto m-0 mx-1 p-0" onclick="">
                   <i class="fas fa-share-alt-square"></i>
                 </button>
                 <button class="btn btn-outline-light boton_transparente ml-auto m-0 mx-1 p-0" onclick="window.open('https://github.com/alejandrobarriuso/visualizador_HD')" target="_blank">
@@ -205,9 +212,16 @@
     <script type="text/javascript" src="js/fuente/bootstrap.min.js"></script>
 
 
+
+
     <script type="text/javascript" src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
+    <!--<script type="text/javascript" src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.2.0/build/ol.js"></script>-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.3/proj4.js"></script>
+
+    <!-- TESELAS VECTORIALES -->
+    <script type="text/javascript" src="https://cdn.polyfill.io/v2/polyfill.min.js?features=fetch,Promise"></script>
+    <script type="text/javascript" src="js/fuente/olms.js"></script>
 
     <!-- SHP2GEOJSON -->
     <script type="text/javascript" src="js/fuente/shp2geojson/preview.js"></script>
@@ -256,6 +270,7 @@
 
 
     <!-- JS FUNCIONAMIENTO MAPA -->
+    <script type="text/javascript" src="js/configuracionBasica.js"></script>
     <script type="text/javascript" src="js/arrayTematicas.js"></script>
     <script type="text/javascript" src="js/estiloVT.js"></script>
     <script type="text/javascript" src="js/map.js"></script>
@@ -278,11 +293,13 @@
     <!-- JS FUNCIONAMIENTO PANEL SUPERIOR Y PANEL LATERAL IZQUIERDO -->
     <script>
       function mostrar_menu_lat() {
-          //OJO! Sólo se debe poner: 21.2em o 10.6 em. Si no, el ajuste de los cuadros de temáticas no será correcto.
-          VariarPosiciones(ultimaPosicion);
+          //Para tener dos filas: width de 22.2em:
+
           document.getElementById("sidebar").style.width = "22.2em";
           document.getElementById("abrir_menu_lat").style.display = "none";
           document.getElementById("cerrar_menu_lat").style.display = "inline";
+          VariarPosiciones(ultimaPosicion);
+          console.log(map.getView().getZoom());
       }
 
       function ocultar_menu_lat() {

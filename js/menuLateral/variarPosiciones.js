@@ -47,16 +47,16 @@ function VariarPosiciones(posicion){
 
     //Botones:
     $("#botonTematicas").css({'display':'none'});
-    $("#barraMenuBusqueda").css({'display':'flex'});
+    $("#botonMenuBusqueda").css({'display':'flex'});
     $("#botonGestion").css({'display':'none'});
 
     //Tamaño del espacio(s) abierto(s) en función del botón(es) presente(s):
-    altoEspMenuTematicas = alturaSidebar - $("#barraMenuBusqueda").outerHeight(true) + 30;
+    altoEspMenuTematicas = alturaSidebar - $("#botonMenuBusqueda").outerHeight(true);
     document.getElementById("espMenuTematicas").style.height = altoEspMenuTematicas + 'px';
     CargarTematicas(idioma);
-    console.log(alturaSidebar);
-    console.log($("#barraMenuBusqueda").outerHeight(true));
-    console.log(altoEspMenuTematicas);
+    console.log("altura sidebar: " + $("#botonMenuBusqueda").outerHeight(true));
+    console.log("alto menu tematicas: " + altoEspMenuTematicas);
+    console.log("situacion de inicio");
 
   } else if (posicion == "temAX_busCV_gesCX"){
     //Espacios:
@@ -66,16 +66,15 @@ function VariarPosiciones(posicion){
 
     //Botones:
     $("#botonTematicas").css({'display':'none'});
-    $("#barraMenuBusqueda").css({'display':'flex'});
+    $("#botonMenuBusqueda").css({'display':'flex'});
     $("#botonGestion").css({'display':'none'});
 
     //Tamaño del espacio(s) abierto(s) en función del botón(es) presente(s):
-    altoEspMenuTematicas = alturaSidebar - $("#barraMenuBusqueda").outerHeight(true);
+    altoEspMenuTematicas = alturaSidebar - $("#botonMenuBusqueda").outerHeight(true);
     document.getElementById("espMenuTematicas").style.height = altoEspMenuTematicas + 'px';
     CargarTematicas(idioma);
-    console.log(alturaSidebar);
-    console.log($("#barraMenuBusqueda").outerHeight(true));
-    console.log(altoEspMenuTematicas);
+    console.log("altura sidebar: " + $("#botonMenuBusqueda").outerHeight(true));
+    console.log("alto menu tematicas: " + altoEspMenuTematicas);
 
   } else if (posicion == "temAX_busCV_gesCV"){
     //Espacios:
@@ -85,11 +84,11 @@ function VariarPosiciones(posicion){
 
     //Botones:
     $("#botonTematicas").css({'display':'none'});
-    $("#barraMenuBusqueda").css({'display':'flex'});
+    $("#botonMenuBusqueda").css({'display':'flex'});
     $("#botonGestion").css({'display':'flex'});
 
     //Tamaño del espacio(s) abierto(s) en función del botón(es) presente(s):
-    altoEspMenuTematicas = alturaSidebar - $("#barraMenuBusqueda").outerHeight(true) - $("#botonGestion").outerHeight(true);
+    altoEspMenuTematicas = alturaSidebar - $("#botonMenuBusqueda").outerHeight(true) - $("#botonGestion").outerHeight(true);
     document.getElementById("espMenuTematicas").style.height = altoEspMenuTematicas + 'px';
     CargarTematicas(idioma);
 
@@ -101,11 +100,11 @@ function VariarPosiciones(posicion){
 
     //Botones:
     $("#botonTematicas").css({'display':'flex'});
-    $("#barraMenuBusqueda").css({'display':'flex'});
+    $("#botonMenuBusqueda").css({'display':'flex'});
     $("#botonGestion").css({'display':'none'});
 
     //Tamaño del espacio(s) abierto(s) en función del botón(es) presente(s):
-    altoEspMenuGestionCapas = alturaSidebar - $("#barraMenuBusqueda").outerHeight(true) - $("#botonTematicas").outerHeight(true);
+    altoEspMenuGestionCapas = alturaSidebar - $("#botonMenuBusqueda").outerHeight(true) - $("#botonTematicas").outerHeight(true);
     document.getElementById("espMenuGestionCapas").style.height = altoEspMenuGestionCapas + 'px';
 
 
@@ -119,7 +118,7 @@ function VariarPosiciones(posicion){
 
       //Botones:
       $("#botonTematicas").css({'display':'none'});
-      $("#barraMenuBusqueda").css({'display':'none'});
+      $("#botonMenuBusqueda").css({'display':'none'});
       $("#botonGestion").css({'display':'none'});
 
       //Tamaño del espacio(s) abierto(s) en función del botón(es) presente(s):
@@ -143,7 +142,7 @@ function VariarPosiciones(posicion){
 
       //Botones:
       $("#botonTematicas").css({'display':'flex'});
-      $("#barraMenuBusqueda").css({'display':'none'});
+      $("#botonMenuBusqueda").css({'display':'none'});
       $("#botonGestion").css({'display':'none'});
 
       //Tamaño del espacio(s) abierto(s) en función del botón(es) presente(s):
@@ -165,7 +164,7 @@ function VariarPosiciones(posicion){
 
     //Botones:
     $("#botonTematicas").css({'display':'flex'});
-    $("#barraMenuBusqueda").css({'display':'none'});
+    $("#botonMenuBusqueda").css({'display':'none'});
     $("#botonGestion").css({'display':'none'});
 
     //Tamaño del espacio(s) abierto(s) en función del botón(es) presente(s):
